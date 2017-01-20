@@ -14,8 +14,9 @@ package org.usfirst.frc308.FRC2017.subsystems;
 import org.usfirst.frc308.FRC2017.RobotMap;
 import org.usfirst.frc308.FRC2017.commands.*;
 import edu.wpi.first.wpilibj.Compressor;
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import org.usfirst.frc308.FRC2017.RobotConstants;
 
 /**
  *
