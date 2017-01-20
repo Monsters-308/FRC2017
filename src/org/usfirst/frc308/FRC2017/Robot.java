@@ -17,6 +17,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc308.FRC2017.commands.*;
 import org.usfirst.frc308.FRC2017.subsystems.*;
+import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the

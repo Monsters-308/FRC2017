@@ -13,8 +13,8 @@ package org.usfirst.frc308.FRC2017.subsystems;
 
 import org.usfirst.frc308.FRC2017.RobotMap;
 import org.usfirst.frc308.FRC2017.commands.*;
-import edu.wpi.first.wpilibj.CANTalon;
-
+// import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
