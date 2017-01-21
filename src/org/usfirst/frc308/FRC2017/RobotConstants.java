@@ -2,6 +2,30 @@ package org.usfirst.frc308.FRC2017;
 
 public class RobotConstants {
 
+	// Shooter Constants
+	public static double shooterSpeed = 11500.0;
+	public static double shooterTolerance = 300.0;
+	public static double shooterPIDKp = 0.4;
+	public static double shooterPIDKi = 0.00004;
+	public static double shooterPIDKd = 0.0;
+	public static double shooterPIDKf = 1023.0/13000.0; //1023/maximumspeed
+	public static int shooterPIDIZone = 4000;
+	public static double shooterPIDRampRate = 0.0;
+	public static boolean reverseoptical = false;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/**  FRC2016 Below this line //	
+	
 	// Joystick 1 Buttons
 	public static int platformShiftUpButton = 7;
 	public static int platformShiftDownButton = 8;
@@ -59,17 +83,6 @@ public class RobotConstants {
 	public static double shooterPIDRampRate = 0.0;
 	public static boolean reverseoptical = false;
 
-	// Arm Constants
-	public static double armLowHeight = 0.0;
-	public static double armHighHeight = -3600.0;
-	public static double armPIDKp = 1.0;
-	public static double armPIDKi = 0.001;
-	public static double armPIDKd = 0.0;
-	public static double armPIDKf = 0; //1023/maximumspeed
-	public static int armPIDIZone = 0;
-	public static double armPIDRampRate = 0.0;
-	public static double armMaxSpeed = 0.001;
-	public static boolean calibrationMode = false;
 	
 	//Joysick Constants
 	public static double deadZone = 0.1;
@@ -79,5 +92,5 @@ public class RobotConstants {
 	public static double cameraFieldOfView = 14.0; //in degrees
 
 	public static boolean introduceBall = false;
-	
+*/
 }
