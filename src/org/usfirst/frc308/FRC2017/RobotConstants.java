@@ -2,6 +2,10 @@ package org.usfirst.frc308.FRC2017;
 
 public class RobotConstants {
 	
+		
+		//Gyrosensor-Config
+		public static double gyroSensivity = 0.007;
+	
 
 		// Shooter Constants
 	/** Velocity is measured in change in native units per TvelMeas= 100ms.
@@ -14,7 +18,7 @@ public class RobotConstants {
 		Lets check our math, if the target speed is 9326 native units per 100ms, Closed-loop output will be (0.1097 X 9326) => 1023 (full forward).
 	*/
 	    public static double shootertargetRPM = 5000; // Desired RPM
-	    public static double shootertargetspeed = 5000; // Desired RPM
+	    public static double shootertargetspeed = 4600; // Desired RPM
 		public static double shooterTolerance = 300.0;
 		public static double shooterPIDKp = 0.4;
 		public static double shooterPIDKi = 0.00004;

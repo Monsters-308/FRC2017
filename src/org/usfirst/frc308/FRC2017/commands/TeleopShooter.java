@@ -39,17 +39,17 @@ public class TeleopShooter extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.setupShooter();
+   Robot.shooter.setupShooter();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		// if button A is pressed
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.shootBallHigh)) 
-			Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
-		 else  // else setShootPower 0
+	//	if button A is pressed
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.shootBallHigh)) 
+		Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
+	 else  // else setShootPower 0
 			Robot.shooter.setShootSpeed(0);
-	    }
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
