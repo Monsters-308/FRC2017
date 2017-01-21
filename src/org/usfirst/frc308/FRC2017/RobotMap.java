@@ -36,7 +36,7 @@ public class RobotMap {
     public static CANTalon chassisCANTalon_4= new CANTalon(4);
     public static CANTalon chassisCANTalon_5= new CANTalon(5);
     public static CANTalon chassisCANTalon_6= new CANTalon(6);
-    public static RobotDrive chassisRobotDrive6;
+    public static RobotDrive chassisRobotDrive6= new RobotDrive(chassisCANTalon_1, chassisCANTalon_2, chassisCANTalon_4, chassisCANTalon_5 );
     public static AnalogGyro chassisAnalogGyro1;
     public static CANTalon intakeCANTalon_Ball_1 = new CANTalon(15);
     public static CANTalon intakeCANTalon_Ball_2 = new CANTalon(16);
@@ -52,15 +52,8 @@ public class RobotMap {
 
     public static void init() {
     	
-    	
-
-        chassisRobotDrive6 = new RobotDrive(chassisCANTalon_1, chassisCANTalon_2
-              ,chassisCANTalon_4, chassisCANTalon_5 );
         
-        chassisRobotDrive6.setSafetyEnabled(false);
-        chassisRobotDrive6.setExpiration(0.1);
-        chassisRobotDrive6.setSensitivity(0.5);
-        chassisRobotDrive6.setMaxOutput(1.0);
+        
         
         
         gearDeliverySolenoid_1 = new Solenoid(0, 0);

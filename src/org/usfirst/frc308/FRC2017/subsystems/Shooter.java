@@ -11,7 +11,6 @@
 
 package org.usfirst.frc308.FRC2017.subsystems;
 import org.usfirst.frc308.FRC2017.RobotMap;
-import org.usfirst.frc308.FRC2017.RobotMap2;
 import org.usfirst.frc308.FRC2017.commands.*;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
