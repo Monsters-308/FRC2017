@@ -13,6 +13,8 @@ package org.usfirst.frc308.FRC2017.subsystems;
 import org.usfirst.frc308.FRC2017.RobotMap;
 import org.usfirst.frc308.FRC2017.commands.*;
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.FeedbackDeviceStatus;
 import com.ctre.CANTalon.TalonControlMode;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -50,12 +52,27 @@ public class Shooter extends Subsystem {
 	 * sets up shooter with PID
 	 */
 	public void setupShooter() {
+		shootMotor1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		shootMotor1.changeControlMode(TalonControlMode.Speed);
 		shootMotor1.setProfile(0);
-		shootMotor1.setPID(RobotConstants.shooterPIDKp, RobotConstants.shooterPIDKi, RobotConstants.shooterPIDKd,
-				RobotConstants.shooterPIDKf, RobotConstants.shooterPIDIZone, RobotConstants.shooterPIDRampRate, 0);
-
+		shootMotor1.setPID(
+				RobotConstants.shooterPIDKp,
+				RobotConstants.shooterPIDKi,
+				RobotConstants.shooterPIDKd,
+				RobotConstants.shooterPIDKf,
+				RobotConstants.shooterPIDIZone, 
+				RobotConstants.shooterPIDRampRate,
+				0);
 	}
-    
+   	/**
+	 * sets the shooter power
+	 * 
+	 * @param power
+	 *            the power to shoot, from -1.0 to 1.0
+	 */
+	public void setShootSpeed(double power) {
+		shootMotor1.set(power);
+	}
+
 }
 
