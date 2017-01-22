@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
     public static  Lights lights = new Lights();
     public static Pneumatics pneumatics = new Pneumatics();
    
- Command autonomousCommand;
+    Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
     public static final Vision vision = new Vision();

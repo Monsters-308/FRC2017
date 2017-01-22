@@ -31,7 +31,10 @@ public class RobotConstants {
 
 
     //Driving
-
+    public static boolean safetyEnabled = false;
+    public static double arcadeMaxOutput = 1.0;
+    public static double arcadeSensitivity = 0.5;
+    public static double arcadeExpiration = 0.1;
 
     // Shooter Constants
 
