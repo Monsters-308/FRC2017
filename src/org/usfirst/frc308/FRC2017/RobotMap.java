@@ -38,16 +38,4 @@ public class RobotMap {
     public static CANTalon shooterCANTalon_1 = new CANTalon(10);
     public static Compressor pneumaticsCompressor = new Compressor(0);
 
-    /**
-     *	This function should be called on the initialization of the robot
-     */
-    public static void init() {
-    	
-    	//TODO Make this function working: Add all variables to LiveWindow 
-    	
-        LiveWindow.addActuator("GearDelivery", " Gear Solenoid 1", gearDeliverySolenoid_1);
-        
-        LiveWindow.addActuator("GearDelivery", "Gear Solenoid 2", gearDeliverySolenoid_2);
-        
-    }
 }
