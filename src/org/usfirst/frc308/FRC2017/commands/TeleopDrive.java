@@ -10,7 +10,6 @@ package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.Robot;
-
 /**
  *
  */
@@ -40,7 +39,10 @@ public class TeleopDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.chassis.initArcade();
+    	double forward = Robot.oi.joystick1.getY(); //  forward
+    	double turn = -(Robot.oi.joystick1.getX()); // turn 
+    	Robot.chassis._drive.arcadeDrive(forward, turn);
+    	
     }
 
 	@Override

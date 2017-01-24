@@ -58,7 +58,26 @@ public class RobotConstants {
     public static int shooterPIDIZone = 4000;
     public static double shooterPIDRampRate = 0.0;
 
-    
+    // Chassis Constants
+    public static double gyroPIDOutput = 0;
+    public static boolean direction = true;
+    public static final boolean shooterDirection = true;
+    public static final boolean intakeDirection = false;
+    public static double Kp = 0.015; //0.012
+    public static double Ki = 0.0015; //0.0025
+    public static double Kd = 0.0;
+    public static double iZone = 15.0;
+    public static double maximumIZoneSpeed = 1.0;
+    public static double rotateInertiaBias = 0.15;
+    public static double gyroPIDErrorTolerance = 1.0; //in degrees
+    public static double gyroPIDVelocityTolerance = 0.5; //in degrees/second
+    public static double Kv = 1.0/90.0; // 1/maximum
+    public static double Ka = 0.0;
+    public static double Kp2 = 0.0;
+    public static double Ki2 = 0.0;
+    public static double Kd2 = 0.0;
+    public static boolean isAiming = false;
+    public static boolean isTrajectory = false;
 
 
     /**  FRC2016 Below this line
