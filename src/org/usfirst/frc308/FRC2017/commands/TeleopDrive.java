@@ -42,9 +42,8 @@ public class TeleopDrive extends Command {
     	double forward = Robot.oi.joystick1.getY(); //  forward
     	double turn = -(Robot.oi.joystick1.getX()); // turn 
     	Robot.chassis._drive.arcadeDrive(forward, turn);
-    	
+    	Robot.chassis._drive2.arcadeDrive(forward, turn);
     }
-
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
