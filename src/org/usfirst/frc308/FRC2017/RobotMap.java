@@ -1,6 +1,7 @@
 package org.usfirst.frc308.FRC2017;
 
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -37,5 +38,6 @@ public class RobotMap {
     public static CANTalon processBallsCANTalon = new CANTalon(19);
     public static CANTalon shooterCANTalon_1 = new CANTalon(10);
     public static Compressor pneumaticsCompressor = new Compressor(0);
+    public static ADXRS450_Gyro spiGyro_1 = new ADXRS450_Gyro();
 
 }
