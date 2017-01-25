@@ -9,7 +9,10 @@
 package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc308.FRC2017.Robot;
+import org.usfirst.frc308.FRC2017.RobotMap;
 /**
  *
  */
@@ -43,6 +46,8 @@ public class TeleopDrive extends Command {
     	double turn = -(Robot.oi.joystick1.getX()); // turn 
     	Robot.chassis._drive.arcadeDrive(forward, turn);
     	Robot.chassis._drive2.arcadeDrive(forward, turn);
+    	
+    	SmartDashboard.putNumber("Gyro Angle", RobotMap.spiGyro_1.getAngle());
     }
 	@Override
 	protected boolean isFinished() {
