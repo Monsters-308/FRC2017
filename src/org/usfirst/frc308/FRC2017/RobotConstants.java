@@ -18,13 +18,16 @@ public class RobotConstants {
 
     //Generall Controller
     public static double deadzone = 0.0; //TODO Need to be changed
+    public static int selectedController = 0;
 
 
     //Standard-Controller
+    public static int standardController = 0;
     public static int shootBallHigh = 1;
 
 
     //Xbox-Controller
+    public static int xboxController = 1;
 
 
     //Vision
