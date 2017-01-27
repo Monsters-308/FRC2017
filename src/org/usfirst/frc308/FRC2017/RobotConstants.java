@@ -19,6 +19,7 @@ public class RobotConstants {
     //Generall Controller
     public static double deadzone = 0.0; //TODO Need to be changed
     public static int shootBallHigh = 1;
+    public static int clawButton = 2;
 
 
 
