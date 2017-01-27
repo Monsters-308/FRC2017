@@ -34,6 +34,7 @@ public class RobotMap {
     public static CANTalon intakeCANTalon_Gear_1 = new CANTalon(17);
     public static Solenoid gearDeliverySolenoid_1 = new Solenoid(0, 0);
     public static Solenoid gearDeliverySolenoid_2 = new Solenoid(0, 1);
+    public static Solenoid gearDeliverySolenoid_3 = new Solenoid(0, 2);
     public static CANTalon climbCANTalon = new CANTalon(20);
     public static CANTalon processBallsCANTalon = new CANTalon(19);
     public static CANTalon shooterCANTalon_1 = new CANTalon(10);

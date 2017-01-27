@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -37,6 +38,9 @@ public class Chassis extends PIDSubsystem {
 	//	private final RobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
  	//private final AnalogGyro analogGyro1 = RobotMap.chassisAnalogGyro1;
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
+    private final Solenoid claw1 = RobotMap.gearDeliverySolenoid_1;
+    private final Solenoid claw2 = RobotMap.gearDeliverySolenoid_2;
+    private final Solenoid claw3 = RobotMap.gearDeliverySolenoid_3;
  	public RobotDrive _drive = new RobotDrive(left1, left2, right1, right2);
 	public RobotDrive _drive2  = new RobotDrive(left3, right3); 
  	
@@ -70,11 +74,8 @@ public class Chassis extends PIDSubsystem {
 
 
  	public void initDefaultCommand() {
-
- 		
+	
  		setDefaultCommand(new TeleopDrive());
-
-
 
  		// Set the default command for a subsystem here.
  		//setDefaultCommand(new MySpecialCommand());
@@ -110,16 +111,42 @@ public class Chassis extends PIDSubsystem {
      // yourPot.getAverageVoltage() / kYourMaxVoltage;
 
      return gyro.getAngle();
-
-
  }
 
  protected void usePIDOutput(double output) {
      // Use output to drive your system, like a motor
      // e.g. yourMotor.set(output);
-
-
 	 //     left1.pidWrite(output);
-
  }
+ public void claw1_Open() {
+		// 
+		// open claw 1
+		Robot.chassis.claw1.set(true);
+	}
+ public void claw1_Close() {
+		// 
+		// close claw 1
+		Robot.chassis.claw1.set(false);
+	}
+ public void claw2_Open() {
+		// 
+		// open claw 2
+		Robot.chassis.claw2.set(true);
+	}
+ public void claw2_Close() {
+		// 
+		// close claw 2
+		Robot.chassis.claw2.set(false);
+	}
+ public void claw3_Open() {
+		// 
+		// open claw 3
+		Robot.chassis.claw3.set(true);
+	}
+public void claw3_Close() {
+		// 
+		// close claw 3
+		Robot.chassis.claw3.set(false);
+	}
+ 
 }
