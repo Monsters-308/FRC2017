@@ -56,6 +56,11 @@ public class RobotConstants {
     public static int shooterPIDIZone = 4000;
     public static double shooterPIDRampRate = 0.0;
 
+    // Intake Constants
+    public static double ballspeed = .1;
+    public static double gearspeed = .1;  
+        
+    
     // Chassis Constants
     public static double gyroPIDOutput = 0;
     public static boolean direction = true;

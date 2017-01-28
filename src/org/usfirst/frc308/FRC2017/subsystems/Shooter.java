@@ -27,14 +27,9 @@ public class Shooter extends Subsystem {
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
-        
-
-        setDefaultCommand(new TeleopShooter());
-
-
-        // Set the default command for a subsystem here.
+    // Set the default command for a subsystem here.
      setDefaultCommand(new TeleopShooter());
-            }
+      }
 	/**
 	 * sets up shooter with PID
 	 */
@@ -52,14 +47,13 @@ public class Shooter extends Subsystem {
 				0);  
 	}
    	/**
-	 * sets the shooter power
+	 * sets the shooter speed
 	 * 
-	 * @param power
-	 *            the power to shoot, from -1.0 to 1.0
+	 * 
 	 */
-	public void setShootSpeed(double power) {
-		//shootMotor1.set(power);
-		shooterMotor1.set(power);
+	public void setShootSpeed(double speed) {
+		//shootMotor1.set(speed);
+		shooterMotor1.set(speed);
 	}
 
 }
