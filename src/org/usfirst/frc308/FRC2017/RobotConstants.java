@@ -55,6 +55,10 @@ public class RobotConstants {
     public static double shooterPIDKf = 1023.0 / 13000.0; //1023/maximumspeed
     public static int shooterPIDIZone = 4000;
     public static double shooterPIDRampRate = 0.0;
+    
+    //Climbing Constants
+    public static double climbSpeed = 1;
+    public static int climbButton = 3;
 
     // Intake Constants
     public static double ballintakespeed = .1;
@@ -63,7 +67,7 @@ public class RobotConstants {
     //Hopper Comstants
     public static double processSpeed = 1;
     
-    // Chassis Constants
+    //Chassis Constants
     public static double gyroPIDOutput = 0;
     public static boolean direction = true;
     public static final boolean shooterDirection = true;

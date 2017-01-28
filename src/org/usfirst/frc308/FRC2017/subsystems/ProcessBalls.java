@@ -2,6 +2,8 @@ package org.usfirst.frc308.FRC2017.subsystems;
 
 import org.usfirst.frc308.FRC2017.RobotMap;
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
+
 import org.usfirst.frc308.FRC2017.commands.*;
 // import edu.wpi.first.wpilibj.CANTalon;
 import org.usfirst.frc308.FRC2017.RobotConstants;
@@ -31,5 +33,18 @@ public class ProcessBalls extends Subsystem {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
     }
+  //Sets processor talon to voltage mode
+    public void setupProcess(){
+    	processballmotor.changeControlMode(TalonControlMode.Voltage);
+    	processballmotor.setProfile(0);
+    }
+ // Activates ball processor while shooting  
+    public void runProcess(double processSpeed){
+    	processballmotor.set(processSpeed);
+    }
+	public void sleep(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
