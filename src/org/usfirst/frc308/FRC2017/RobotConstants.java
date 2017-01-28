@@ -46,8 +46,8 @@ public class RobotConstants {
      * F-gain = 0.1097
      * Lets check our math, if the target speed is 9326 native units per 100ms, Closed-loop output will be (0.1097 X 9326) => 1023 (full forward).
      */
-    public static double shootertargetRPM = 5000; // Desired RPM
-    public static double shootertargetspeed = 4600; // Desired RPM
+    public static double shootertargetRPM = 675; // Desired RPM
+    public static double shootertargetspeed = (shootertargetRPM * 1/60 *1/10 * 4096); // Desired RPM
     public static double shooterTolerance = 300.0;
     public static double shooterPIDKp = 0.4;
     public static double shooterPIDKi = 0.00004;
@@ -57,8 +57,8 @@ public class RobotConstants {
     public static double shooterPIDRampRate = 0.0;
 
     // Intake Constants
-    public static double ballspeed = .1;
-    public static double gearspeed = .1;  
+    public static double ballintakespeed = .1;
+    public static double gearintakespeed = .1;  
         
     
     // Chassis Constants

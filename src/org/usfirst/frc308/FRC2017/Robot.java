@@ -77,16 +77,18 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new AutonomousCommand();
         
         prefs = Preferences.getInstance();
-    	
-
-
-        /**      
+    	  
+        
+        prefs.putDouble("shooter Target RPM", RobotConstants.shootertargetRPM);
+        prefs.putDouble("shooter ticks", RobotConstants.shootertargetspeed);
+        prefs.putDouble("shooter Tolerance", RobotConstants.shooterTolerance);
 		prefs.putDouble("shooter kp", RobotConstants.shooterPIDKp);
 		prefs.putDouble("shooter ki", RobotConstants.shooterPIDKi);
 		prefs.putDouble("shooter kd", RobotConstants.shooterPIDKd);
 		prefs.putDouble("shooter kf", RobotConstants.shooterPIDKf);
-		*/	
-        
+		prefs.putDouble("ball intake spd", RobotConstants.gearintakespeed);
+		prefs.putDouble("gear intake spd", RobotConstants.gearintakespeed);
+		
     }
 
     /**
@@ -120,12 +122,17 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
 
-	/**	
+        RobotConstants.shootertargetRPM = prefs.getDouble("shooter Target RPM", RobotConstants.shootertargetRPM);
+        RobotConstants.shootertargetspeed = prefs.getDouble("shooter ticks", RobotConstants.shootertargetspeed);
+        RobotConstants.shooterTolerance = prefs.getDouble("shooter Tolerance", RobotConstants.shooterTolerance);
 		RobotConstants.shooterPIDKp = prefs.getDouble("shooter kp", RobotConstants.shooterPIDKp);
 		RobotConstants.shooterPIDKi = prefs.getDouble("shooter ki", RobotConstants.shooterPIDKi);
 		RobotConstants.shooterPIDKd = prefs.getDouble("shooter kd", RobotConstants.shooterPIDKd);
 		RobotConstants.shooterPIDKf = prefs.getDouble("shooter kf", RobotConstants.shooterPIDKf);
-	*/	
+		RobotConstants.ballintakespeed = prefs.getDouble("ball in spd", RobotConstants.ballintakespeed);
+		RobotConstants.gearintakespeed = prefs.getDouble("gear in spd", RobotConstants.gearintakespeed);
+   
+    
     }
 
     /**
