@@ -113,6 +113,7 @@ public class Chassis extends PIDSubsystem {
  		
  		
  		//IF user stops driving with the joystick
+ 		/**
  		if(turn == 0.0){
  			if(turning == true){ //Code is called first time, when we stopped turning
  				
@@ -144,6 +145,8 @@ public class Chassis extends PIDSubsystem {
  			//Drive normal driving
  			robotDrive6.arcadeDrive(forward, turn);
  		}
+ 		**/
+ 		robotDrive6.arcadeDrive(forward, turn);
  		
  	}
  	
