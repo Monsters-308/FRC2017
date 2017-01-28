@@ -40,9 +40,14 @@ public class Chassis extends PIDSubsystem {
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
     private final Solenoid claw1 = RobotMap.gearDeliverySolenoid_1;
     private final Solenoid claw2 = RobotMap.gearDeliverySolenoid_2;
-    private final Solenoid claw3 = RobotMap.gearDeliverySolenoid_3;
- 	//public RobotDrive _drive = new RobotDrive(left1, left2, right1, right2);
-	//public RobotDrive _drive2  = new RobotDrive(left3, right3); 
+    private final Solenoid claw3 = RobotMap.gearDeliverySolenoid_3; 
+    
+    
+    private boolean turning = true;
+    private double PIDOutput = 0.0;
+    double IAccumulator = 0.0; // the sum of error over time
+    double lastError = 0.0;
+    //private double previousAngle = 0.0;
  	
  	//BuiltInAccelerometer accel;
 
@@ -100,10 +105,86 @@ public class Chassis extends PIDSubsystem {
  	
 
  	public void arcadeDrive(double forward, double turn) {
-// 		robotDrive6.setSafetyEnabled(RobotConstants.safetyEnabled);
-// 		robotDrive6.setExpiration(RobotConstants.arcadeExpiration);
-// 		robotDrive6.setSensitivity(RobotConstants.arcadeSensitivity);
-// 		robotDrive6.setMaxOutput(RobotConstants.arcadeMaxOutput);
+ 		//Do we use them?
+ 		//robotDrive6.setSafetyEnabled(RobotConstants.safetyEnabled);
+ 		//robotDrive6.setExpiration(RobotConstants.arcadeExpiration);
+ 		//robotDrive6.setSensitivity(RobotConstants.arcadeSensitivity);
+ 		//robotDrive6.setMaxOutput(RobotConstants.arcadeMaxOutput);
+ 		
+ 		
+ 		//IF user stops driving with the joystick
+ 		if(turn == 0.0){
+ 			if(turning == true){ //Code is called first time, when we stopped turning
+ 				
+ 				//Reset PIDOutput to zero
+ 				PIDOutput = 0.0;
+ 				
+ 				//Reset gyro to 0
+ 				gyro.reset();
+ 				
+ 				//Set turning to false, because we are not turing any more
+ 				turning = false;
+ 				
+ 				//Drive
+ 				robotDrive6.arcadeDrive(forward, turn);
+ 			}
+ 			else{ //If this isn't the first time
+ 				
+ 				//Calculate PID 
+ 				turn = calcPID();
+ 				robotDrive6.arcadeDrive(forward, turn);
+ 			}
+ 			
+ 		}
+ 		//ELSE the user is still doing it
+ 		else if(turn != 0.0){
+ 			//Reset angle
+ 			turning = true;
+ 			
+ 			//Drive normal driving
+ 			robotDrive6.arcadeDrive(forward, turn);
+ 		}
+ 		
+ 	}
+ 	
+ 	public double calcPID(){
+ 		
+ 		//Do all the calculations
+ 		double error = 0.0 - gyro.getAngle();
+ 		
+ 		if (error < -180.0) {
+			while (error < -180.0) {
+				error += 360.0;
+			}
+		} else if (error > 180.0) {
+			while (error > 180.0) {
+				error -= 360.0;
+			}
+		}
+ 		
+ 		if (Math.abs(error) < RobotConstants.iZone
+				&& (RobotConstants.isTrajectory || error * lastError > 0)) {
+			IAccumulator += error;
+			if (RobotConstants.Kp * error + RobotConstants.Ki * IAccumulator > RobotConstants.maximumIZoneSpeed) {
+				IAccumulator = (RobotConstants.maximumIZoneSpeed - RobotConstants.Kp * error) / RobotConstants.Ki;
+			} else if (RobotConstants.Kp * error
+					+ RobotConstants.Ki * IAccumulator < -RobotConstants.maximumIZoneSpeed) {
+				IAccumulator = (-RobotConstants.maximumIZoneSpeed - RobotConstants.Kp * error) / RobotConstants.Ki;
+			}
+		} else {
+			IAccumulator = 0;
+		}
+ 		
+ 		
+ 		return error + RobotConstants.Ki * IAccumulator;
+ 	}
+ 	
+ 	public double deadZone(double input){
+ 		double d = Math.abs(input);
+ 		if(d < RobotConstants.deadzone){
+ 			return 0.0;
+ 		}
+ 		return input;
  	}
  
  
