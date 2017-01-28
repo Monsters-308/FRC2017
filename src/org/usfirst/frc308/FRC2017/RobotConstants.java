@@ -60,6 +60,8 @@ public class RobotConstants {
     public static double ballintakespeed = .1;
     public static double gearintakespeed = .1;  
         
+    //Hopper Comstants
+    public static double processSpeed = 1;
     
     // Chassis Constants
     public static double gyroPIDOutput = 0;
