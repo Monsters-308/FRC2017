@@ -7,7 +7,7 @@ import org.usfirst.frc308.FRC2017.commands.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
+import de.codeteddy.robotics.first.*;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import com.ctre.CANTalon;
@@ -35,14 +35,14 @@ public class Chassis extends PIDSubsystem {
 	private final CANTalon right1 = RobotMap.chassisCANTalon_4;
 	private final CANTalon right2 = RobotMap.chassisCANTalon_5;
 	private final CANTalon right3 = RobotMap.chassisCANTalon_6;
-	//	private final RobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
+	private final RobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
  	//private final AnalogGyro analogGyro1 = RobotMap.chassisAnalogGyro1;
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
     private final Solenoid claw1 = RobotMap.gearDeliverySolenoid_1;
     private final Solenoid claw2 = RobotMap.gearDeliverySolenoid_2;
     private final Solenoid claw3 = RobotMap.gearDeliverySolenoid_3;
- 	public RobotDrive _drive = new RobotDrive(left1, left2, right1, right2);
-	public RobotDrive _drive2  = new RobotDrive(left3, right3); 
+ 	//public RobotDrive _drive = new RobotDrive(left1, left2, right1, right2);
+	//public RobotDrive _drive2  = new RobotDrive(left3, right3); 
  	
  	//BuiltInAccelerometer accel;
 
@@ -84,6 +84,7 @@ public class Chassis extends PIDSubsystem {
  
  	//Chassis setup
  	public void setupDrive() {
+ 		/**
  		left1.changeControlMode(TalonControlMode.PercentVbus);
  		left2.changeControlMode(TalonControlMode.Follower);
  		left2.set(1);
@@ -94,6 +95,7 @@ public class Chassis extends PIDSubsystem {
  		right2.set(4);
  		right3.changeControlMode(TalonControlMode.Follower);
  		right3.set(4);
+ 		**/
  	}
  	
 

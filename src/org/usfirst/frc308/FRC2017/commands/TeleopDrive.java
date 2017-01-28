@@ -37,8 +37,9 @@ public class TeleopDrive extends Command {
     protected void execute() {
     	double forward = Robot.oi.joystick1.getY(); //  forward
     	double turn = -(Robot.oi.joystick1.getX()); // turn 
-    	Robot.chassis._drive.arcadeDrive(forward, turn);
-    	Robot.chassis._drive2.arcadeDrive(forward, turn);
+    	//Robot.chassis._drive.arcadeDrive(forward, turn);
+    	//Robot.chassis._drive2.arcadeDrive(forward, turn);
+    	RobotMap.chassisRobotDrive6.arcadeDrive(forward, turn);
     	
     	SmartDashboard.putNumber("Gyro Angle", RobotMap.spiGyro_1.getAngle());
     	SmartDashboard.putDouble("Controller X", Robot.oi.joystick1.getX());
