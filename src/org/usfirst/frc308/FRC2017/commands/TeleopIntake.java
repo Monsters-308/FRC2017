@@ -21,12 +21,22 @@ public class TeleopIntake extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.intake.setupIntake();
+    	RobotConstants.intakeMode = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.setballmotor(RobotConstants.ballintakespeed);
-    	Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
+    	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake))
+    		if(RobotConstants.intakeMode = false){
+    			RobotConstants.intakeMode = true;
+    			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
+    		}
+    		else{
+    			RobotConstants.intakeMode = false;
+    			Robot.intake.setballmotor(0);
+    		}
+  
+    	//Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

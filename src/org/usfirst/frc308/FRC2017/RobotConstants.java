@@ -16,13 +16,15 @@ public class RobotConstants {
     //		right area. If no matches, you create your own one.
 
 
-    //Generall Controller
+    //Joystick 1 constants
     public static double deadzone = 0.0; //TODO Need to be changed
     public static int shootBallHigh = 1;
     public static int clawButton1 = 5;
     public static int clawButton2 = 6;
     public static int clawButton3 = 7;
-
+    public static int initShooter = 4;
+    public static int climbButton = 3;
+    public static int initIntake = 2;
 
 
     //Vision
@@ -55,14 +57,19 @@ public class RobotConstants {
     public static double shooterPIDKf = 1023.0 / 13000.0; //1023/maximumspeed
     public static int shooterPIDIZone = 4000;
     public static double shooterPIDRampRate = 0.0;
+    public static boolean shooterMode = false;
+   
     
     //Climbing Constants
     public static double climbSpeed = 1;
-    public static int climbButton = 3;
+    
 
     // Intake Constants
     public static double ballintakespeed = .1;
-    public static double gearintakespeed = .1;  
+    public static double gearintakespeed = .1;
+    public static double feederSpeed = .2;
+    public static boolean intakeMode = false;
+  
         
     //Hopper Comstants
     public static double processSpeed = 1;
