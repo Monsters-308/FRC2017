@@ -2,7 +2,7 @@ package org.usfirst.frc308.FRC2017;
 
 
 /**
- * This class contains all the variables set my the developers for the robot.
+ * This class contains all the variables set by the developers for the robot.
  *
  * @author Alex
  * @version 1.0.0
@@ -17,7 +17,7 @@ public class RobotConstants {
 
 
     //Joystick 1 constants
-    public static double deadzone = 0.0; //TODO Need to be changed
+    public static double deadzone = 0.1; //updated by MG
     public static int shootBallHigh = 1;
     public static int clawButton1 = 5;
     public static int clawButton2 = 6;

@@ -27,11 +27,8 @@ public class TeleopDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double forward = Robot.oi.joystick1.getY(); //  forward
-    	double turn = -(Robot.oi.joystick1.getX()); // turn 
-    	//Robot.chassis._drive.arcadeDrive(forward, turn);
-    	//Robot.chassis._drive2.arcadeDrive(forward, turn);
-    	//RobotMap.chassisRobotDrive6.arcadeDrive(forward, turn);
+    	double forward = Robot.chassis.deadZone(Robot.oi.joystick1.getY()); //  forward
+    	double turn = -(Robot.chassis.deadZone(Robot.oi.joystick1.getX())); // turn 
     	Robot.chassis.arcadeDrive(forward, turn);
     	
     	SmartDashboard.putNumber("Gyro Angle", RobotMap.spiGyro_1.getAngle());
