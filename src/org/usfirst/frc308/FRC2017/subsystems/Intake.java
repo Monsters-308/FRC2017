@@ -28,10 +28,10 @@ public class Intake extends Subsystem {
      setDefaultCommand(new TeleopIntake());	
     }
 	public void setupIntake() {
-    	ballmotor1.changeControlMode(TalonControlMode.Voltage);
+    	ballmotor1.changeControlMode(TalonControlMode.PercentVbus); // MG changed from Voltage to PercentVbus
     	ballmotor1.setProfile(0);
     	
-    	gearmotor1.changeControlMode(TalonControlMode.Voltage);
+    	gearmotor1.changeControlMode(TalonControlMode.PercentVbus); // MG changed from Voltage to PercentVbus
     	gearmotor1.setProfile(0);
 	}
    	/**

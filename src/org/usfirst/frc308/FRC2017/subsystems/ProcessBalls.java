@@ -26,16 +26,14 @@ public class ProcessBalls extends Subsystem {
 
     public void initDefaultCommand() {
         
+     // Set the default command for a subsystem here.
+     setDefaultCommand(new TeleopProcess());
 
-        setDefaultCommand(new TeleopProcess());
-
-
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
     }
+    
   //Sets processor talon to voltage mode
     public void setupProcess(){
-    	processballmotor.changeControlMode(TalonControlMode.Voltage);
+    	processballmotor.changeControlMode(TalonControlMode.PercentVbus); // MG changed from Voltage to PercentVbus
     	processballmotor.setProfile(0);
     }
  // Activates ball processor while shooting  

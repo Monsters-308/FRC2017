@@ -27,7 +27,7 @@ public class Climb extends Subsystem {
 	}
 
 	public void setupClimb() {
-		climb.changeControlMode(TalonControlMode.Voltage);
+		climb.changeControlMode(TalonControlMode.PercentVbus);// MG changed to  PercentVbus
 	}
 	
 	public void climbRope(double climbSpeed){

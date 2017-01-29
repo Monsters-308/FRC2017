@@ -1,6 +1,8 @@
 package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
@@ -26,14 +28,18 @@ public class TeleopIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake))
-    		if(RobotConstants.intakeMode = false){
+    	SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
+    	SmartDashboard.putInt("intakebutton",RobotConstants.initIntake);
+    	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
+    	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)){      		// MG fix missing brackets
+    		if(RobotConstants.intakeMode == false){
     			RobotConstants.intakeMode = true;
     			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
-    		}
+    			}
     		else{
     			RobotConstants.intakeMode = false;
     			Robot.intake.setballmotor(0);
+    		}  // MG fix missing brackets
     		}
   
     	//Robot.intake.setgearmotor(RobotConstants.gearintakespeed);

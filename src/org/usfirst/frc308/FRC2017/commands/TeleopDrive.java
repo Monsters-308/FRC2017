@@ -14,9 +14,7 @@ public class TeleopDrive extends Command {
 
     public TeleopDrive() {
 
-
         requires(Robot.chassis);
-
 
     }
 
@@ -45,16 +43,16 @@ public class TeleopDrive extends Command {
     		 Robot.chassis.claw1_Close();
         
     //	if button Claw 2 is pressed
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton2)) 
-		Robot.chassis.claw2_Open();
-	    else  // close claw 2
-		 Robot.chassis.claw2_Close();
+		    if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton2)) 
+		    Robot.chassis.claw2_Open();
+	        else  // close claw 2
+		    Robot.chassis.claw2_Close();
     	
-//		if button Claw 3 is pressed
+    //	if button Claw 3 is pressed
 			if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton3)) 
 			Robot.chassis.claw3_Open();
 		    else  // close claw 3
-			 Robot.chassis.claw3_Close(); 	
+			Robot.chassis.claw3_Close(); 	
 
     }
 	@Override

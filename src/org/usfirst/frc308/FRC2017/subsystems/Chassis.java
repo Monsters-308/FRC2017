@@ -53,11 +53,13 @@ public class Chassis extends PIDSubsystem {
 
  	// Initialize your subsystem here
  	public Chassis(){
+ 	    // NOT used - in code to setup PID thread
  		super("Chassis", 1.0, 0.0, 0.0);
  		setAbsoluteTolerance(0.2);
- 		getPIDController().setContinuous(false); // forces a seperate thread to control PID
- 		//LiveWindow.addActuator("Chassis", "PIDSubsystem Controller", getPIDController());
-
+ 		getPIDController().setContinuous(false); // forces a separate thread to control PID
+ 		gyro.calibrate();
+ 		// end of Not used section
+ 	
 
  		// Use these to get going:
  		// setSetpoint() -  Sets where the PID controller should move the system
@@ -70,17 +72,14 @@ public class Chassis extends PIDSubsystem {
 		//LiveWindow.addActuator("Drivetrain", "PIDSubsystem Controller", getPIDController());
 //		getPIDController().setOutputRange(-1.0, 1.0);
 		//accel = new BuiltInAccelerometer();
-		gyro.calibrate();
+		
   	}
  
 
 
  	public void initDefaultCommand() {
-	
- 		setDefaultCommand(new TeleopDrive());
-
  		// Set the default command for a subsystem here.
- 		//setDefaultCommand(new MySpecialCommand());
+ 		setDefaultCommand(new TeleopDrive());
  	}
  
  
@@ -115,8 +114,8 @@ public class Chassis extends PIDSubsystem {
  		//robotDrive6.setMaxOutput(RobotConstants.arcadeMaxOutput);
  		
  		if (RobotConstants.enablePID == true )  { // use PID process
- 		//IF user stops driving with the joystick
- 		
+ 	
+ 	   //IF user stops driving with the joystick 		
  		if(turn == 0.0){
  			if(turning == true){ //Code is called first time, when we stopped turning
  				
@@ -141,7 +140,7 @@ public class Chassis extends PIDSubsystem {
  			}
  			
  		}
- 		//ELSE the user is still doing it
+ 		//ELSE the user is still commanding
  		// User is commanding a turn
  		else if(turn != 0.0){
  			//Reset angle
@@ -151,7 +150,9 @@ public class Chassis extends PIDSubsystem {
  			robotDrive6.arcadeDrive(forward, turn);
  		}
  		}
- 		else { // use standard arcadeDrive
+ 		// ELSE PID is Off 
+ 	    // use standard arcadeDrive
+ 		else { 
  		robotDrive6.arcadeDrive(forward, turn);
  		}
  	}
@@ -196,17 +197,14 @@ public class Chassis extends PIDSubsystem {
  
  
  protected double returnPIDInput() {
-     // Return your input value for the PID loop
-     // e.g. a sensor, like a potentiometer:
-     // yourPot.getAverageVoltage() / kYourMaxVoltage;
-
+     // NOT Used - in code to create PID thread 
+	 // Return your input value for the PID loop
      return gyro.getAngle();
  }
 
  protected void usePIDOutput(double output) {
+     // NOT Used - in code to create PID thread 
      // Use output to drive your system, like a motor
-     // e.g. yourMotor.set(output);
-	 //     left1.pidWrite(output);
  }
  
  
