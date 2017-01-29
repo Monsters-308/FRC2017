@@ -34,6 +34,9 @@ public class TeleopDrive extends Command {
     	SmartDashboard.putNumber("Gyro Angle", RobotMap.spiGyro_1.getAngle());
     	SmartDashboard.putDouble("Controller X", Robot.oi.joystick1.getX());
     	SmartDashboard.putDouble("Controller Y", Robot.oi.joystick1.getY());
+    	SmartDashboard.putDouble("Controller forward", forward);
+    	SmartDashboard.putDouble("Controller turn", turn);
+    	
     	
      //  if button Claw 1 is pressed
     		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton1)) 

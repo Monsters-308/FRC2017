@@ -54,16 +54,6 @@ public class Robot extends IterativeRobot {
     	initLiveWindow();
     	
 
-    	/** chassis = new Chassis();
-        intake = new Intake();
-        gearDelivery = new GearDelivery();
-        climb = new Climb();
-        processBalls = new ProcessBalls();
-        shooter = new Shooter();
-        lights = new Lights();
-        pneumatics = new Pneumatics();
-        vision = new Vision();
-*/
 
         // OI must be constructed after subsystems. If the OI creates Commands
         //(which it very likely will), subsystems are not guaranteed to be
@@ -131,8 +121,7 @@ public class Robot extends IterativeRobot {
 		RobotConstants.shooterPIDKf = prefs.getDouble("shooter kf", RobotConstants.shooterPIDKf);
 		RobotConstants.ballintakespeed = prefs.getDouble("ball in spd", RobotConstants.ballintakespeed);
 		RobotConstants.gearintakespeed = prefs.getDouble("gear in spd", RobotConstants.gearintakespeed);
-   
-    
+      
     }
 
     /**

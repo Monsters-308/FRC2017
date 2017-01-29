@@ -36,7 +36,6 @@ public class Chassis extends PIDSubsystem {
 	private final CANTalon right2 = RobotMap.chassisCANTalon_5;
 	private final CANTalon right3 = RobotMap.chassisCANTalon_6;
 	private final RobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
- 	//private final AnalogGyro analogGyro1 = RobotMap.chassisAnalogGyro1;
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
     private final Solenoid claw1 = RobotMap.gearDeliverySolenoid_1;
     private final Solenoid claw2 = RobotMap.gearDeliverySolenoid_2;

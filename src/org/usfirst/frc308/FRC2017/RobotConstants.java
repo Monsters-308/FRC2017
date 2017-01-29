@@ -75,7 +75,7 @@ public class RobotConstants {
     public static double processSpeed = 1;
     
     //Chassis Constants
-    public static boolean enablePID = true;
+    public static boolean enablePID = false;
     public static double Kp = 0.015; //0.012
     public static double Ki = 0.000; //0.0025
     public static double Kd = 0.0;
