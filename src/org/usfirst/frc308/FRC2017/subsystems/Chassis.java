@@ -56,7 +56,7 @@ public class Chassis extends PIDSubsystem {
  	public Chassis(){
  		super("Chassis", 1.0, 0.0, 0.0);
  		setAbsoluteTolerance(0.2);
- 		getPIDController().setContinuous(false);
+ 		getPIDController().setContinuous(false); // forces a seperate thread to control PID
  		//LiveWindow.addActuator("Chassis", "PIDSubsystem Controller", getPIDController());
 
 
@@ -65,16 +65,14 @@ public class Chassis extends PIDSubsystem {
  		//                  to
  		// enable() - Enables the PID controller.
  		//super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
-		setAbsoluteTolerance(RobotConstants.gyroPIDErrorTolerance);
-		getPIDController().setContinuous(true);
-		getPIDController().setInputRange(-180, 180);
+//		setAbsoluteTolerance(RobotConstants.gyroPIDErrorTolerance);
+//		getPIDController().setContinuous(true);
+//		getPIDController().setInputRange(-180, 180);
 		//LiveWindow.addActuator("Drivetrain", "PIDSubsystem Controller", getPIDController());
-		getPIDController().setOutputRange(-1.0, 1.0);
+//		getPIDController().setOutputRange(-1.0, 1.0);
 		//accel = new BuiltInAccelerometer();
 		gyro.calibrate();
- 		
- 		
- 	}
+  	}
  
 
 
@@ -89,9 +87,15 @@ public class Chassis extends PIDSubsystem {
  
  	//Chassis setup
  	public void setupDrive() {
- 		/**
  		left1.changeControlMode(TalonControlMode.PercentVbus);
- 		left2.changeControlMode(TalonControlMode.Follower);
+ 		left2.changeControlMode(TalonControlMode.PercentVbus);
+ 		left3.changeControlMode(TalonControlMode.PercentVbus);
+ 		right1.changeControlMode(TalonControlMode.PercentVbus);
+		right2.changeControlMode(TalonControlMode.PercentVbus);
+		right3.changeControlMode(TalonControlMode.PercentVbus);		
+ 	
+		/**
+ 	 * 	left2.changeControlMode(TalonControlMode.Follower);
  		left2.set(1);
  		left3.changeControlMode(TalonControlMode.Follower);
  		left3.set(1);
@@ -111,9 +115,9 @@ public class Chassis extends PIDSubsystem {
  		//robotDrive6.setSensitivity(RobotConstants.arcadeSensitivity);
  		//robotDrive6.setMaxOutput(RobotConstants.arcadeMaxOutput);
  		
- 		
+ 		if (RobotConstants.enablePID == true )  { // use PID process
  		//IF user stops driving with the joystick
- 		/**
+ 		
  		if(turn == 0.0){
  			if(turning == true){ //Code is called first time, when we stopped turning
  				
@@ -123,13 +127,14 @@ public class Chassis extends PIDSubsystem {
  				//Reset gyro to 0
  				gyro.reset();
  				
- 				//Set turning to false, because we are not turing any more
+ 				//Set turning to false, because we are not turning any more
  				turning = false;
  				
  				//Drive
  				robotDrive6.arcadeDrive(forward, turn);
  			}
  			else{ //If this isn't the first time
+ 				  // Robot is moving straight
  				
  				//Calculate PID 
  				turn = calcPID();
@@ -138,16 +143,18 @@ public class Chassis extends PIDSubsystem {
  			
  		}
  		//ELSE the user is still doing it
+ 		// User is commanding a turn
  		else if(turn != 0.0){
  			//Reset angle
  			turning = true;
- 			
+ 			IAccumulator = 0;  
  			//Drive normal driving
  			robotDrive6.arcadeDrive(forward, turn);
  		}
- 		**/
+ 		}
+ 		else { // use standard arcadeDrive
  		robotDrive6.arcadeDrive(forward, turn);
- 		
+ 		}
  	}
  	
  	public double calcPID(){
@@ -177,9 +184,7 @@ public class Chassis extends PIDSubsystem {
 		} else {
 			IAccumulator = 0;
 		}
- 		
- 		
- 		return error + RobotConstants.Ki * IAccumulator;
+ 	return error + RobotConstants.Ki * IAccumulator;
  	}
  	
  	public double deadZone(double input){
@@ -204,6 +209,8 @@ public class Chassis extends PIDSubsystem {
      // e.g. yourMotor.set(output);
 	 //     left1.pidWrite(output);
  }
+ 
+ 
  public void claw1_Open() {
 		// 
 		// open claw 1
