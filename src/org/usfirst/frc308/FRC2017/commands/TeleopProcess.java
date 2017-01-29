@@ -3,6 +3,7 @@ package org.usfirst.frc308.FRC2017.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Timer;
 
 /**

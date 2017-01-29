@@ -10,6 +10,7 @@ import com.ctre.CANTalon.TalonControlMode;
 // import com.ctre.CANTalon.TalonControlMode;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -54,6 +55,7 @@ public class Shooter extends Subsystem {
 	public void setShootSpeed(double speed) {
 		//shootMotor1.set(speed);
 		shooterMotor1.set(speed);
+		SmartDashboard.putDouble("shoot speed ", speed);
 	}
 
 }

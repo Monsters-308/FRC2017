@@ -1,6 +1,8 @@
 package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
@@ -26,21 +28,26 @@ public class TeleopShooter extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		// if button A is pressed
+    	SmartDashboard.putBoolean("shoot mode ", RobotConstants.shooterMode);
+       	SmartDashboard.putBoolean("shoot start ", Robot.oi.joystick1.getRawButton(RobotConstants.initShooter));
+ 
 		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
 			
-		if (RobotConstants.shooterMode = false) { // If the shooter mode was off
-													// then toggle on
+		if (RobotConstants.shooterMode == false) { // MG change from = to ==
+			                                       // If the shooter mode was off
+												   // then toggle on
 			RobotConstants.shooterMode = true;
 			Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
 			Robot.intake.setballmotor(RobotConstants.feederSpeed);
-		} else { // If the shooter mode was on then toggle off
+			} 
+		else { // If the shooter mode was on then toggle off
 			Robot.shooter.setShootSpeed(0);
 			RobotConstants.shooterMode = false;
 			Robot.intake.setballmotor(0);
+		     } //MG  add missing }
 		}
-
 	}
-	}
+	
 
 	/**
 	 * if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)) {

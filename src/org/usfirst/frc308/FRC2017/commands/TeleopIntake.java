@@ -29,10 +29,9 @@ public class TeleopIntake extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
-    	SmartDashboard.putInt("intakebutton",RobotConstants.initIntake);
-    	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
+       	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
     	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)){      		// MG fix missing brackets
-    		if(RobotConstants.intakeMode == false){
+    		if(RobotConstants.intakeMode == false){  // MG fix = should be ==
     			RobotConstants.intakeMode = true;
     			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
     			}
