@@ -61,18 +61,18 @@ public class RobotConstants {
    
     
     //Climbing Constants
-    public static double climbSpeed = 1;
+    public static double climbSpeed = 1.0;
     
 
     // Intake Constants
-    public static double ballintakespeed = .1;
+    public static double ballintakespeed = .2;
     public static double gearintakespeed = .1;
     public static double feederSpeed = .2;
     public static boolean intakeMode = false;
   
         
     //Hopper Comstants
-    public static double processSpeed = 1;
+    public static double processSpeed = 1.0;
     
     //Chassis Constants
     public static boolean enablePID = false;

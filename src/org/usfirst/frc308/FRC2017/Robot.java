@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc308.FRC2017.commands.*;
 import org.usfirst.frc308.FRC2017.subsystems.*;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.CameraServer;
 
 
 
@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.Preferences;
 public class Robot extends IterativeRobot {
 
 
-    Preferences prefs;
+    CameraServer server;
 
     public static OI oi;
 
@@ -62,23 +62,42 @@ public class Robot extends IterativeRobot {
         oi = new OI();
 
         // instantiate the command used for the autonomous period
+		server = CameraServer.getInstance();
 
 
         autonomousCommand = new AutonomousCommand();
         
-        prefs = Preferences.getInstance();
-    	  
+            	  
+// sets of Preferences on smart dash board 
+// 
+//  The Robot Preference function allows for temporary adjustment of variables 
+//  The code below loads reset the temp smartdash board variables with the values hard coded 
+//  THis code is run only when the Robrio is restarted enabling will not reset the values          
         
-        prefs.putDouble("shooter Target RPM", RobotConstants.shootertargetRPM);
-        prefs.putDouble("shooter ticks", RobotConstants.shootertargetspeed);
-        prefs.putDouble("shooter Tolerance", RobotConstants.shooterTolerance);
-		prefs.putDouble("shooter kp", RobotConstants.shooterPIDKp);
-		prefs.putDouble("shooter ki", RobotConstants.shooterPIDKi);
-		prefs.putDouble("shooter kd", RobotConstants.shooterPIDKd);
-		prefs.putDouble("shooter kf", RobotConstants.shooterPIDKf);
-		prefs.putDouble("ball intake spd", RobotConstants.gearintakespeed);
-		prefs.putDouble("gear intake spd", RobotConstants.gearintakespeed);
-		
+        Preferences.getInstance().putDouble("shooter ticks target", RobotConstants.shootertargetspeed);
+        Preferences.getInstance().putDouble("shooter Tolerance", RobotConstants.shooterTolerance);
+        Preferences.getInstance().putDouble("shooter kp", RobotConstants.shooterPIDKp);
+        Preferences.getInstance().putDouble("shooter ki", RobotConstants.shooterPIDKi);
+        Preferences.getInstance().putDouble("shooter kd", RobotConstants.shooterPIDKd);
+        Preferences.getInstance().putDouble("shooter kf", RobotConstants.shooterPIDKf);
+        Preferences.getInstance().putDouble("shooter PID Ramprate", RobotConstants.shooterPIDRampRate);       
+        Preferences.getInstance().putDouble("ball intake spd", RobotConstants.ballintakespeed);
+        Preferences.getInstance().putDouble("gear intake spd", RobotConstants.gearintakespeed);
+        Preferences.getInstance().putDouble("feed speed", RobotConstants.feederSpeed);
+        Preferences.getInstance().putDouble("processSpeed", RobotConstants.processSpeed);
+        Preferences.getInstance().putBoolean("enable drive PID", RobotConstants.enablePID);     
+        Preferences.getInstance().putDouble("Drive Kp", RobotConstants.Kp);
+        Preferences.getInstance().putDouble("Drive Ki", RobotConstants.Ki);
+        Preferences.getInstance().putDouble("Drive Kd", RobotConstants.Kd);
+        Preferences.getInstance().putDouble("iZone", RobotConstants.iZone);
+        Preferences.getInstance().putDouble("maximumIZoneSpeed", RobotConstants.maximumIZoneSpeed);
+        Preferences.getInstance().putDouble("rotateInertiaBias", RobotConstants.rotateInertiaBias);
+        Preferences.getInstance().putDouble("gyroPIDErrorTolerance", RobotConstants.gyroPIDErrorTolerance);
+        
+/**		System.out.println("test");
+*/
+        
+        
     }
 
     /**
@@ -111,19 +130,32 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-
-        RobotConstants.shootertargetRPM = prefs.getDouble("shooter Target RPM", RobotConstants.shootertargetRPM);
-        RobotConstants.shootertargetspeed = prefs.getDouble("shooter ticks", RobotConstants.shootertargetspeed);
-        RobotConstants.shooterTolerance = prefs.getDouble("shooter Tolerance", RobotConstants.shooterTolerance);
-		RobotConstants.shooterPIDKp = prefs.getDouble("shooter kp", RobotConstants.shooterPIDKp);
-		RobotConstants.shooterPIDKi = prefs.getDouble("shooter ki", RobotConstants.shooterPIDKi);
-		RobotConstants.shooterPIDKd = prefs.getDouble("shooter kd", RobotConstants.shooterPIDKd);
-		RobotConstants.shooterPIDKf = prefs.getDouble("shooter kf", RobotConstants.shooterPIDKf);
-		RobotConstants.ballintakespeed = prefs.getDouble("ball in spd", RobotConstants.ballintakespeed);
-		RobotConstants.gearintakespeed = prefs.getDouble("gear in spd", RobotConstants.gearintakespeed);
+        
+    /// The Robot Preference function allows for temporary adjustment of variables 
+    //  When teleop is started the temp variables from the roborio memory are used instead of the had code values
       
-    }
-
+        RobotConstants.shootertargetspeed = Preferences.getInstance().getDouble("shooter ticks", RobotConstants.shootertargetspeed);
+        RobotConstants.shooterTolerance = Preferences.getInstance().getDouble("shooter Tolerance", RobotConstants.shooterTolerance);
+		RobotConstants.shooterPIDKp = Preferences.getInstance().getDouble("shooter kp", RobotConstants.shooterPIDKp);
+		RobotConstants.shooterPIDKi = Preferences.getInstance().getDouble("shooter ki", RobotConstants.shooterPIDKi);
+		RobotConstants.shooterPIDKd = Preferences.getInstance().getDouble("shooter kd", RobotConstants.shooterPIDKd);
+		RobotConstants.shooterPIDKf = Preferences.getInstance().getDouble("shooter kf", RobotConstants.shooterPIDKf);
+		RobotConstants.shooterPIDRampRate = Preferences.getInstance().getDouble("shooter PID Ramprate",RobotConstants.shooterPIDRampRate);
+		RobotConstants.ballintakespeed = Preferences.getInstance().getDouble("ball intake spd",RobotConstants.ballintakespeed);
+		RobotConstants.gearintakespeed = Preferences.getInstance().getDouble("gear intake spd",RobotConstants.gearintakespeed);
+		RobotConstants.feederSpeed = Preferences.getInstance().getDouble("feed speed",RobotConstants.feederSpeed);
+		RobotConstants.processSpeed = Preferences.getInstance().getDouble("processSpeed", RobotConstants.processSpeed);
+		RobotConstants.enablePID = Preferences.getInstance().getBoolean("enable drive PID", RobotConstants.enablePID);
+		RobotConstants.Kp = Preferences.getInstance().getDouble("Drive Kp",RobotConstants.Kp);
+		RobotConstants.Ki = Preferences.getInstance().getDouble("Drive Ki",RobotConstants.Ki);
+		RobotConstants.Kd = Preferences.getInstance().getDouble("Drive Kd",RobotConstants.Kd);
+		RobotConstants.iZone = Preferences.getInstance().getDouble("iZone",RobotConstants.iZone);
+		RobotConstants.maximumIZoneSpeed = Preferences.getInstance().getDouble("maximumIZoneSpeed",RobotConstants.maximumIZoneSpeed);
+		RobotConstants.rotateInertiaBias = Preferences.getInstance().getDouble("rotateInertiaBias",RobotConstants.rotateInertiaBias);
+		RobotConstants.gyroPIDErrorTolerance = Preferences.getInstance().getDouble("gyroPIDErrorTolerance",RobotConstants.gyroPIDErrorTolerance);
+		 }
+  
+       
     /**
      * This function is called periodically during operator control
      */
