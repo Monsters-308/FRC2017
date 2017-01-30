@@ -7,6 +7,7 @@ import org.usfirst.frc308.FRC2017.commands.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import de.codeteddy.robotics.first.*;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -112,7 +113,6 @@ public class Chassis extends PIDSubsystem {
  		//robotDrive6.setExpiration(RobotConstants.arcadeExpiration);
  		//robotDrive6.setSensitivity(RobotConstants.arcadeSensitivity);
  		//robotDrive6.setMaxOutput(RobotConstants.arcadeMaxOutput);
- 		
  		if (RobotConstants.enablePID == true )  { // use PID process
  	
  	   //IF user stops driving with the joystick 		

@@ -41,7 +41,7 @@ public class TeleopIntake extends Command {
     		}  // MG fix missing brackets
     		}
   
-    	//Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
+    Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
