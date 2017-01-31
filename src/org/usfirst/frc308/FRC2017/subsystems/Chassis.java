@@ -133,10 +133,12 @@ public class Chassis extends PIDSubsystem {
  			}
  			else{ //If this isn't the first time
  				  // Robot is moving straight
+ 				gyro.reset();
  				
  				//Calculate PID 
  				turn = calcPID();
  				robotDrive6.arcadeDrive(forward, turn);
+ 				//gyro.reset();
  			}
  			
  		}
