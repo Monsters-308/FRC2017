@@ -2,7 +2,7 @@ package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import org.debounce.robotics.first.*;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
@@ -28,6 +28,32 @@ public class TeleopIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	Debounce debounce = new Debounce(RobotConstants.initIntake);
+    	boolean test = debounce.getValue();
+    	boolean out = false;
+    	/**
+    	while(test){
+    		if(out){
+    			out = false;
+    		}
+    		else if(!out){
+    			out = true;
+    		}
+    	}
+    	while(!test){
+    		if(out){
+    			out = false;
+    		}
+    		else if(!out){
+    			out = true;
+    		}
+    	}
+    	**/
+    	
+    	//SmartDashboard.putBoolean("ALEX'S TEST", test);
+    	//SmartDashboard.putBoolean("ALEX'S TEST2", out);
+    	
     	SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
        	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
     	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)){      		// MG fix missing brackets
@@ -41,6 +67,89 @@ public class TeleopIntake extends Command {
     		}  // MG fix missing brackets
     		}
   
+   /** 	if(Debounce.getInstance().Debounce(Robot.oi.joystick1, RobotConstants.initIntake, RobotConstants.last)){      		// MG fix missing brackets
+    		if(RobotConstants.intakeMode == false){  // MG fix = should be ==
+    			RobotConstants.intakeMode = true;
+    			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
+    			}
+    		else{
+    			RobotConstants.intakeMode = false;
+    			Robot.intake.setballmotor(0);
+    		}  // MG fix missing brackets
+    		}
+    */	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
     }
 

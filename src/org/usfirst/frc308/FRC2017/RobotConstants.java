@@ -15,7 +15,7 @@ public class RobotConstants {
     //		Please make sure, that all the constants you insert here, are in the
     //		right area. If no matches, you create your own one.
 
-
+public static boolean last = true;
     //Joystick 1 constants
     public static double deadzone = 0.1; //updated by MG
     public static int shootBallHigh = 1;
