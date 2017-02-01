@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
 import de.codeteddy.robotics.first.*;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -42,7 +43,7 @@ public class Chassis extends PIDSubsystem {
     private final Solenoid claw2 = RobotMap.gearDeliverySolenoid_2;
     private final Solenoid claw3 = RobotMap.gearDeliverySolenoid_3; 
     
-    
+    private boolean ready = true;
     private boolean turning = true;
     private double PIDOutput = 0.0;
     double IAccumulator = 0.0; // the sum of error over time
@@ -106,6 +107,28 @@ public class Chassis extends PIDSubsystem {
  		**/
  	}
  	
+ 	public void simpleDrive(double forward, double turn, boolean isAutonumous){
+ 		if(isAutonumous){
+ 			//Do that kind of code
+ 			if(ready == true){
+ 				//First run
+ 				gyro.reset();
+ 				
+ 				ready = false;
+ 			}
+ 			else{
+ 				//After first run, always execute this code
+ 				double angle = gyro.getAngle();
+ 				robotDrive6.arcadeDrive(forward, -angle * 0.03);
+ 				Timer.delay(0.004); //Delay of 4 milliseconds
+ 			}
+ 			
+ 		}
+ 		else{
+ 			ready = true;
+ 			robotDrive6.arcadeDrive(forward, turn);
+ 		}
+ 	}
 
  	public void arcadeDrive(double forward, double turn) {
  		//Do we use them?
