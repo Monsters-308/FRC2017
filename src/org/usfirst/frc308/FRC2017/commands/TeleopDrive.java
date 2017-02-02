@@ -25,6 +25,7 @@ public class TeleopDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	double forward = Robot.chassis.deadZone(Robot.oi.joystick1.getY()); //  forward
     	double turn = -(Robot.chassis.deadZone(Robot.oi.joystick1.getX())); // turn 
     	Robot.chassis.arcadeDrive(forward, turn);
@@ -35,24 +36,9 @@ public class TeleopDrive extends Command {
     	SmartDashboard.putDouble("Controller forward", forward);
     	SmartDashboard.putDouble("Controller turn", turn);
     	SmartDashboard.putNumber("gearintake ", RobotConstants.gearintakespeed);
+ //   	Robot.chassis.displayChasisData();
  	
-     //  if button Claw 1 is pressed
-    		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton1)) 
-    		Robot.chassis.claw1_Open();
-    	    else  // close claw 1
-    		 Robot.chassis.claw1_Close();
-        
-    //	if button Claw 2 is pressed
-		    if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton2)) 
-		    Robot.chassis.claw2_Open();
-	        else  // close claw 2
-		    Robot.chassis.claw2_Close();
-    	
-    //	if button Claw 3 is pressed
-			if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton3)) 
-			Robot.chassis.claw3_Open();
-		    else  // close claw 3
-			Robot.chassis.claw3_Close(); 	
+	
 
     }
 	@Override

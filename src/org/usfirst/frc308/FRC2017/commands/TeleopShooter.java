@@ -33,17 +33,17 @@ public class TeleopShooter extends Command {
  
 		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
 			
-		if (RobotConstants.shooterMode == false) { // MG change from = to ==
+		     if (RobotConstants.shooterMode == false) { // MG change from = to ==
 			                                       // If the shooter mode was off
 												   // then toggle on
-			RobotConstants.shooterMode = true;
-			Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
-			Robot.intake.setballmotor(RobotConstants.feederSpeed);
+			 RobotConstants.shooterMode = true;
+			 Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
+		//	Robot.intake.setballmotor(RobotConstants.feederSpeed);  // mg comment our for test
 			} 
 		else { // If the shooter mode was on then toggle off
 			Robot.shooter.setShootSpeed(0);
 			RobotConstants.shooterMode = false;
-			Robot.intake.setballmotor(0);
+	//		Robot.intake.setballmotor(0);  // mg comment our for test
 		     } //MG  add missing }
 		}
 	}

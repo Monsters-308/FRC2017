@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
 import de.codeteddy.robotics.first.*;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
@@ -38,11 +40,8 @@ public class Chassis extends PIDSubsystem {
 	private final CANTalon right3 = RobotMap.chassisCANTalon_6;
 	private final RobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
-    private final Solenoid claw1 = RobotMap.gearDeliverySolenoid_1;
-    private final Solenoid claw2 = RobotMap.gearDeliverySolenoid_2;
-    private final Solenoid claw3 = RobotMap.gearDeliverySolenoid_3; 
-    
-    
+   
+    private boolean ready = true;
     private boolean turning = true;
     private double PIDOutput = 0.0;
     double IAccumulator = 0.0; // the sum of error over time
@@ -50,8 +49,8 @@ public class Chassis extends PIDSubsystem {
     //private double previousAngle = 0.0;
  	
  	//BuiltInAccelerometer accel;
-
-
+    
+  
  	// Initialize your subsystem here
  	public Chassis(){
  	    // NOT used - in code to setup PID thread
@@ -59,7 +58,8 @@ public class Chassis extends PIDSubsystem {
  		setAbsoluteTolerance(0.2);
  		getPIDController().setContinuous(false); // forces a separate thread to control PID
  		gyro.calibrate();
- 		// end of Not used section
+ 	//	SmartDashboard.putDouble("shoot speed ", lastError);
+ 		 		// end of Not used section
  	
 
  		// Use these to get going:
@@ -105,8 +105,32 @@ public class Chassis extends PIDSubsystem {
  		right3.set(4);
  		**/
  	}
- 	
-
+ /**	************* ALEX test code
+ 	public void simpleDrive(double forward, double turn, boolean isAutonumous){
+ 		if(isAutonumous){
+ 			//Do that kind of code
+ 			if(ready == true){
+ 				//First run
+ 				gyro.reset();
+ 				
+ 				
+ 				ready = false;
+ 			}
+ 			else{
+ 				//After first run, always execute this code
+ 				double angle = gyro.getAngle();
+ 				robotDrive6.arcadeDrive(forward, -angle * 0.03);
+ 				Timer.delay(0.004); //Delay of 4 milliseconds
+ 			}
+ 			
+ 		}
+ 		else{
+ 			ready = true;
+ 			robotDrive6.arcadeDrive(forward, turn);
+ 		}
+ 	}
+*/
+// ********************** end of test code **************888 	
  	public void arcadeDrive(double forward, double turn) {
  		//Do we use them?
  		//robotDrive6.setSafetyEnabled(RobotConstants.safetyEnabled);
@@ -123,6 +147,7 @@ public class Chassis extends PIDSubsystem {
  				PIDOutput = 0.0;
  				
  				//Reset gyro to 0
+ //				SmartDashboard.putDouble("first time before reset ", gyro.getAngle());
  				gyro.reset();
  				
  				//Set turning to false, because we are not turning any more
@@ -197,6 +222,12 @@ public class Chassis extends PIDSubsystem {
  		return input;
  	}
  
+ 	
+ 	
+	
+ 	
+ 	
+ 	
  
  protected double returnPIDInput() {
      // NOT Used - in code to create PID thread 
@@ -209,36 +240,5 @@ public class Chassis extends PIDSubsystem {
      // Use output to drive your system, like a motor
  }
  
- 
- public void claw1_Open() {
-		// 
-		// open claw 1
-		Robot.chassis.claw1.set(true);
-	}
- public void claw1_Close() {
-		// 
-		// close claw 1
-		Robot.chassis.claw1.set(false);
-	}
- public void claw2_Open() {
-		// 
-		// open claw 2
-		Robot.chassis.claw2.set(true);
-	}
- public void claw2_Close() {
-		// 
-		// close claw 2
-		Robot.chassis.claw2.set(false);
-	}
- public void claw3_Open() {
-		// 
-		// open claw 3
-		Robot.chassis.claw3.set(true);
-	}
-public void claw3_Close() {
-		// 
-		// close claw 3
-		Robot.chassis.claw3.set(false);
-	}
  
 }
