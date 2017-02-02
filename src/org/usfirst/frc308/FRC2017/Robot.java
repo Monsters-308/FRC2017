@@ -134,7 +134,7 @@ public class Robot extends IterativeRobot {
     /// The Robot Preference function allows for temporary adjustment of variables 
     //  When teleop is started the temp variables from the roborio memory are used instead of the had code values
       
-        RobotConstants.shootertargetspeed = Preferences.getInstance().getDouble("shooter ticks", RobotConstants.shootertargetspeed);
+        RobotConstants.shootertargetspeed = Preferences.getInstance().getDouble("shooter ticks target", RobotConstants.shootertargetspeed);
         RobotConstants.shooterTolerance = Preferences.getInstance().getDouble("shooter Tolerance", RobotConstants.shooterTolerance);
 		RobotConstants.shooterPIDKp = Preferences.getInstance().getDouble("shooter kp", RobotConstants.shooterPIDKp);
 		RobotConstants.shooterPIDKi = Preferences.getInstance().getDouble("shooter ki", RobotConstants.shooterPIDKi);

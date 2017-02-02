@@ -37,6 +37,8 @@ public class Shooter extends Subsystem {
 	public void setupShooter() {
 	shooterMotor1.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 	shooterMotor1.changeControlMode(TalonControlMode.Speed);
+	shooterMotor1.reverseSensor(true);
+	shooterMotor1.reverseOutput(false);
 	shooterMotor1.setProfile(0);
 		shooterMotor1.setPID(
 				RobotConstants.shooterPIDKp,
