@@ -28,8 +28,18 @@ public class TeleopProcess extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	// Activates ball processor while shooting
 	protected void execute() {
-	//	if (Robot.oi.joystick1.getRawButton(RobotConstants.shootBallHigh))
-	//		Robot.processBalls.sleep(2000); // MG need to use timer
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
+			if(RobotConstants.processState == false){
+				RobotConstants.processState = true;
+				Robot.processBalls.runProcess(RobotConstants.processSpeed);
+			}
+			else{
+				RobotConstants.processState = false;
+				Robot.processBalls.runProcess(0);
+			}
+		}
+		   
+	//		                                 // MG need to use timer
 		                                    // sleep with crash roborio
 	//		Robot.processBalls.runProcess(RobotConstants.processSpeed);
 }

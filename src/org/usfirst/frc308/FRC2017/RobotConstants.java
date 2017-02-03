@@ -74,6 +74,7 @@ public static boolean last = true;
         
     //Hopper Comstants
     public static double processSpeed = 1.0;
+    public static boolean processState = false;
     
     //Chassis Constants
     public static boolean enablePID = false;

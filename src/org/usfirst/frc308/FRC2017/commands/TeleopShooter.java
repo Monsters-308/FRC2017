@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
+
 /**
  *
  */
@@ -33,18 +34,19 @@ public class TeleopShooter extends Command {
  
 		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
 			
-		     if (RobotConstants.shooterMode == false) { // MG change from = to ==
-			                                       // If the shooter mode was off
-												   // then toggle on
+		     if (RobotConstants.shooterMode == false) { 
 			 RobotConstants.shooterMode = true;
 			 Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
-		//	Robot.intake.setballmotor(RobotConstants.feederSpeed);  // mg comment our for test
+			 
+//			 Turn off intake
+			 Robot.intake.setballmotor(0);  
+			 RobotConstants.intakeMode = false;
 			} 
 		else { // If the shooter mode was on then toggle off
 			Robot.shooter.setShootSpeed(0);
 			RobotConstants.shooterMode = false;
-	//		Robot.intake.setballmotor(0);  // mg comment our for test
-		     } //MG  add missing }
+	       
+		     } 
 		}
 	}
 	

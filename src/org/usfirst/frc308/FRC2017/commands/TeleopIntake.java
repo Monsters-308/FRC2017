@@ -56,16 +56,33 @@ public class TeleopIntake extends Command {
     	
     	SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
        	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
-    	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)){      		// MG fix missing brackets
-    		if(RobotConstants.intakeMode == false){  // MG fix = should be ==
+    	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)){   
+    		if(RobotConstants.intakeMode == false){  
     			RobotConstants.intakeMode = true;
     			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
+    			
+//    			turn off shooter mode
+    			RobotConstants.processState = false;
+    			RobotConstants.shooterMode = false;
+    			Robot.shooter.setShootSpeed(0);
+    			Robot.processBalls.runProcess(0);
     			}
     		else{
     			RobotConstants.intakeMode = false;
     			Robot.intake.setballmotor(0);
-    		}  // MG fix missing brackets
+    		}  	
+    		
+    		
+    		
+    		
+//	    		if(RobotConstants.intakeMode == false){
+//	    			toggleIntake(true);
+//	    			}
+//	    		else{
+//	    			toggleIntake(false);
+//	    		}  
     		}
+    
   
    /** 	if(Debounce.getInstance().Debounce(Robot.oi.joystick1, RobotConstants.initIntake, RobotConstants.last)){      		// MG fix missing brackets
     		if(RobotConstants.intakeMode == false){  // MG fix = should be ==
@@ -79,78 +96,18 @@ public class TeleopIntake extends Command {
     		}
     */	
     	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
+    	Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
+    }
+    
+    public void toggleIntake(boolean intakeState){
+    	if(intakeState == false){  
+			RobotConstants.intakeMode = true;
+			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
+			}
+		else{
+			RobotConstants.intakeMode = false;
+			Robot.intake.setballmotor(0);
+		}  
     }
 
     // Make this return true when this Command no longer needs to run execute()
