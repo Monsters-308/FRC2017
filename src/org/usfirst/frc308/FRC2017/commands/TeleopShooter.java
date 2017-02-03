@@ -46,7 +46,14 @@ public class TeleopShooter extends Command {
 			Robot.shooter.setShootSpeed(0);
 			RobotConstants.shooterMode = false;
 	       
-		     } 
+		     }
+		    
+		}
+		
+		//Opens shooter door to allow bal into shooter wheels
+		
+		if(Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)){
+			Robot.shooter.Trigger(true);
 		}
 	}
 	

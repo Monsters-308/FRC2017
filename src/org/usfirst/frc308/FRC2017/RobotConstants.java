@@ -18,7 +18,7 @@ public class RobotConstants {
 public static boolean last = true;
     //Joystick 1 constants
     public static double deadzone = 0.1; //updated by MG
-    public static int shootBallHigh = 1;
+    public static int shootBall = 1;
     public static int clawButton1 = 5;
     public static int clawButton2 = 6;
     public static int clawButton3 = 7;

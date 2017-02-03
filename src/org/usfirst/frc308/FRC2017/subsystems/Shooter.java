@@ -7,8 +7,11 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.FeedbackDeviceStatus;
 import com.ctre.CANTalon.TalonControlMode;
 
+import org.usfirst.frc308.FRC2017.Robot;
 // import com.ctre.CANTalon.TalonControlMode;
 import org.usfirst.frc308.FRC2017.RobotConstants;
+
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,6 +24,7 @@ public class Shooter extends Subsystem {
     
     //private final CANTalon shootMotor1 = RobotMap.shooterCANTalon_1;
 	private CANTalon shooterMotor1 = RobotMap.shooterCANTalon_1;
+	private Solenoid shooterTrigger = RobotMap.shooterTriggerSolenoid_1;
 
 
 
@@ -59,6 +63,15 @@ public class Shooter extends Subsystem {
 		shooterMotor1.set(speed);
 		SmartDashboard.putDouble("shoot speed ", speed);
 	}
+	
 
-}
+	public void Trigger(boolean triggerState) {
+		shooterTrigger.set(triggerState);
+		// TODO Auto-generated method stub
+		
+	}
+	
+	}
+
+
 
