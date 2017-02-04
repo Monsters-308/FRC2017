@@ -6,12 +6,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
+//Needed for Button Toggle Code
+import edu.wpi.first.wpilibj.Timer;
+
 
 /**
  *
  */
 public class TeleopShooter extends Command {
 
+	//Used for Button Toggle Code
+	private boolean buttonShotterState = false;
+	private Timer buttonShooterTimer= new Timer();
+	
 	public TeleopShooter() {
 
 		requires(Robot.shooter);
@@ -32,23 +39,33 @@ public class TeleopShooter extends Command {
     	SmartDashboard.putBoolean("shoot mode ", RobotConstants.shooterMode);
        	SmartDashboard.putBoolean("shoot start ", Robot.oi.joystick2.getRawButton(RobotConstants.initShooter));
  
+       	
 		if (Robot.oi.joystick2.getRawButton(RobotConstants.initShooter)){
 			
-		     if (RobotConstants.shooterMode == false) { 
-			 RobotConstants.shooterMode = true;
-			 Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
-			 
-//			 Turn off intake
-			 Robot.intake.setballmotor(0);  
-			 RobotConstants.intakeMode = false;
-			} 
-		else { // If the shooter mode was on then toggle off
-			Robot.shooter.setShootSpeed(0);
-			RobotConstants.shooterMode = false;
-	       
-		     }
-		    
+			if (buttonShooterTimer.get() == 0 ) {
+			     if (RobotConstants.shooterMode == false) { 
+					 RobotConstants.shooterMode = true;
+					 Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
+					 
+					 // Turn off intake
+					 Robot.intake.setballmotor(0);  
+					 RobotConstants.intakeMode = false;
+			     } 
+			     else { // If the shooter mode was on then toggle off
+			    	 Robot.shooter.setShootSpeed(0);
+			    	 RobotConstants.shooterMode = false;
+			     }
+			     
+			     //Start Timer to make sure the toggle happens only once
+			     buttonShooterTimer.start();   
+			}   
 		}
+		if (buttonShooterTimer.get() >= .4) {
+			System.out.println("In Reset Timer Code");
+			buttonShooterTimer.stop();
+			buttonShooterTimer.reset();
+		}
+		
 		
 		//Opens shooter door to allow bal into shooter wheels
 		
