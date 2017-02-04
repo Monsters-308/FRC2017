@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -74,11 +75,12 @@ public class Chassis extends PIDSubsystem {
  	//Chassis setup
  	public void setupDrive() {
  		left1.changeControlMode(TalonControlMode.PercentVbus);
+ 		left1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
  		left2.changeControlMode(TalonControlMode.PercentVbus);
  		left3.changeControlMode(TalonControlMode.PercentVbus);
  		right1.changeControlMode(TalonControlMode.PercentVbus);
 		right2.changeControlMode(TalonControlMode.PercentVbus);
-		right3.changeControlMode(TalonControlMode.PercentVbus);		
+		right3.changeControlMode(TalonControlMode.PercentVbus);	
 		gyro.reset();
 		getPIDController().setSetpoint(0); // make setpoint current angle
 		getPIDController().enable();
@@ -131,7 +133,8 @@ public class Chassis extends PIDSubsystem {
  	} // End of BasicDrive PID Control
  	// ELSE PID is Off 
  	else { // use standard arcadeDrive
- 	     robotDrive6.arcadeDrive(forward, turn);
+   System.out.println("standard drive");		
+   robotDrive6.arcadeDrive(forward, turn);
  	     }
  	} // End of PID enable loop 
  	
@@ -215,6 +218,17 @@ public class Chassis extends PIDSubsystem {
      // Use output to drive your system, like a motor
 	 
  }
+ 
+ 	public void displayChasisData() {
+		SmartDashboard.putNumber("left enc", left1.getEncPosition());
+		SmartDashboard.putNumber("right enc", right1.getEncPosition());
+		SmartDashboard.putNumber("left enc speed", left1.getEncVelocity());
+		SmartDashboard.putNumber("right enc speed", right1.getEncVelocity());
+		SmartDashboard.putNumber("angle", gyro.getAngle());
+		SmartDashboard.putNumber("gyro setpoint", getSetpoint());
+		SmartDashboard.putNumber("gyro error", getPIDController().getError());
+		SmartDashboard.putNumber("IAcc", IAccumulator);
+	}
  
 	
 /**
