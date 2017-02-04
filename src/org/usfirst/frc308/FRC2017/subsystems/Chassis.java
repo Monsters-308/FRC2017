@@ -113,7 +113,6 @@ public class Chassis extends PIDSubsystem {
  				  System.out.println(setPointTimer.get());
  			       System.out.println(gyrotemp);	
  				   System.out.println(turn);	
- 				   robotDrive6.arcadeDrive(forward, turn);  //Drive
  			    }
  			} else { // after initializing
 				turn = RobotConstants.gyroPIDOutput;

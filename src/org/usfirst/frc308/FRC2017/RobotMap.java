@@ -40,7 +40,7 @@ public class RobotMap {
     public static CANTalon climbCANTalon = new CANTalon(20);
     public static CANTalon processBallsCANTalon = new CANTalon(19);
     public static CANTalon shooterCANTalon_1 = new CANTalon(10);
-    public static Compressor pneumaticsCompressor = new Compressor(0);
+    public static Compressor pneumaticsCompressor = new Compressor();
     public static ADXRS450_Gyro spiGyro_1 = new ADXRS450_Gyro();
 
 }
