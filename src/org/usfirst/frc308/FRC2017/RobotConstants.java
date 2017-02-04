@@ -50,7 +50,7 @@ public static boolean last = true;
      */
     public static double shootertargetRPM = 675; // Desired RPM
 //    public static double shootertargetspeed = (shootertargetRPM * 1/60 *1/10 * 4096); // Desired RPM
-   public static double shootertargetspeed = 2000;
+   public static double shootertargetspeed = 4000;
     public static double shooterTolerance = 300.0;
     public static double shooterPIDKp = 0.4;
     public static double shooterPIDKi = 0.00004;
@@ -84,6 +84,7 @@ public static boolean last = true;
     public static double iZone = 15.0;
     public static double maximumIZoneSpeed = 1.0;
     public static double rotateInertiaBias = 0.15;
+    public static double gyroPIDOutput = 0.0;
     public static double gyroPIDErrorTolerance = 1.0; //in degrees
     public static boolean isTrajectory = false;
 

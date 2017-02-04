@@ -30,8 +30,8 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
 
 public class Chassis extends PIDSubsystem {
 	
-	
 
+		
 	private final CANTalon left1 = RobotMap.chassisCANTalon_1;
 	private final CANTalon left2 = RobotMap.chassisCANTalon_2;
 	private final CANTalon left3 = RobotMap.chassisCANTalon_3;
@@ -40,44 +40,31 @@ public class Chassis extends PIDSubsystem {
 	private final CANTalon right3 = RobotMap.chassisCANTalon_6;
 	private final RobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
-   
-    private boolean ready = true;
+    Timer setPointTimer =  new Timer();
+	
     private boolean turning = true;
+	    
+	// PID Stuff
+	double IAccumulator = 0.0; // the sum of error over time
+	double lastError = 0.0;
+	double error = 0;
+	private final Timer settledTimer = new Timer();
     private double PIDOutput = 0.0;
-    double IAccumulator = 0.0; // the sum of error over time
-    double lastError = 0.0;
-    //private double previousAngle = 0.0;
- 	
- 	//BuiltInAccelerometer accel;
-    
+    private double settledPos = 0;
+	BuiltInAccelerometer accel;
+
   
- 	// Initialize your subsystem here
- 	public Chassis(){
- 	    // NOT used - in code to setup PID thread
- 		super("Chassis", 1.0, 0.0, 0.0);
- 		setAbsoluteTolerance(0.2);
- 		getPIDController().setContinuous(false); // forces a separate thread to control PID
- 		gyro.calibrate();
- 	//	SmartDashboard.putDouble("shoot speed ", lastError);
- 		 		// end of Not used section
- 	
-
- 		// Use these to get going:
- 		// setSetpoint() -  Sets where the PID controller should move the system
- 		//                  to
- 		// enable() - Enables the PID controller.
- 		//super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
-//		setAbsoluteTolerance(RobotConstants.gyroPIDErrorTolerance);
-//		getPIDController().setContinuous(true);
-//		getPIDController().setInputRange(-180, 180);
-		//LiveWindow.addActuator("Drivetrain", "PIDSubsystem Controller", getPIDController());
-//		getPIDController().setOutputRange(-1.0, 1.0);
-		//accel = new BuiltInAccelerometer();
-		
-  	}
  
-
-
+ 	public Chassis(){
+		super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
+		setAbsoluteTolerance(RobotConstants.gyroPIDErrorTolerance);
+		getPIDController().setContinuous(true);
+		getPIDController().setInputRange(-180, 180);
+		getPIDController().setOutputRange(-1.0, 1.0);	
+		accel = new BuiltInAccelerometer();
+  		gyro.calibrate();
+   	}
+ 
  	public void initDefaultCommand() {
  		// Set the default command for a subsystem here.
  		setDefaultCommand(new TeleopDrive());
@@ -92,45 +79,14 @@ public class Chassis extends PIDSubsystem {
  		right1.changeControlMode(TalonControlMode.PercentVbus);
 		right2.changeControlMode(TalonControlMode.PercentVbus);
 		right3.changeControlMode(TalonControlMode.PercentVbus);		
+		gyro.reset();
+		getPIDController().setSetpoint(0); // make setpoint current angle
+		getPIDController().enable();
+		IAccumulator = 0; // reset accumulator
+		settledTimer.start();
+	}
+ 
  	
-		/**
- 	 * 	left2.changeControlMode(TalonControlMode.Follower);
- 		left2.set(1);
- 		left3.changeControlMode(TalonControlMode.Follower);
- 		left3.set(1);
- 		right1.changeControlMode(TalonControlMode.PercentVbus);
- 		right2.changeControlMode(TalonControlMode.Follower);
- 		right2.set(4);
- 		right3.changeControlMode(TalonControlMode.Follower);
- 		right3.set(4);
- 		**/
- 	}
- /**	************* ALEX test code
- 	public void simpleDrive(double forward, double turn, boolean isAutonumous){
- 		if(isAutonumous){
- 			//Do that kind of code
- 			if(ready == true){
- 				//First run
- 				gyro.reset();
- 				
- 				
- 				ready = false;
- 			}
- 			else{
- 				//After first run, always execute this code
- 				double angle = gyro.getAngle();
- 				robotDrive6.arcadeDrive(forward, -angle * 0.03);
- 				Timer.delay(0.004); //Delay of 4 milliseconds
- 			}
- 			
- 		}
- 		else{
- 			ready = true;
- 			robotDrive6.arcadeDrive(forward, turn);
- 		}
- 	}
-*/
-// ********************** end of test code **************888 	
  	public void arcadeDrive(double forward, double turn) {
  		//Do we use them?
  		//robotDrive6.setSafetyEnabled(RobotConstants.safetyEnabled);
@@ -138,52 +94,74 @@ public class Chassis extends PIDSubsystem {
  		//robotDrive6.setSensitivity(RobotConstants.arcadeSensitivity);
  		//robotDrive6.setMaxOutput(RobotConstants.arcadeMaxOutput);
  		if (RobotConstants.enablePID == true )  { // use PID process
- 	
  	   //IF user stops driving with the joystick 		
  		if(turn == 0.0){
  			if(turning == true){ //Code is called first time, when we stopped turning
- 				
- 				//Reset PIDOutput to zero
- 				PIDOutput = 0.0;
- 				
- 				//Reset gyro to 0
- //				SmartDashboard.putDouble("first time before reset ", gyro.getAngle());
- 				gyro.reset();
- 				
- 				//Set turning to false, because we are not turning any more
- 				turning = false;
- 				
- 				//Drive
- 				robotDrive6.arcadeDrive(forward, turn);
- 			}
- 			else{ //If this isn't the first time
- 				  // Robot is moving straight
- 				gyro.reset();
- 				
- 				//Calculate PID 
- 				turn = calcPID();
- 				robotDrive6.arcadeDrive(forward, turn);
- 				//gyro.reset();
- 			}
- 			
- 		}
- 		//ELSE the user is still commanding
- 		// User is commanding a turn
- 		else if(turn != 0.0){
+ 				setPointTimer.start();
+ 				RobotConstants.gyroPIDOutput = 0.0; //Reset PIDOutput to zero
+ 				turning = false; 	//Set turning to false, because we are not turning any more
+ 				System.out.println("first tie stop");	
+ 			} else if (setPointTimer.get() != 0) {//If this isn't the first time
+ 				if (setPointTimer.get() >= 3.0){  // Robot is moving straight
+  				   enablePID();
+				   gyro.reset();
+				   getPIDController().setSetpoint(gyro.getAngle());
+				   setPointTimer.stop();
+				   setPointTimer.reset();
+				   double gyrotemp = gyro.getAngle();
+ 				   System.out.println("drive straight");
+ 				  System.out.println(setPointTimer.get());
+ 			       System.out.println(gyrotemp);	
+ 				   System.out.println(turn);	
+ 				   robotDrive6.arcadeDrive(forward, turn);  //Drive
+ 			    }
+ 			} else { // after initializing
+				turn = RobotConstants.gyroPIDOutput;
+ 		    }
+ 		    //ELSE the user is still commanding
+ 		    // User is commanding a turn
+ 		}	else if(turn != 0.0){
+ 			disablePID();
+			setPointTimer.stop();
+			setPointTimer.reset();
+			turning = true; 		    
  			//Reset angle
- 			turning = true;
- 			IAccumulator = 0;  
- 			//Drive normal driving
- 			robotDrive6.arcadeDrive(forward, turn);
- 		}
- 		}
- 		// ELSE PID is Off 
- 	    // use standard arcadeDrive
- 		else { 
- 		robotDrive6.arcadeDrive(forward, turn);
- 		}
- 	}
+ 			System.out.println("in turn");
+ 		}	
+ 		robotDrive6.arcadeDrive(forward, turn); // PID controlled Drive
+ 	} // End of BasicDrive PID Control
+ 	// ELSE PID is Off 
+ 	else { // use standard arcadeDrive
+ 	     robotDrive6.arcadeDrive(forward, turn);
+ 	     }
+ 	} // End of PID enable loop 
  	
+	public void disablePID() {
+		if (getPIDController().isEnabled()) {
+			IAccumulator = 0;
+			getPIDController().reset(); // disables and resets integral
+		}
+	}
+
+	public void enablePID() {
+		if (!getPIDController().isEnabled()) {
+			gyro.reset();
+			IAccumulator = 0;
+			getPIDController().enable();
+			setSetpoint(0.0); }
+		}
+ 	
+		/**
+		 * sets up the PID for rotate command
+		 */
+		public void setRotatePID(double angleSetPoint) {
+			gyro.reset(); // reset gyro so our angle is 0
+			getPIDController().setSetpoint(angleSetPoint);
+			IAccumulator = 0; // reset accumulator
+			settledTimer.reset();
+			settledPos = 0;
+		}
+/** 	
  	public double calcPID(){
  		
  		//Do all the calculations
@@ -213,6 +191,7 @@ public class Chassis extends PIDSubsystem {
 		}
  	return error + RobotConstants.Ki * IAccumulator;
  	}
+*/ 	
  	
  	public double deadZone(double input){
  		double d = Math.abs(input);
@@ -222,10 +201,7 @@ public class Chassis extends PIDSubsystem {
  		return input;
  	}
  
- 	
- 	
-	
- 	
+ 		
  	
  	
  
@@ -238,7 +214,42 @@ public class Chassis extends PIDSubsystem {
  protected void usePIDOutput(double output) {
      // NOT Used - in code to create PID thread 
      // Use output to drive your system, like a motor
+	 
  }
  
+	
+/**
+	//************* ALEX test code
+
+ private boolean ready = true;
+	public void simpleDrive(double forward, double turn, boolean isAutonumous){
+		if(isAutonumous){
+			//Do that kind of code
+			if(ready == true){
+				//First run
+				gyro.reset();
+				
+				
+				ready = false;
+			}
+			else{
+				//After first run, always execute this code
+				double angle = gyro.getAngle();
+				robotDrive6.arcadeDrive(forward, -angle * 0.03);
+				Timer.delay(0.004); //Delay of 4 milliseconds
+			}
+			
+		}
+		else{
+			ready = true;
+			robotDrive6.arcadeDrive(forward, turn);
+		}
+	}
+
+	
+//********************** end of test code **************
+	
+**/
+	
  
 }
