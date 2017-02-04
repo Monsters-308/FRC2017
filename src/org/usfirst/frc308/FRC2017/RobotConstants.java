@@ -19,9 +19,9 @@ public static boolean last = true;
     //Joystick 1 constants
     public static double deadzone = 0.1; //updated by MG
     public static int shootBall = 1;
-    public static int clawButton1 = 5;
-    public static int clawButton2 = 6;
-    public static int clawButton3 = 7;
+    public static int extendClawButton = 5;
+    public static int closeClawButton = 6;
+    public static int clawDoorButton = 7;
     public static int initShooter = 4;
     public static int climbButton = 3;
     public static int initIntake = 2;
@@ -70,6 +70,11 @@ public static boolean last = true;
     public static double gearintakespeed = .1;
     public static double feederSpeed = -0.8;
     public static boolean intakeMode = false;
+    
+    //Gear constants
+    public static boolean clawExtendState = false; 
+    public static boolean clawOpenState = false; 
+    public static boolean clawDoorState = false; 
   
         
     //Hopper Comstants
