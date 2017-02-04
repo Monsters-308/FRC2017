@@ -9,53 +9,80 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  */
 public class TeleopGear extends Command {
 
-    
-    public TeleopGear() {
+	public TeleopGear() {
 
+		requires(Robot.gearDelivery);
 
-        requires(Robot.gearDelivery);
+	}
 
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		RobotConstants.clawExtendState = false;
+		RobotConstants.clawOpenState = false;
+		RobotConstants.clawDoorState = false;
+	}
 
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+		// if button to extend/retract claw is pressed
+		if (Robot.oi.joystick2.getRawButton(RobotConstants.extendClawButton)) {
+			if (RobotConstants.clawExtendState == false) {
+				RobotConstants.clawExtendState = true;
+				Robot.gearDelivery.extendClaw();
+			}
+		}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	
-      //  if button Claw 1 is pressed
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton1)) 
-		Robot.gearDelivery.claw1_Open();
-	    else  // close claw 1
-		 Robot.gearDelivery.claw1_Close();
-    
-     //	if button Claw 2 is pressed
-	    if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton2)) 
-	    Robot.gearDelivery.claw2_Open();
-        else  // close claw 2
-	    Robot.gearDelivery.claw2_Close();
-	
-    //	if button Claw 3 is pressed
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawButton3)) 
-		Robot.gearDelivery.claw3_Open();
-	    else  // close claw 3
-		Robot.gearDelivery.claw3_Close(); 
-    	
-    }
+		if (Robot.oi.joystick2.getRawButton(RobotConstants.extendClawButton)) {
+			if (RobotConstants.clawExtendState == true) {
+				RobotConstants.clawExtendState = false;
+				Robot.gearDelivery.retractClaw();
+			}
+		}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+		// if button to open/close claw is pressed
+		if (Robot.oi.joystick2.getRawButton(RobotConstants.closeClawButton)) {
+			if (RobotConstants.clawOpenState == false) {
+				RobotConstants.clawOpenState = true;
+				Robot.gearDelivery.openClaw();
+			}
+		}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+		if (Robot.oi.joystick2.getRawButton(RobotConstants.closeClawButton)) {
+			if (RobotConstants.clawOpenState == true) {
+				RobotConstants.clawOpenState = false;
+				Robot.gearDelivery.closeClaw();
+			}
+		}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+		// if button to open/close passive assist doors is pressed
+		if (Robot.oi.joystick2.getRawButton(RobotConstants.clawDoorButton)) {
+			if (RobotConstants.clawDoorState == false) {
+				RobotConstants.clawDoorState = true;
+				Robot.gearDelivery.openClawDoor();
+			}
+		}
+
+		if (Robot.oi.joystick2.getRawButton(RobotConstants.clawDoorButton)) {
+			if (RobotConstants.clawDoorState == true) {
+				RobotConstants.clawDoorState = false;
+				Robot.gearDelivery.closeClawDoor();
+			}
+		}
+
+	}
+
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
+
+	// Called once after isFinished returns true
+	protected void end() {
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }

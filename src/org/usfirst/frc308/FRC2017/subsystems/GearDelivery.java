@@ -15,9 +15,9 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
 public class GearDelivery extends Subsystem {
 
 
-    private final Solenoid claw1 = RobotMap.gearDeliverySolenoid_1;
-    private final Solenoid claw2 = RobotMap.gearDeliverySolenoid_2;
-    private final Solenoid claw3 = RobotMap.gearDeliverySolenoid_3; 
+    private final Solenoid extendClaw = RobotMap.gearDeliverySolenoid_1;
+    private final Solenoid closeClaw = RobotMap.gearDeliverySolenoid_2;
+    private final Solenoid clawDoor = RobotMap.gearDeliverySolenoid_3; 
 
 
     // Put methods for controlling this subsystem
@@ -31,35 +31,35 @@ public class GearDelivery extends Subsystem {
 
     }
     
-    public void claw1_Open() {
+    public void extendClaw() {
 		// 
-		// open claw 1
-		Robot.gearDelivery.claw1.set(true);
+		// extends claw
+		Robot.gearDelivery.extendClaw.set(true);
 	}
- public void claw1_Close() {
+ public void retractClaw() {
 		// 
-		// close claw 1
-		Robot.gearDelivery.claw1.set(false);
+		// retracts claw
+		Robot.gearDelivery.extendClaw.set(false);
 	}
- public void claw2_Open() {
+ public void openClaw() {
 		// 
-		// open claw 2
-		Robot.gearDelivery.claw2.set(true);
+		// opens claw
+		Robot.gearDelivery.closeClaw.set(true);
 	}
- public void claw2_Close() {
+ public void closeClaw() {
 		// 
-		// close claw 2
-		Robot.gearDelivery.claw2.set(false);
+		// closes claw
+		Robot.gearDelivery.closeClaw.set(false);
 	}
- public void claw3_Open() {
+ public void openClawDoor() {
 		// 
-		// open claw 3
-		Robot.gearDelivery.claw3.set(true);
+		// opens passive assist doors
+		Robot.gearDelivery.clawDoor.set(true);
 	}
-public void claw3_Close() {
+public void closeClawDoor() {
 		// 
-		// close claw 3
-		Robot.gearDelivery.claw3.set(false);
+		// closes passive assist doors
+		Robot.gearDelivery.clawDoor.set(false);
 	}
  
 }

@@ -55,8 +55,8 @@ public class TeleopIntake extends Command {
     	//SmartDashboard.putBoolean("ALEX'S TEST2", out);
     	
     	SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
-       	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
-    	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)){   
+       	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick2.getRawButton(RobotConstants.initIntake));
+    	if(Robot.oi.joystick2.getRawButton(RobotConstants.initIntake)){   
     		if(RobotConstants.intakeMode == false){  
     			RobotConstants.intakeMode = true;
     			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
@@ -84,7 +84,7 @@ public class TeleopIntake extends Command {
     		}
     
   
-   /** 	if(Debounce.getInstance().Debounce(Robot.oi.joystick1, RobotConstants.initIntake, RobotConstants.last)){      		// MG fix missing brackets
+   /** 	if(Debounce.getInstance().Debounce(Robot.oi.joystick2, RobotConstants.initIntake, RobotConstants.last)){      		// MG fix missing brackets
     		if(RobotConstants.intakeMode == false){  // MG fix = should be ==
     			RobotConstants.intakeMode = true;
     			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
