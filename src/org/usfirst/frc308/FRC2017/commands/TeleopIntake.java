@@ -2,7 +2,6 @@ package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.debounce.robotics.first.*;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
@@ -29,9 +28,9 @@ public class TeleopIntake extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Debounce debounce = new Debounce(RobotConstants.initIntake);
-    	boolean test = debounce.getValue();
-    	boolean out = false;
+    	//Debounce debounce = new Debounce(RobotConstants.initIntake);
+    	//boolean test = debounce.getValue();
+    	//boolean out = false;
     	/**
     	while(test){
     		if(out){
