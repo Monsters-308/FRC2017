@@ -37,10 +37,10 @@ public class TeleopShooter extends Command {
 	protected void execute() {
 		// if button A is pressed
     	SmartDashboard.putBoolean("shoot mode ", RobotConstants.shooterMode);
-       	SmartDashboard.putBoolean("shoot start ", Robot.oi.joystick2.getRawButton(RobotConstants.initShooter));
+       	SmartDashboard.putBoolean("shoot start ", Robot.oi.joystick1.getRawButton(RobotConstants.initShooter));
  
        	
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.initShooter)){
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
 			
 			if (buttonShooterTimer.get() == 0 ) {
 			     if (RobotConstants.shooterMode == false) { 
@@ -69,7 +69,7 @@ public class TeleopShooter extends Command {
 		
 		//Opens shooter door to allow bal into shooter wheels
 		
-		if(Robot.oi.joystick2.getRawButton(RobotConstants.shootBall)){
+		if(Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)){
 			Robot.shooter.Trigger(true);
 		}
 	}

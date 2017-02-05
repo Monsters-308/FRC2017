@@ -28,7 +28,7 @@ public class TeleopProcess extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	// Activates ball processor while shooting
 	protected void execute() {
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.initShooter)){
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
 			if(RobotConstants.processState == false){
 				RobotConstants.processState = true;
 				Robot.processBalls.runProcess(RobotConstants.processSpeed);

@@ -24,46 +24,53 @@ public class TeleopGear extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
-		// if button to extend/retract claw is pressed
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.extendClawButton)) {
+		
+			// if button to extend/retract claw is pressed
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
 			if (RobotConstants.clawExtendState == false) {
 				RobotConstants.clawExtendState = true;
 				Robot.gearDelivery.extendClaw();
-			}
-		}
-
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.extendClawButton)) {
-			if (RobotConstants.clawExtendState == true) {
+			} else {
 				RobotConstants.clawExtendState = false;
 				Robot.gearDelivery.retractClaw();
 			}
 		}
 
+//		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
+//			if (RobotConstants.clawExtendState == true) {
+//				RobotConstants.clawExtendState = false;
+//				Robot.gearDelivery.retractClaw();
+//			}
+//		}
+
 		// if button to open/close claw is pressed
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.closeClawButton)) {
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
 			if (RobotConstants.clawOpenState == false) {
 				RobotConstants.clawOpenState = true;
 				Robot.gearDelivery.openClaw();
-			}
-		}
-
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.closeClawButton)) {
-			if (RobotConstants.clawOpenState == true) {
+			} else {
 				RobotConstants.clawOpenState = false;
 				Robot.gearDelivery.closeClaw();
-			}
+			}		
 		}
 
+//
+//		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
+//			if (RobotConstants.clawOpenState == true) {
+//				RobotConstants.clawOpenState = false;
+//				Robot.gearDelivery.closeClaw();
+//			}
+//		}
+
 		// if button to open/close passive assist doors is pressed
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.clawDoorButton)) {
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
 			if (RobotConstants.clawDoorState == false) {
 				RobotConstants.clawDoorState = true;
 				Robot.gearDelivery.openClawDoor();
 			}
 		}
 
-		if (Robot.oi.joystick2.getRawButton(RobotConstants.clawDoorButton)) {
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
 			if (RobotConstants.clawDoorState == true) {
 				RobotConstants.clawDoorState = false;
 				Robot.gearDelivery.closeClawDoor();

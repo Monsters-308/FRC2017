@@ -17,6 +17,7 @@ public class RobotConstants {
 
 public static boolean last = true;
     //Joystick 1 constants
+    public static  boolean  singleJoystick = true;
     public static double deadzone = 0.1; //updated by MG
     public static int shootBall = 1;
     public static int extendClawButton = 5;
@@ -66,9 +67,9 @@ public static boolean last = true;
     
 
     // Intake Constants
-    public static double ballintakespeed = -0.5;
+    public static double ballintakespeed = -0.8;
     public static double gearintakespeed = .1;
-    public static double feederSpeed = -0.8;
+    public static double feederSpeed = -1.0;
     public static boolean intakeMode = false;
     
     //Gear constants
