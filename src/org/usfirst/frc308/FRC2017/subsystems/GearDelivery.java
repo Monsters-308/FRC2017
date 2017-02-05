@@ -36,27 +36,32 @@ public class GearDelivery extends Subsystem {
 		// extends claw
 		Robot.gearDelivery.extendClaw.set(true);
 	}
- public void retractClaw() {
+    
+    public void retractClaw() {
 		// 
 		// retracts claw
 		Robot.gearDelivery.extendClaw.set(false);
 	}
- public void openClaw() {
+    
+    public void openClaw() {
 		// 
 		// opens claw
 		Robot.gearDelivery.closeClaw.set(true);
 	}
- public void closeClaw() {
+    
+    public void closeClaw() {
 		// 
 		// closes claw
 		Robot.gearDelivery.closeClaw.set(false);
 	}
- public void openClawDoor() {
+    
+    public void openClawDoor() {
 		// 
 		// opens passive assist doors
 		Robot.gearDelivery.clawDoor.set(true);
 	}
-public void closeClawDoor() {
+    
+    public void closeClawDoor() {
 		// 
 		// closes passive assist doors
 		Robot.gearDelivery.clawDoor.set(false);

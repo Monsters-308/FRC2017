@@ -15,7 +15,8 @@ public class RobotConstants {
     //		Please make sure, that all the constants you insert here, are in the
     //		right area. If no matches, you create your own one.
 
-public static boolean last = true;
+	public static boolean last = true;
+	
     //Joystick 1 constants
     public static  boolean  singleJoystick = true;
     public static double deadzone = 0.1; //updated by MG
@@ -50,8 +51,8 @@ public static boolean last = true;
      * Lets check our math, if the target speed is 9326 native units per 100ms, Closed-loop output will be (0.1097 X 9326) => 1023 (full forward).
      */
     public static double shootertargetRPM = 675; // Desired RPM
-//    public static double shootertargetspeed = (shootertargetRPM * 1/60 *1/10 * 4096); // Desired RPM
-   public static double shootertargetspeed = 4000;
+    //public static double shootertargetspeed = (shootertargetRPM * 1/60 *1/10 * 4096); // Desired RPM
+    public static double shootertargetspeed = 4000;
     public static double shooterTolerance = 300.0;
     public static double shooterPIDKp = 0.4;
     public static double shooterPIDKi = 0.00004;
@@ -62,11 +63,11 @@ public static boolean last = true;
     public static boolean shooterMode = false;
    
     
-    //Climbing Constants
+    //Climbing constants
     public static double climbSpeed = 1.0;
     
 
-    // Intake Constants
+    // Intake constants
     public static double ballintakespeed = -0.8;
     public static double gearintakespeed = .1;
     public static double feederSpeed = -1.0;
@@ -78,7 +79,7 @@ public static boolean last = true;
     public static boolean clawDoorState = false; 
   
         
-    //Hopper Comstants
+    //Hopper constants
     public static double processSpeed = 1.0;
     public static boolean processState = false;
     
