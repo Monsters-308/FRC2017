@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
-	SendableChooser autoChooser;
+	SendableChooser<Command> autoChooser = new SendableChooser<>();
     CameraServer server;
 
     public static OI oi;
@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
     public static Lights lights = new Lights();
     public static Pneumatics pneumatics = new Pneumatics();
    
-    SendableChooser<Command> chooser = new SendableChooser<>();
+    
 
     public static final Vision vision = new Vision();
 
@@ -58,7 +58,6 @@ public class Robot extends IterativeRobot {
         // pointers. Bad news. Don't move it.
         oi = new OI();
 
-    	autoChooser = new SendableChooser();
 		autoChooser.addDefault("Do Nothing", new AutonomousDoNothing());
 		autoChooser.addObject("Drive Forward", new AutonomousDoNothing());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
@@ -69,7 +68,7 @@ public class Robot extends IterativeRobot {
 		server.addAxisCamera("Rear", "169.254.44.183");
 		server.startAutomaticCapture();
 		
- //       autonomousCommand = new AutonomousCommand(); MG remove after autoChooser works
+		//autonomousCommand = new AutonomousCommand(); MG remove after autoChooser works
 
 
         // sets of Preferences on smart dash board
@@ -178,7 +177,6 @@ public class Robot extends IterativeRobot {
      * It add all kind of components to the LiveWindow
      */
     public void initLiveWindow() {
-        //TODO Add other componets to LiveWindow
         LiveWindow.addActuator("GearDelivery", " Gear Solenoid 1", RobotMap.gearDeliverySolenoid_1);
         LiveWindow.addActuator("GearDelivery", "Gear Solenoid 2", RobotMap.gearDeliverySolenoid_2);
     }
