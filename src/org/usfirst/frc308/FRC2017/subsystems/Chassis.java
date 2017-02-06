@@ -48,7 +48,7 @@ public class Chassis extends PIDSubsystem {
 	Timer settledTimer = new Timer();
 	private double settledPos = 0;
 
-	BuiltInAccelerometer accel;
+//	BuiltInAccelerometer accel;
 
   
  
@@ -58,7 +58,7 @@ public class Chassis extends PIDSubsystem {
 		getPIDController().setContinuous(true);
 		getPIDController().setInputRange(-180, 180);
 		getPIDController().setOutputRange(-1.0, 1.0);	
-		accel = new BuiltInAccelerometer();
+//		accel = new BuiltInAccelerometer();
   		gyro.calibrate();
    	}
  	 
@@ -175,7 +175,28 @@ public class Chassis extends PIDSubsystem {
 			settledPos = 0;
 		}
 		
+       public void setDrive(double left, double right) {
+			if (Math.abs(left) > 1.0) {
+				left /= Math.abs(left);
+			}
+			if (Math.abs(right) > 1.0) {
+				right /= Math.abs(right);
+			}
+			SmartDashboard.putNumber("left power", left);
+			SmartDashboard.putNumber("right power", right);
+			SmartDashboard.putNumber("pid turn", RobotConstants.gyroPIDOutput);
+			robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
+			                    (-(right - RobotConstants.gyroPIDOutput)), true);
+		}
+		
+   	public void resetEncoders() {
+		left1.setEncPosition(0);
+	}
 
+	public double getEncoderPosition() {
+		return left1.getEncPosition();
+	}	
+		
 	public int getLeftEncoderPosition() {
 			return left1.getEncPosition();
 		}

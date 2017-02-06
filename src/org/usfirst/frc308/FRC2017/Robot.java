@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.usfirst.frc308.FRC2017.commands.*;
 import org.usfirst.frc308.FRC2017.subsystems.*;
@@ -23,11 +24,11 @@ import edu.wpi.first.wpilibj.CameraServer;
  */
 public class Robot extends IterativeRobot {
 
-
+	Command autonomousCommand;
+	SendableChooser autoChooser;
     CameraServer server;
 
     public static OI oi;
-
     public static Chassis chassis = new Chassis();
     public static Intake intake = new Intake();
     public static GearDelivery gearDelivery = new GearDelivery();
@@ -36,8 +37,7 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter = new Shooter();
     public static Lights lights = new Lights();
     public static Pneumatics pneumatics = new Pneumatics();
-
-    Command autonomousCommand;
+   
     SendableChooser<Command> chooser = new SendableChooser<>();
 
     public static final Vision vision = new Vision();
@@ -58,11 +58,18 @@ public class Robot extends IterativeRobot {
         // pointers. Bad news. Don't move it.
         oi = new OI();
 
+    	autoChooser = new SendableChooser();
+		autoChooser.addDefault("Do Nothing", new AutonomousDoNothing());
+		autoChooser.addObject("Drive Forward", new AutonomousDoNothing());
+		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
+     
+                
         // instantiate the command used for the autonomous period
-        server = CameraServer.getInstance();
-
-
-        autonomousCommand = new AutonomousCommand();
+		server = CameraServer.getInstance();
+		server.addAxisCamera("Rear", "169.254.44.183");
+		server.startAutomaticCapture();
+		
+ //       autonomousCommand = new AutonomousCommand(); MG remove after autoChooser works
 
 
         // sets of Preferences on smart dash board
@@ -106,8 +113,11 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+    	// schedule the autonomous command 
+    	autonomousCommand = (Command) autoChooser.getSelected();
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
+		}
     }
 
     /**
