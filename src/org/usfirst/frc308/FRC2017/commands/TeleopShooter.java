@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class TeleopShooter extends Command {
 
 	//Used for Button Toggle Code
-	private boolean buttonShotterState = false;
+	private boolean buttonShooterState = false;
 	private Timer buttonShooterTimer= new Timer();
 	
 	public TeleopShooter() {
@@ -70,7 +70,7 @@ public class TeleopShooter extends Command {
 		}
 		
 		
-		//Opens shooter door to allow bal into shooter wheels
+		//Opens shooter door to allow bal1 into shooter wheels
 		
 		if(Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)){
 			Robot.shooter.Trigger(true);

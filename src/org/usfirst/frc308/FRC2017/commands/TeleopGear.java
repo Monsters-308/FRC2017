@@ -3,12 +3,15 @@ package org.usfirst.frc308.FRC2017.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
-
+import edu.wpi.first.wpilibj.Timer;
 /**
  *
  */
 public class TeleopGear extends Command {
-
+    private Timer extendTimer = new Timer();
+    private Timer closeTimer = new Timer();
+    private Timer doorTimer = new Timer();
+    private static boolean buttonExtendState = false;
 	public TeleopGear() {
 
 		requires(Robot.gearDelivery);

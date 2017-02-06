@@ -4,122 +4,66 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
  */
 public class TeleopIntake extends Command {
+	private boolean buttonIntakeState = false;
+	private Timer intakeTimer = new Timer();
 
+	public TeleopIntake() {
 
-    public TeleopIntake() {
+		requires(Robot.intake);
 
+	}
 
-        requires(Robot.intake);
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		Robot.intake.setupIntake();
+		RobotConstants.intakeMode = false;
+	}
 
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		// SmartDashboard.putBoolean("ALEX'S TEST", test);
+		// SmartDashboard.putBoolean("ALEX'S TEST2", out);
 
-    }
+		SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
+		SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)) {
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	Robot.intake.setupIntake();
-    	RobotConstants.intakeMode = false;
-    }
+			if (intakeTimer.get() == 0) {
+				if (RobotConstants.intakeMode == false) {
+					RobotConstants.intakeMode = true;
+					Robot.intake.setballmotor(RobotConstants.ballintakespeed);
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	
-    	//Debounce debounce = new Debounce(RobotConstants.initIntake);
-    	//boolean test = debounce.getValue();
-    	//boolean out = false;
-    	/**
-    	while(test){
-    		if(out){
-    			out = false;
-    		}
-    		else if(!out){
-    			out = true;
-    		}
-    	}
-    	while(!test){
-    		if(out){
-    			out = false;
-    		}
-    		else if(!out){
-    			out = true;
-    		}
-    	}
-    	**/
-    	
-    	//SmartDashboard.putBoolean("ALEX'S TEST", test);
-    	//SmartDashboard.putBoolean("ALEX'S TEST2", out);
-    	
-    	SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
-       	SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
-    	if(Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)){   
-    		if(RobotConstants.intakeMode == false){  
-    			RobotConstants.intakeMode = true;
-    			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
-    			
-//    			turn off shooter mode
-    			RobotConstants.processState = false;
-    			RobotConstants.shooterMode = false;
-    			Robot.shooter.setShootSpeed(0);
-    			Robot.processBalls.runProcess(0);
-    			}
-    		else{
-    			RobotConstants.intakeMode = false;
-    			Robot.intake.setballmotor(0);
-    		}  	
-    		
-    		
-    		
-    		
-//	    		if(RobotConstants.intakeMode == false){
-//	    			toggleIntake(true);
-//	    			}
-//	    		else{
-//	    			toggleIntake(false);
-//	    		}  
-    		}
-    
-  
-   /** 	if(Debounce.getInstance().Debounce(Robot.oi.joystick2, RobotConstants.initIntake, RobotConstants.last)){      		// MG fix missing brackets
-    		if(RobotConstants.intakeMode == false){  // MG fix = should be ==
-    			RobotConstants.intakeMode = true;
-    			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
-    			}
-    		else{
-    			RobotConstants.intakeMode = false;
-    			Robot.intake.setballmotor(0);
-    		}  // MG fix missing brackets
-    		}
-    */	
-    	
-    	Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
-    }
-    
-    public void toggleIntake(boolean intakeState){
-    	if(intakeState == false){  
-			RobotConstants.intakeMode = true;
-			Robot.intake.setballmotor(RobotConstants.ballintakespeed);
+					// Turn off shooter
+					Robot.shooter.setShootSpeed(0);
+					RobotConstants.shooterMode = false;
+				} else { // If the shooter mode was on then toggle off
+					Robot.intake.setballmotor(0);
+					RobotConstants.intakeMode = false;
+				}
+
+				// Start Timer to make sure the toggle happens only once
+				intakeTimer.start();
 			}
-		else{
-			RobotConstants.intakeMode = false;
-			Robot.intake.setballmotor(0);
-		}  
-    }
+		}
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }
