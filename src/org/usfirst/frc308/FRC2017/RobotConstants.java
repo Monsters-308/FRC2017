@@ -30,7 +30,7 @@ public class RobotConstants {
 
 
     //Vision
-
+    public static double cameraFieldOfView = 14.0; //in degrees
 
     //Driving
     public static boolean safetyEnabled = false;
@@ -84,9 +84,9 @@ public class RobotConstants {
     public static boolean processState = false;
     
     //Chassis Constants
-    public static boolean enablePID = false;
+    public static boolean enablePID = true;
     public static double Kp = 0.015; //0.012
-    public static double Ki = 0.000; //0.0025
+    public static double Ki = 0.002; //0.0025
     public static double Kd = 0.0;
     public static double iZone = 15.0;
     public static double maximumIZoneSpeed = 1.0;
