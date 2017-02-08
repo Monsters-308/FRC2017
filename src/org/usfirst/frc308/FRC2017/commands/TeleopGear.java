@@ -27,9 +27,24 @@ public class TeleopGear extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		if (extendTimer.get() == 0) {
+			if (RobotConstants.clawExtendState == false) {
+				RobotConstants.clawExtendState = true;
+				Robot.gearDelivery.extendClaw();
+
+			} else { // If the shooter mode was on then toggle off
+				Robot.gearDelivery.retractClaw();
+				RobotConstants.clawExtendState = false;
+			}
+
+			// Start Timer to make sure the toggle happens only once
+			extendTimer.start();
+		}
+	
+
 		
 			// if button to extend/retract claw is pressed
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
+	/**	if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
 			if (RobotConstants.clawExtendState == false) {
 				RobotConstants.clawExtendState = true;
 				Robot.gearDelivery.extendClaw();
@@ -38,7 +53,7 @@ public class TeleopGear extends Command {
 				Robot.gearDelivery.retractClaw();
 			}
 		}
-
+*/
 //		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
 //			if (RobotConstants.clawExtendState == true) {
 //				RobotConstants.clawExtendState = false;
@@ -47,7 +62,21 @@ public class TeleopGear extends Command {
 //		}
 
 		// if button to open/close claw is pressed
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
+		if (closeTimer.get() == 0) {
+			if (RobotConstants.clawOpenState == false) {
+				RobotConstants.clawOpenState = true;
+				Robot.gearDelivery.closeClaw();
+
+			} else { // If the shooter mode was on then toggle off
+				Robot.gearDelivery.openClaw();
+				RobotConstants.clawOpenState = false;
+			}
+
+			// Start Timer to make sure the toggle happens only once
+			extendTimer.start();
+		}
+		
+/**		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
 			if (RobotConstants.clawOpenState == false) {
 				RobotConstants.clawOpenState = true;
 				Robot.gearDelivery.openClaw();
@@ -56,7 +85,7 @@ public class TeleopGear extends Command {
 				Robot.gearDelivery.closeClaw();
 			}		
 		}
-
+*/
 //
 //		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
 //			if (RobotConstants.clawOpenState == true) {
@@ -66,7 +95,20 @@ public class TeleopGear extends Command {
 //		}
 
 		// if button to open/close passive assist doors is pressed
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
+		if (doorTimer.get() == 0) {
+			if (RobotConstants.clawDoorState == false) {
+				RobotConstants.clawDoorState = true;
+				Robot.gearDelivery.closeClawDoor();
+
+			} else { // If the shooter mode was on then toggle off
+				Robot.gearDelivery.openClawDoor();
+				RobotConstants.clawDoorState = false;
+			}
+
+			// Start Timer to make sure the toggle happens only once
+			extendTimer.start();
+		}
+		/**if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
 			if (RobotConstants.clawDoorState == false) {
 				RobotConstants.clawDoorState = true;
 				Robot.gearDelivery.openClawDoor();
@@ -77,10 +119,11 @@ public class TeleopGear extends Command {
 			if (RobotConstants.clawDoorState == true) {
 				RobotConstants.clawDoorState = false;
 				Robot.gearDelivery.closeClawDoor();
+				*/
 			}
-		}
+		
 
-	}
+	
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
