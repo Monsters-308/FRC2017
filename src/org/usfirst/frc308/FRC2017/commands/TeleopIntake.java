@@ -51,6 +51,17 @@ public class TeleopIntake extends Command {
 				intakeTimer.start();
 			}
 		}
+
+		// If the buttonShooterTimer is greater than value then reset it
+		// Note: Tune the value to better timing of when the button is pressed
+		// and the next pressed
+		if (intakeTimer.get() >= .4)
+
+		{
+			System.out.println("In Reset Timer Code");
+			intakeTimer.stop();
+			intakeTimer.reset();
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -9,16 +9,15 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
 //Needed for Button Toggle Code
 import edu.wpi.first.wpilibj.Timer;
 
-
 /**
  *
  */
 public class TeleopShooter extends Command {
 
-	//Used for Button Toggle Code
+	// Used for Button Toggle Code
 	private boolean buttonShooterState = false;
-	private Timer buttonShooterTimer= new Timer();
-	
+	private Timer buttonShooterTimer = new Timer();
+
 	public TeleopShooter() {
 
 		requires(Robot.shooter);
@@ -36,53 +35,44 @@ public class TeleopShooter extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		// if button A is pressed
-    	SmartDashboard.putBoolean("shoot mode ", RobotConstants.shooterMode);
-       	SmartDashboard.putBoolean("shoot start ", Robot.oi.joystick1.getRawButton(RobotConstants.initShooter));
- 
-       	
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
-			
-			if (buttonShooterTimer.get() == 0 ) {
-			     if (RobotConstants.shooterMode == false) { 
-					 RobotConstants.shooterMode = true;
-					 Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
-					 
-					 // Turn off intake
-					 Robot.intake.setballmotor(0);  
-					 RobotConstants.intakeMode = false;
-			     } 
-			     else { // If the shooter mode was on then toggle off
-			    	 Robot.shooter.setShootSpeed(0);
-			    	 RobotConstants.shooterMode = false;
-			     }
-			     
-			     //Start Timer to make sure the toggle happens only once
-			     buttonShooterTimer.start();   
-			}   
+		SmartDashboard.putBoolean("shoot mode ", RobotConstants.shooterMode);
+		SmartDashboard.putBoolean("shoot start ", Robot.oi.joystick1.getRawButton(RobotConstants.initShooter));
+
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)) {
+
+			if (buttonShooterTimer.get() == 0) {
+				if (RobotConstants.shooterMode == false) {
+					RobotConstants.shooterMode = true;
+					Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
+
+					// Turn off intake
+					Robot.intake.setballmotor(0);
+					RobotConstants.intakeMode = false;
+				} else { // If the shooter mode was on then toggle off
+					Robot.shooter.setShootSpeed(0);
+					RobotConstants.shooterMode = false;
+				}
+
+				// Start Timer to make sure the toggle happens only once
+				buttonShooterTimer.start();
+			}
 		}
-		
+
 		// If the buttonShooterTimer is greater than value then reset it
-		// Note: Tune the value to better timing of when the button is pressed and the next pressed
+		// Note: Tune the value to better timing of when the button is pressed
+		// and the next pressed
 		if (buttonShooterTimer.get() >= .4) {
 			System.out.println("In Reset Timer Code");
 			buttonShooterTimer.stop();
 			buttonShooterTimer.reset();
 		}
-		
-		
-		//Opens shooter door to allow bal1 into shooter wheels
-		
-		if(Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)){
+
+		// Opens shooter door to allow bal1 into shooter wheels
+
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)) {
 			Robot.shooter.Trigger(true);
 		}
 	}
-	
-
-	/**
-	 * if (Robot.oi.joystick2.getRawButton(RobotConstants.initShooter)) {
-	 * Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed); } else //
-	 * else setShootPower 0 { Robot.shooter.setShootSpeed(0);
-	 */
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {

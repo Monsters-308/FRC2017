@@ -10,9 +10,9 @@ import java.util.Timer;
  *
  */
 public class TeleopProcess extends Command {
-	
-	Timer FeedBall = new Timer(); 
-    
+
+	Timer FeedBall = new Timer();
+
 	public TeleopProcess() {
 
 		requires(Robot.processBalls);
@@ -20,29 +20,28 @@ public class TeleopProcess extends Command {
 	}
 
 	// Called just before this Command runs the first time
-	//Sets processor talon to voltage mode
+	// Sets processor talon to voltage mode
 	protected void initialize() {
-	//	Robot.processBalls.setupProcess();
+		// Robot.processBalls.setupProcess();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	// Activates ball processor while shooting
 	protected void execute() {
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)){
-			if(RobotConstants.processState == false){
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)) {
+			if (RobotConstants.processState == false) {
 				RobotConstants.processState = true;
 				Robot.processBalls.runProcess(RobotConstants.processSpeed);
-			}
-			else{
+			} else {
 				RobotConstants.processState = false;
 				Robot.processBalls.runProcess(0);
 			}
 		}
-		   
-	//		                                 // MG need to use timer
-		                                    // sleep with crash roborio
-	//		Robot.processBalls.runProcess(RobotConstants.processSpeed);
-}
+
+		// // MG need to use timer
+		// sleep with crash roborio
+		// Robot.processBalls.runProcess(RobotConstants.processSpeed);
+	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {

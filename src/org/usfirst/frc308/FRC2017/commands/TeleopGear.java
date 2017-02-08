@@ -4,14 +4,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 import edu.wpi.first.wpilibj.Timer;
+
 /**
  *
  */
 public class TeleopGear extends Command {
-    private Timer extendTimer = new Timer();
-    private Timer closeTimer = new Timer();
-    private Timer doorTimer = new Timer();
-    private static boolean buttonExtendState = false;
+	private Timer extendTimer = new Timer();
+	private Timer closeTimer = new Timer();
+	private Timer doorTimer = new Timer();
+	private static boolean buttonExtendState = false;
+
 	public TeleopGear() {
 
 		requires(Robot.gearDelivery);
@@ -27,6 +29,7 @@ public class TeleopGear extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		// if button to extend/retract claw is pressed
 		if (extendTimer.get() == 0) {
 			if (RobotConstants.clawExtendState == false) {
 				RobotConstants.clawExtendState = true;
@@ -40,26 +43,11 @@ public class TeleopGear extends Command {
 			// Start Timer to make sure the toggle happens only once
 			extendTimer.start();
 		}
-	
-
-		
-			// if button to extend/retract claw is pressed
-	/**	if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
-			if (RobotConstants.clawExtendState == false) {
-				RobotConstants.clawExtendState = true;
-				Robot.gearDelivery.extendClaw();
-			} else {
-				RobotConstants.clawExtendState = false;
-				Robot.gearDelivery.retractClaw();
-			}
+		if (extendTimer.get() >= .4) {
+			System.out.println("In Reset Timer Code");
+			extendTimer.stop();
+			extendTimer.reset();
 		}
-*/
-//		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
-//			if (RobotConstants.clawExtendState == true) {
-//				RobotConstants.clawExtendState = false;
-//				Robot.gearDelivery.retractClaw();
-//			}
-//		}
 
 		// if button to open/close claw is pressed
 		if (closeTimer.get() == 0) {
@@ -73,26 +61,13 @@ public class TeleopGear extends Command {
 			}
 
 			// Start Timer to make sure the toggle happens only once
-			extendTimer.start();
+			closeTimer.start();
 		}
-		
-/**		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
-			if (RobotConstants.clawOpenState == false) {
-				RobotConstants.clawOpenState = true;
-				Robot.gearDelivery.openClaw();
-			} else {
-				RobotConstants.clawOpenState = false;
-				Robot.gearDelivery.closeClaw();
-			}		
+		if (closeTimer.get() >= .4) {
+			System.out.println("In Reset Timer Code");
+			closeTimer.stop();
+			closeTimer.reset();
 		}
-*/
-//
-//		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
-//			if (RobotConstants.clawOpenState == true) {
-//				RobotConstants.clawOpenState = false;
-//				Robot.gearDelivery.closeClaw();
-//			}
-//		}
 
 		// if button to open/close passive assist doors is pressed
 		if (doorTimer.get() == 0) {
@@ -106,24 +81,15 @@ public class TeleopGear extends Command {
 			}
 
 			// Start Timer to make sure the toggle happens only once
-			extendTimer.start();
+			doorTimer.start();
 		}
-		/**if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
-			if (RobotConstants.clawDoorState == false) {
-				RobotConstants.clawDoorState = true;
-				Robot.gearDelivery.openClawDoor();
-			}
+		if (doorTimer.get() >= .4) {
+			System.out.println("In Reset Timer Code");
+			doorTimer.stop();
+			doorTimer.reset();
 		}
 
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
-			if (RobotConstants.clawDoorState == true) {
-				RobotConstants.clawDoorState = false;
-				Robot.gearDelivery.closeClawDoor();
-				*/
-			}
-		
-
-	
+	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
