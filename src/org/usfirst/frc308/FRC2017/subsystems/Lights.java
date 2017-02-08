@@ -20,6 +20,7 @@ public class Lights extends Subsystem {
 
 
         setDefaultCommand(new TeleopLights());
+        
 
 
         // Set the default command for a subsystem here.

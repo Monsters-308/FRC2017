@@ -30,19 +30,20 @@ public class TeleopGear extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		// if button to extend/retract claw is pressed
-		if (extendTimer.get() == 0) {
-			if (RobotConstants.clawExtendState == false) {
-				RobotConstants.clawExtendState = true;
-				Robot.gearDelivery.extendClaw();
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton))
+			if (extendTimer.get() == 0) {
+				if (RobotConstants.clawExtendState == false) {
+					RobotConstants.clawExtendState = true;
+					Robot.gearDelivery.extendClaw();
 
-			} else { // If the shooter mode was on then toggle off
-				Robot.gearDelivery.retractClaw();
-				RobotConstants.clawExtendState = false;
+				} else { // If the shooter mode was on then toggle off
+					Robot.gearDelivery.retractClaw();
+					RobotConstants.clawExtendState = false;
+				}
+
+				// Start Timer to make sure the toggle happens only once
+				extendTimer.start();
 			}
-
-			// Start Timer to make sure the toggle happens only once
-			extendTimer.start();
-		}
 		if (extendTimer.get() >= .4) {
 			System.out.println("In Reset Timer Code");
 			extendTimer.stop();
@@ -50,19 +51,20 @@ public class TeleopGear extends Command {
 		}
 
 		// if button to open/close claw is pressed
-		if (closeTimer.get() == 0) {
-			if (RobotConstants.clawOpenState == false) {
-				RobotConstants.clawOpenState = true;
-				Robot.gearDelivery.closeClaw();
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton))
+			if (closeTimer.get() == 0) {
+				if (RobotConstants.clawOpenState == false) {
+					RobotConstants.clawOpenState = true;
+					Robot.gearDelivery.openClaw();
 
-			} else { // If the shooter mode was on then toggle off
-				Robot.gearDelivery.openClaw();
-				RobotConstants.clawOpenState = false;
+				} else { // If the shooter mode was on then toggle off
+					Robot.gearDelivery.closeClaw();
+					RobotConstants.clawOpenState = false;
+				}
+
+				// Start Timer to make sure the toggle happens only once
+				closeTimer.start();
 			}
-
-			// Start Timer to make sure the toggle happens only once
-			closeTimer.start();
-		}
 		if (closeTimer.get() >= .4) {
 			System.out.println("In Reset Timer Code");
 			closeTimer.stop();
@@ -70,19 +72,20 @@ public class TeleopGear extends Command {
 		}
 
 		// if button to open/close passive assist doors is pressed
-		if (doorTimer.get() == 0) {
-			if (RobotConstants.clawDoorState == false) {
-				RobotConstants.clawDoorState = true;
-				Robot.gearDelivery.closeClawDoor();
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton))
+			if (doorTimer.get() == 0) {
+				if (RobotConstants.clawDoorState == false) {
+					RobotConstants.clawDoorState = true;
+					Robot.gearDelivery.closeClawDoor();
 
-			} else { // If the shooter mode was on then toggle off
-				Robot.gearDelivery.openClawDoor();
-				RobotConstants.clawDoorState = false;
+				} else { // If the shooter mode was on then toggle off
+					Robot.gearDelivery.openClawDoor();
+					RobotConstants.clawDoorState = false;
+				}
+
+				// Start Timer to make sure the toggle happens only once
+				doorTimer.start();
 			}
-
-			// Start Timer to make sure the toggle happens only once
-			doorTimer.start();
-		}
 		if (doorTimer.get() >= .4) {
 			System.out.println("In Reset Timer Code");
 			doorTimer.stop();
