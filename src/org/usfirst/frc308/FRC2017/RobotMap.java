@@ -43,7 +43,7 @@ public class RobotMap {
 	public static CANTalon shooterCANTalon_1 = new CANTalon(10);
 	public static Compressor pneumaticsCompressor = new Compressor();
 	public static ADXRS450_Gyro spiGyro_1 = new ADXRS450_Gyro();
-	public static DigitalOutput gearExtendLights;
-	public static DigitalOutput gearClawLights;
-	public static DigitalOutput intakeLights;
+	public static DigitalOutput gearExtendLights = new DigitalOutput(0);
+	public static DigitalOutput gearClawLights = new DigitalOutput(1);
+	public static DigitalOutput intakeLights = new DigitalOutput(2);
 }
