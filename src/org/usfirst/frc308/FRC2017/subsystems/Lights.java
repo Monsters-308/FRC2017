@@ -13,16 +13,24 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  */
 public class Lights extends Subsystem {
 
-	DigitalOutput gearExtendLights = RobotMap.gearExtendLights;
+	//DigitalOutput gearExtendLights = RobotMap.gearExtendLights;
 	DigitalOutput intakeLights = RobotMap.intakeLights;
-	DigitalOutput gearClawLights = RobotMap.gearClawLights;
+	//DigitalOutput gearClawLights = RobotMap.gearClawLights;
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
 	// Toggles lights for gear handler
-
-	public void gearExtendLights(boolean green, boolean off) {
+	public void testIntakeLights(){
+		intakeLights.set(true);
+		System.out.println("Intake mode is on");
+	}
+	
+	public void disableIntakeLights(){
+		intakeLights.set(false);
+		System.out.println("Intake mode is off");
+	}
+/**	public void gearExtendLights(boolean green, boolean off) {
 		gearExtendLights.set(green);
 		gearExtendLights.set(off);
 	}
@@ -36,7 +44,7 @@ public class Lights extends Subsystem {
 		intakeLights.set(green);
 		intakeLights.set(off);
 	}
-
+*/
 	public void initDefaultCommand() {
 
 		setDefaultCommand(new TeleopLights());
