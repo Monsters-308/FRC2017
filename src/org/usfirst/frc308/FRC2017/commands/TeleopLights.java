@@ -21,14 +21,14 @@ public class TeleopLights extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(RobotConstants.intakeMode == true){
-			Robot.lights.testIntakeLights();
-		}else{
-			Robot.lights.disableIntakeLights();
-		}
+		//if(RobotConstants.intakeMode == true){
+		//	Robot.lights.intakeLights();
+		//}else{
+		//	Robot.lights.disableIntakeLights();
+		//}
 			
 		
-		/**
+		
 		// Extending lights are solid if claw is up
 		if (RobotConstants.clawExtendState == true) {
 			Robot.lights.gearExtendLights(true, true);
@@ -64,7 +64,7 @@ public class TeleopLights extends Command {
 			}
 		}
 		
-	*/
+	
 	}
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
