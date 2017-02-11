@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalOutput;
-//import edu.wpi.first.wpilibj.RobotDrive;
 import de.codeteddy.robotics.first.AdvancedRobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.CANTalon;
@@ -28,8 +27,7 @@ public class RobotMap {
 	public static CANTalon chassisCANTalon_4 = new CANTalon(4);
 	public static CANTalon chassisCANTalon_5 = new CANTalon(5);
 	public static CANTalon chassisCANTalon_6 = new CANTalon(6);
-	public static AdvancedRobotDrive chassisRobotDrive6 = new AdvancedRobotDrive(chassisCANTalon_1, chassisCANTalon_2,
-			chassisCANTalon_3, chassisCANTalon_4, chassisCANTalon_5, chassisCANTalon_6);
+	public static AdvancedRobotDrive chassisRobotDrive6 = new AdvancedRobotDrive(chassisCANTalon_1, chassisCANTalon_2, chassisCANTalon_3, chassisCANTalon_4, chassisCANTalon_5, chassisCANTalon_6);
 	public static AnalogGyro chassisAnalogGyro1;
 	public static CANTalon intakeCANTalon_Ball_1 = new CANTalon(15);
 	public static CANTalon intakeCANTalon_Ball_2 = new CANTalon(16);

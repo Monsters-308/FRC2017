@@ -17,7 +17,7 @@ public class GearDelivery extends Subsystem {
 
     private final Solenoid extendClaw = RobotMap.gearDeliverySolenoid_1;
     private final Solenoid closeClaw = RobotMap.gearDeliverySolenoid_2;
-    private final Solenoid clawDoor = RobotMap.gearDeliverySolenoid_3; 
+    private final Solenoid clawDoor = RobotMap.gearDeliverySolenoid_3;
 
 
     // Put methods for controlling this subsystem
@@ -26,46 +26,46 @@ public class GearDelivery extends Subsystem {
     public void initDefaultCommand() {
 
 
-     setDefaultCommand(new TeleopGear());
+        setDefaultCommand(new TeleopGear());
 
 
     }
-    
+
     public void extendClaw() {
-		// 
-		// extends claw
-		Robot.gearDelivery.extendClaw.set(true);
-	}
-    
+        //
+        // extends claw
+        Robot.gearDelivery.extendClaw.set(true);
+    }
+
     public void retractClaw() {
-		// 
-		// retracts claw
-		Robot.gearDelivery.extendClaw.set(false);
-	}
-    
+        //
+        // retracts claw
+        Robot.gearDelivery.extendClaw.set(false);
+    }
+
     public void openClaw() {
-		// 
-		// opens claw
-		Robot.gearDelivery.closeClaw.set(true);
-	}
-    
+        //
+        // opens claw
+        Robot.gearDelivery.closeClaw.set(true);
+    }
+
     public void closeClaw() {
-		// 
-		// closes claw
-		Robot.gearDelivery.closeClaw.set(false);
-	}
-    
+        //
+        // closes claw
+        Robot.gearDelivery.closeClaw.set(false);
+    }
+
     public void openClawDoor() {
-		// 
-		// opens passive assist doors
-		Robot.gearDelivery.clawDoor.set(true);
-	}
-    
+        //
+        // opens passive assist doors
+        Robot.gearDelivery.clawDoor.set(true);
+    }
+
     public void closeClawDoor() {
-		// 
-		// closes passive assist doors
-		Robot.gearDelivery.clawDoor.set(false);
-	}
- 
+        //
+        // closes passive assist doors
+        Robot.gearDelivery.clawDoor.set(false);
+    }
+
 }
 

@@ -16,28 +16,25 @@ public class Pneumatics extends Subsystem {
     private final Compressor compressor = RobotMap.pneumaticsCompressor;
 
 
-
-
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
- 
+
 
         setDefaultCommand(new TeleopPneumatics());
-
 
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
     }
-    
-    public void stopCompressor(){
-    	compressor.stop();
+
+    public void stopCompressor() {
+        compressor.stop();
     }
-    
-    public void startCompressor(){
-    	compressor.start();
+
+    public void startCompressor() {
+        compressor.start();
     }
 }
 

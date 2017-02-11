@@ -13,25 +13,25 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  */
 public class Climb extends Subsystem {
 
-	private final CANTalon climb = RobotMap.climbCANTalon;
+    private final CANTalon climb = RobotMap.climbCANTalon;
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
 
-	public void initDefaultCommand() {
+    public void initDefaultCommand() {
 
-		setDefaultCommand(new TeleopClimb());
+        setDefaultCommand(new TeleopClimb());
 
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
-	}
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
 
-	public void setupClimb() {
-		climb.changeControlMode(TalonControlMode.PercentVbus);// MG changed to  PercentVbus
-	}
-	
-	public void climbRope(double climbSpeed){
-		climb.set(climbSpeed);
-	}
+    public void setupClimb() {
+        climb.changeControlMode(TalonControlMode.PercentVbus);// MG changed to  PercentVbus
+    }
+
+    public void climbRope(double climbSpeed) {
+        climb.set(climbSpeed);
+    }
 
 }

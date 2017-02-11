@@ -23,296 +23,222 @@ import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
 /**
- * 
+ *
  *
  */
 
 public class Chassis extends PIDSubsystem {
-		
-	private final CANTalon left1 = RobotMap.chassisCANTalon_1;
-	private final CANTalon left2 = RobotMap.chassisCANTalon_2;
-	private final CANTalon left3 = RobotMap.chassisCANTalon_3;
-	private final CANTalon right1 = RobotMap.chassisCANTalon_4;
-	private final CANTalon right2 = RobotMap.chassisCANTalon_5;
-	private final CANTalon right3 = RobotMap.chassisCANTalon_6;
-	private final AdvancedRobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
+
+    private final CANTalon left1 = RobotMap.chassisCANTalon_1;
+    private final CANTalon left2 = RobotMap.chassisCANTalon_2;
+    private final CANTalon left3 = RobotMap.chassisCANTalon_3;
+    private final CANTalon right1 = RobotMap.chassisCANTalon_4;
+    private final CANTalon right2 = RobotMap.chassisCANTalon_5;
+    private final CANTalon right3 = RobotMap.chassisCANTalon_6;
+    private final AdvancedRobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
-    Timer setPointTimer =  new Timer();
-	
+    Timer setPointTimer = new Timer();
+
     private boolean turning = true;
-	    
-	// PID Stuff
-	double IAccumulator = 0.0; // the sum of error over time
-	double lastError = 0.0;
-	double error = 0;
-	Timer settledTimer = new Timer();
-	private double settledPos = 0;
+
+    // PID Stuff
+    double IAccumulator = 0.0; // the sum of error over time
+    double lastError = 0.0;
+    double error = 0;
+    Timer settledTimer = new Timer();
+    private double settledPos = 0;
 
 //	BuiltInAccelerometer accel;
 
-  
- 
- 	public Chassis(){
-		super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
-		setAbsoluteTolerance(RobotConstants.gyroPIDErrorTolerance);
-		getPIDController().setContinuous(true);
-		getPIDController().setInputRange(-180, 180);
-		getPIDController().setOutputRange(-1.0, 1.0);	
+
+    public Chassis() {
+        super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
+        setAbsoluteTolerance(RobotConstants.gyroPIDErrorTolerance);
+        getPIDController().setContinuous(true);
+        getPIDController().setInputRange(-180, 180);
+        getPIDController().setOutputRange(-1.0, 1.0);
 //		accel = new BuiltInAccelerometer();
-  		gyro.calibrate();
-   	}
- 	 
+        gyro.calibrate();
+    }
+
     protected double returnPIDInput() { // Set PID Input value
-       // Used - in code to create PID thread 
-       // Return your input value for the PID loop
-      return gyro.getAngle();
-     }
+        // Used - in code to create PID thread
+        // Return your input value for the PID loop
+        return gyro.getAngle();
+    }
 
     protected void usePIDOutput(double output) {  // Get PID Output value
-      // NOT Used - in code to create PID thread 
-      // Use output to drive your system, like a motor
-     RobotConstants.gyroPIDOutput = output + RobotConstants.Ki * IAccumulator;
-     }
- 	
- 	public void initDefaultCommand() {
- 		// Set the default command for a subsystem here.
- 		setDefaultCommand(new TeleopDrive());
- 	}
- 
-	public void setIAccumulator(double value) {
-		IAccumulator = value;
-	}
- 
- 	//Chassis setup
- 	public void setupDrive() {
- 		left1.changeControlMode(TalonControlMode.PercentVbus);
- 		left1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
- 		left2.changeControlMode(TalonControlMode.PercentVbus);
- 		left3.changeControlMode(TalonControlMode.PercentVbus);
- 		right1.changeControlMode(TalonControlMode.PercentVbus);
- 		right1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		right2.changeControlMode(TalonControlMode.PercentVbus);
-		right3.changeControlMode(TalonControlMode.PercentVbus);	
-		gyro.reset();
-		getPIDController().setSetpoint(0); // make setpoint current angle
-		getPIDController().enable();
-		IAccumulator = 0; // reset accumulator
-		settledTimer.start();
-	}
- 
- 
- 	
-     public void arcadeDrive(double forward, double turn) {
+        // NOT Used - in code to create PID thread
+        // Use output to drive your system, like a motor
+        RobotConstants.gyroPIDOutput = output + RobotConstants.Ki * IAccumulator;
+    }
 
- 		if (RobotConstants.enablePID == true )  { // use PID process
- 	   //IF user stops driving with the joystick 		
- 		if(turn == 0.0){
- 			if(turning == true){ //Code is called first time, when we stopped turning
- 				setPointTimer.start();
- 				RobotConstants.gyroPIDOutput = 0.0; //Reset PIDOutput to zero
- 				turning = false; 	//Set turning to false, because we are not turning any more
- 				System.out.println("first tie stop");	
- 			} else if (setPointTimer.get() != 0) {//If this isn't the first time
- 				if (setPointTimer.get() >= 1.0){  // Robot is moving straight
-  				   enablePID();
-				   gyro.reset();
-				   getPIDController().setSetpoint(0);
-				   setPointTimer.stop();
-				   setPointTimer.reset();
-				   double gyrotemp = gyro.getAngle();
- 				   System.out.println("drive straight settele");
- 				  System.out.println(setPointTimer.get());
- 			       System.out.println(gyrotemp);	
- 				   System.out.println(turn);	
- 			    }
- 			} else { // after initializing ** Driving straight using PID
-				turn = RobotConstants.gyroPIDOutput;
-				System.out.println("drive straight");
-				System.out.println(turn);
- 		    }
- 		    //ELSE the user is still commanding
- 		    // User is commanding a turn
- 		}	else if(turn != 0.0){
- 			disablePID();
-			setPointTimer.stop();
-			setPointTimer.reset();
-			turning = true; 		    
- 			//Reset angle
- 			System.out.println("in turn");
- 		}	
- 		robotDrive6.arcadeDrive(forward, turn); // PID controlled Drive
- 	} // End of BasicDrive PID Control
- 	// ELSE PID is Off 
- 	else 
- 	{ // use standard arcadeDrive
- 		System.out.println("standard drive");		
- 		robotDrive6.arcadeDrive(forward, turn);
- 	    }
-     } // End of PID enable loop 
- 	
-	public void disablePID() {
-		if (getPIDController().isEnabled()) {
-			IAccumulator = 0;
-			getPIDController().reset(); // disables and resets integral
-		}
-	}
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        setDefaultCommand(new TeleopDrive());
+    }
 
-	public void enablePID() {
-		if (!getPIDController().isEnabled()) {
-			gyro.reset();
-			IAccumulator = 0;
-			getPIDController().enable();
-			setSetpoint(0.0); 
-		}
-	}
- 	
-	/**
-	 * sets up the PID for rotate command
-	 */
-	public void setRotatePID(double angleSetPoint) {
-		gyro.reset(); // reset gyro so our angle is 0
-		getPIDController().setSetpoint(angleSetPoint);
-		IAccumulator = 0; // reset accumulator
-		settledTimer.reset();
-		settledPos = 0;
-	}
-		
-       public void setDrive(double left, double right) {
-			if (Math.abs(left) > 1.0) {
-				left /= Math.abs(left);
-			}
-			if (Math.abs(right) > 1.0) {
-				right /= Math.abs(right);
-			}
-			SmartDashboard.putNumber("left power", left);
-			SmartDashboard.putNumber("right power", right);
-			SmartDashboard.putNumber("pid turn", RobotConstants.gyroPIDOutput);
-			robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
-			                    (-(right - RobotConstants.gyroPIDOutput)), true);
-		}
-		
-   	public void resetEncoders() {
-		left1.setEncPosition(0);
-	}
+    public void setIAccumulator(double value) {
+        IAccumulator = value;
+    }
 
-	public double getEncoderPosition() {
-		return left1.getEncPosition();
-	}	
-		
-	public int getLeftEncoderPosition() {
-			return left1.getEncPosition();
-		}
-
-	public int getRightEncoderPosition() {
-			return right1.getEncPosition();
-		}
-
-	public double getGyroAngle() {
-			return gyro.getAngle();
-		}
-	
-	
-
- 	
- 	public double deadZone(double input){
- 		double d = Math.abs(input);
- 		if(d < RobotConstants.deadzone){
- 			return 0.0;
- 		}
- 		return input;
- 	}
- 
- 
- 	public void displayChasisData() {
-		SmartDashboard.putNumber("left enc", left1.getEncPosition());
-		SmartDashboard.putNumber("right enc", right1.getEncPosition());
-		SmartDashboard.putNumber("left enc speed", left1.getEncVelocity());
-		SmartDashboard.putNumber("right enc speed", right1.getEncVelocity());
-		SmartDashboard.putNumber("angle", gyro.getAngle());
-		SmartDashboard.putNumber("gyro setpoint", getSetpoint());
-		SmartDashboard.putNumber("gyro error", getPIDController().getError());
-		SmartDashboard.putNumber("IAcc", IAccumulator);
-	}
- 	
- 	/**
- 	 * This simple method is needed to let the robot turn automatically
- 	 * @author Alexander Kaschta
- 	 * @param amount turning angle in degrees --> how much the robot should turn
- 	 */
- 	public void autonomousRotate(double amount){
- 		//TODO: Implement function
- 	}
- 
- 	/** 	
- 	public double calcPID(){
- 		
- 		//Do all the calculations
- 		double error = 0.0 - gyro.getAngle();
- 		
- 		if (error < -180.0) {
-			while (error < -180.0) {
-				error += 360.0;
-			}
-		} else if (error > 180.0) {
-			while (error > 180.0) {
-				error -= 360.0;
-			}
-		}
- 		
- 		if (Math.abs(error) < RobotConstants.iZone
-				&& (RobotConstants.isTrajectory || error * lastError > 0)) {
-			IAccumulator += error;
-			if (RobotConstants.Kp * error + RobotConstants.Ki * IAccumulator > RobotConstants.maximumIZoneSpeed) {
-				IAccumulator = (RobotConstants.maximumIZoneSpeed - RobotConstants.Kp * error) / RobotConstants.Ki;
-			} else if (RobotConstants.Kp * error
-					+ RobotConstants.Ki * IAccumulator < -RobotConstants.maximumIZoneSpeed) {
-				IAccumulator = (-RobotConstants.maximumIZoneSpeed - RobotConstants.Kp * error) / RobotConstants.Ki;
-			}
-		} else {
-			IAccumulator = 0;
-		}
- 	return error + RobotConstants.Ki * IAccumulator;
- 	}
-*/ 		
-/**
-	//************* ALEX test code
-    private double PIDOutput = 0.0;
-    private double settledPos = 0;
- private boolean ready = true;
-	public void simpleDrive(double forward, double turn, boolean isAutonumous){
-		if(isAutonumous){
-			//Do that kind of code
-			if(ready == true){
-				//First run
-				gyro.reset();
-				
-				
-				ready = false;
-			}
-			else{
-				//After first run, always execute this code
-				double angle = gyro.getAngle();
-				robotDrive6.arcadeDrive(forward, -angle * 0.03);
-				Timer.delay(0.004); //Delay of 4 milliseconds
-			}
-			
-		}
-		else{
-			ready = true;
-			robotDrive6.arcadeDrive(forward, turn);
-		}
-	}
+    //Chassis setup
+    public void setupDrive() {
+        left1.changeControlMode(TalonControlMode.PercentVbus);
+        left1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        left2.changeControlMode(TalonControlMode.PercentVbus);
+        left3.changeControlMode(TalonControlMode.PercentVbus);
+        right1.changeControlMode(TalonControlMode.PercentVbus);
+        right1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        right2.changeControlMode(TalonControlMode.PercentVbus);
+        right3.changeControlMode(TalonControlMode.PercentVbus);
+        gyro.reset();
+        getPIDController().setSetpoint(0); // make setpoint current angle
+        getPIDController().enable();
+        IAccumulator = 0; // reset accumulator
+        settledTimer.start();
+    }
 
 
- 		//Do we use them?
- 		//robotDrive6.setSafetyEnabled(RobotConstants.safetyEnabled);
- 		//robotDrive6.setExpiration(RobotConstants.arcadeExpiration);
- 		//robotDrive6.setSensitivity(RobotConstants.arcadeSensitivity);
- 		//robotDrive6.setMaxOutput(RobotConstants.arcadeMaxOutput);
-	
-//********************** end of test code **************
-	
-**/
-	
- 
+    public void arcadeDrive(double forward, double turn) {
+
+        if (RobotConstants.enablePID == true) { // use PID process
+            //IF user stops driving with the joystick
+            if (turn == 0.0) {
+                if (turning == true) { //Code is called first time, when we stopped turning
+                    setPointTimer.start();
+                    RobotConstants.gyroPIDOutput = 0.0; //Reset PIDOutput to zero
+                    turning = false;    //Set turning to false, because we are not turning any more
+                    System.out.println("first tie stop");
+                } else if (setPointTimer.get() != 0) {//If this isn't the first time
+                    if (setPointTimer.get() >= 1.0) {  // Robot is moving straight
+                        enablePID();
+                        gyro.reset();
+                        getPIDController().setSetpoint(0);
+                        setPointTimer.stop();
+                        setPointTimer.reset();
+                        double gyrotemp = gyro.getAngle();
+                        System.out.println("drive straight settele");
+                        System.out.println(setPointTimer.get());
+                        System.out.println(gyrotemp);
+                        System.out.println(turn);
+                    }
+                } else { // after initializing ** Driving straight using PID
+                    turn = RobotConstants.gyroPIDOutput;
+                    System.out.println("drive straight");
+                    System.out.println(turn);
+                }
+                //ELSE the user is still commanding
+                // User is commanding a turn
+            } else if (turn != 0.0) {
+                disablePID();
+                setPointTimer.stop();
+                setPointTimer.reset();
+                turning = true;
+                //Reset angle
+                System.out.println("in turn");
+            }
+            robotDrive6.arcadeDrive(forward, turn); // PID controlled Drive
+        } // End of BasicDrive PID Control
+        // ELSE PID is Off
+        else { // use standard arcadeDrive
+            System.out.println("standard drive");
+            robotDrive6.arcadeDrive(forward, turn);
+        }
+    } // End of PID enable loop
+
+    public void disablePID() {
+        if (getPIDController().isEnabled()) {
+            IAccumulator = 0;
+            getPIDController().reset(); // disables and resets integral
+        }
+    }
+
+    public void enablePID() {
+        if (!getPIDController().isEnabled()) {
+            gyro.reset();
+            IAccumulator = 0;
+            getPIDController().enable();
+            setSetpoint(0.0);
+        }
+    }
+
+    /**
+     * sets up the PID for rotate command
+     */
+    public void setRotatePID(double angleSetPoint) {
+        gyro.reset(); // reset gyro so our angle is 0
+        getPIDController().setSetpoint(angleSetPoint);
+        IAccumulator = 0; // reset accumulator
+        settledTimer.reset();
+        settledPos = 0;
+    }
+
+    public void setDrive(double left, double right) {
+        if (Math.abs(left) > 1.0) {
+            left /= Math.abs(left);
+        }
+        if (Math.abs(right) > 1.0) {
+            right /= Math.abs(right);
+        }
+        SmartDashboard.putNumber("left power", left);
+        SmartDashboard.putNumber("right power", right);
+        SmartDashboard.putNumber("pid turn", RobotConstants.gyroPIDOutput);
+        robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
+                (-(right - RobotConstants.gyroPIDOutput)), true);
+    }
+
+    public void resetEncoders() {
+        left1.setEncPosition(0);
+    }
+
+    public double getEncoderPosition() {
+        return left1.getEncPosition();
+    }
+
+    public int getLeftEncoderPosition() {
+        return left1.getEncPosition();
+    }
+
+    public int getRightEncoderPosition() {
+        return right1.getEncPosition();
+    }
+
+    public double getGyroAngle() {
+        return gyro.getAngle();
+    }
+
+
+    public double deadZone(double input) {
+        double d = Math.abs(input);
+        if (d < RobotConstants.deadzone) {
+            return 0.0;
+        }
+        return input;
+    }
+
+
+    public void displayChasisData() {
+        SmartDashboard.putNumber("left enc", left1.getEncPosition());
+        SmartDashboard.putNumber("right enc", right1.getEncPosition());
+        SmartDashboard.putNumber("left enc speed", left1.getEncVelocity());
+        SmartDashboard.putNumber("right enc speed", right1.getEncVelocity());
+        SmartDashboard.putNumber("angle", gyro.getAngle());
+        SmartDashboard.putNumber("gyro setpoint", getSetpoint());
+        SmartDashboard.putNumber("gyro error", getPIDController().getError());
+        SmartDashboard.putNumber("IAcc", IAccumulator);
+    }
+
+    /**
+     * This simple method is needed to let the robot turn automatically
+     *
+     * @param amount turning angle in degrees --> how much the robot should turn
+     * @author Alexander Kaschta
+     */
+    public void autonomousRotate(double amount) {
+        //TODO: Implement function
+    }
+
+
+
 }
