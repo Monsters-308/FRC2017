@@ -83,7 +83,6 @@ public class AutonomousRotateToTarget extends Command {
 				}
 				else{
 					//Calculate off and readjusts
-					//PID?
 					
 					
 				}
