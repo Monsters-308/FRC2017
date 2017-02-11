@@ -53,16 +53,8 @@ public class OI {
 
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-        SmartDashboard.putData("TeleopDrive", new TeleopDrive());
-        SmartDashboard.putData("TeleopIntake", new TeleopIntake());
-        SmartDashboard.putData("TeleopGear", new TeleopGear());
-        SmartDashboard.putData("TeleopClimb", new TeleopClimb());
-        SmartDashboard.putData("TeleopProcess", new TeleopProcess());
-        SmartDashboard.putData("TeleopPneumatics", new TeleopPneumatics());
-        SmartDashboard.putData("TeleopShooter", new TeleopShooter());
-        SmartDashboard.putData("TeleopLights", new TeleopLights());
-        SmartDashboard.putData("TeleopVision", new TeleopVision());
+        SmartDashboard.putData("Distance Drive ", new AutonomousDistanceDrive(.4, 20));
+
 
 
     }

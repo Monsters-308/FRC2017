@@ -199,7 +199,11 @@ public class Chassis extends PIDSubsystem {
 
 	public void setRotatePIDstart(double angleSetPoint) {
 		enablePID();
+		double out;
 	    getPIDController().setSetpoint(angleSetPoint);
+	    System.out.println("PID Turn ");
+	    System.out.println(angleSetPoint);
+	    SmartDashboard.putNumber("turn out", RobotConstants.gyroPIDOutput);
 	    robotDrive6.arcadeDrive(0, RobotConstants.gyroPIDOutput);
     }
 		
