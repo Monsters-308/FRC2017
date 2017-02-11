@@ -54,7 +54,7 @@ public class AutonomousTrajectoryFollower extends Command {
 
         left.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
         right.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
-        Robot.chassis.setRotatePID(0);
+ //       Robot.chassis.setRotatePID(0);
         t = new Timer();
         t.schedule(new TimerTask() {
 
@@ -88,7 +88,7 @@ public class AutonomousTrajectoryFollower extends Command {
         timeout.reset();
 
         t.cancel();
-        Robot.chassis.setRotatePID(0.0);
+  //      Robot.chassis.setRotatePID(0.0);
         RobotConstants.isTrajectory = false;
     }
 

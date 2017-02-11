@@ -5,40 +5,39 @@ import org.usfirst.frc308.FRC2017.Robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AutonomousDistanceDrive extends Command {
+public class AutonomousTimedRotate extends Command {
 
 	double power;
-	double distanceinch;
-	double distancetorun;
-	
+	double timetorun;
+	Timer timer;
 	
 	/**
-	 * starts a command that drives robot until a specific distance is reached
+	 * starts a command that drives robot for a specific amount of time
 	 * @param motorpower the motor power to drive from -1.0 to 1.0
 	 * @param time how long to drive in seconds
 	 */
-	public AutonomousDistanceDrive(double motorpower, double distance_inch) {
-		// One rotation = 20 ticks =  2 pi r == 12.56 
-		// One inch = .628 ticks
+	public AutonomousTimedRotate(double motorpower, double time) {
 		power = motorpower;
-		distancetorun= .628 * distance_inch;
+		timetorun = time;
+		timer = new Timer();
 		requires(Robot.chassis);
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.chassis.setupDrive();
-		Robot.chassis.resetEncoders();
+		timer.start();
 	}
 
 	@Override
 	protected void execute() {
-		Robot.chassis.arcadeDrive(power, 0);
-		}
+		Robot.chassis.displayChasisData();
+		Robot.chassis.arcadeDrive(0, power);
+	}
 
 	@Override
 	protected boolean isFinished() {
-		if (Robot.chassis.getEncoderPosition() >= distancetorun) {
+		if (timer.get() >= timetorun) {
 			return true;
 		} else {
 			return false;
@@ -47,6 +46,7 @@ public class AutonomousDistanceDrive extends Command {
 
 	@Override
 	protected void end() {
+		timer.stop();
 		Robot.chassis.arcadeDrive(0, 0);
 	}
 
@@ -54,5 +54,5 @@ public class AutonomousDistanceDrive extends Command {
 	protected void interrupted() {
 		end();
 	}
-	
+
 }

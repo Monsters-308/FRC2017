@@ -24,8 +24,8 @@ import edu.wpi.first.wpilibj.CameraServer;
  */
 public class Robot extends IterativeRobot {
 
-	Command autonomousCommand;
-	SendableChooser<Command> autoChooser = new SendableChooser<>();
+    Command autonomousCommand;
+	SendableChooser<Command> autoChooser;
     CameraServer server;
 
     public static OI oi;
@@ -37,9 +37,6 @@ public class Robot extends IterativeRobot {
     public static Shooter shooter = new Shooter();
     public static Lights lights = new Lights();
     public static Pneumatics pneumatics = new Pneumatics();
-   
-    
-
     public static final Vision vision = new Vision();
 
 
@@ -58,9 +55,10 @@ public class Robot extends IterativeRobot {
         // pointers. Bad news. Don't move it.
         oi = new OI();
 
+        autoChooser = new SendableChooser();
 		autoChooser.addDefault("Do Nothing", new AutonomousDoNothing());
-		autoChooser.addObject("Drive Forward", new AutonomousDoNothing());
-		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
+		autoChooser.addObject("Drive Forward", new AutonomousDriveForward());
+		SmartDashboard.putData("Autonomous mode chooser", autoChooser);;
      
                 
         // instantiate the command used for the autonomous period

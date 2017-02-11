@@ -9,8 +9,12 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class AutonomousDriveForward extends CommandGroup {
 
     public AutonomousDriveForward() {
-        Robot.chassis.setRotatePID(0);
-        addSequential(new AutonomousDistanceDrive(0.1, 2.0));
+		System.out.println("Drive forward");
+		addSequential(new AutonomousDistanceDrive(0.3, 20)); // move 20" and 30% power
+		System.out.println("Turn");
+		addSequential(new AutonomousRotate(90, 3)); //rotate 90 degrees 3 sec timeout
+		System.out.println("Drive forward 2");
+		addSequential(new AutonomousDistanceDrive(0.3, 20)); // move 20" and 30% power
     }
 
 }
