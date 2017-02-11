@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class AutonomousDriveForward extends CommandGroup {
 
-	public AutonomousDriveForward() {
-		Robot.chassis.setRotatePID(0);
-		addSequential(new AutonomousDistanceDrive(0.1, 2.0));
-	}
+    public AutonomousDriveForward() {
+        Robot.chassis.setRotatePID(0);
+        addSequential(new AutonomousDistanceDrive(0.1, 2.0));
+    }
 
 }

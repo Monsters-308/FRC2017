@@ -16,85 +16,85 @@ import jaci.pathfinder.modifiers.TankModifier;
 
 public class AutonomousTrajectoryFollower extends Command {
 
-	edu.wpi.first.wpilibj.Timer timeout;
-	Timer t;
-	EncoderFollower left;
-	EncoderFollower right;
+    edu.wpi.first.wpilibj.Timer timeout;
+    Timer t;
+    EncoderFollower left;
+    EncoderFollower right;
 
-	public AutonomousTrajectoryFollower() {
-		requires(Robot.chassis);
-	}
+    public AutonomousTrajectoryFollower() {
+        requires(Robot.chassis);
+    }
 
-	@Override
-	protected void initialize() {
-		timeout = new edu.wpi.first.wpilibj.Timer();
-		timeout.start();
-		RobotConstants.isTrajectory = true;
-		Waypoint[] points = new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(25, 20, 0.9) };
+    @Override
+    protected void initialize() {
+        timeout = new edu.wpi.first.wpilibj.Timer();
+        timeout.start();
+        RobotConstants.isTrajectory = true;
+        Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(25, 20, 0.9)};
 
-		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
-				Trajectory.Config.SAMPLES_LOW, 0.05, 8.0, 2.0, 60.0);
-		Trajectory trajectory = Pathfinder.generate(points, config);
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
+                Trajectory.Config.SAMPLES_LOW, 0.05, 8.0, 2.0, 60.0);
+        Trajectory trajectory = Pathfinder.generate(points, config);
 
-		double wheelbase_width = 2.125;
+        double wheelbase_width = 2.125;
 
-		// Create the Modifier Object
-		TankModifier modifier = new TankModifier(trajectory);
+        // Create the Modifier Object
+        TankModifier modifier = new TankModifier(trajectory);
 
-		// Generate the Left and Right trajectories using the original
-		// trajectory
-		// as the center
-		modifier.modify(wheelbase_width);
+        // Generate the Left and Right trajectories using the original
+        // trajectory
+        // as the center
+        modifier.modify(wheelbase_width);
 
-		left = new EncoderFollower(modifier.getLeftTrajectory());
-		right = new EncoderFollower(modifier.getRightTrajectory());
+        left = new EncoderFollower(modifier.getLeftTrajectory());
+        right = new EncoderFollower(modifier.getRightTrajectory());
 
-		left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 1000, 7.5 / 12.0);
-		right.configureEncoder(-Robot.chassis.getRightEncoderPosition(), 1000, 7.5 / 12.0);
+        left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 1000, 7.5 / 12.0);
+        right.configureEncoder(-Robot.chassis.getRightEncoderPosition(), 1000, 7.5 / 12.0);
 
-		left.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
-		right.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
-		Robot.chassis.setRotatePID(0);
-		t = new Timer();
-		t.schedule(new TimerTask() {
+        left.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
+        right.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
+        Robot.chassis.setRotatePID(0);
+        t = new Timer();
+        t.schedule(new TimerTask() {
 
-			@Override
-			public void run() {
-				double l = left.calculate(Robot.chassis.getLeftEncoderPosition());
-				double r = right.calculate(-Robot.chassis.getRightEncoderPosition());
-				double desired_heading = Pathfinder.r2d(left.getHeading());
-				Robot.chassis.setSetpoint(desired_heading / 4.0);
-	//			Robot.chassis.setDrive(l, r);
-			}
-		}, 0, 50);
-	}
+            @Override
+            public void run() {
+                double l = left.calculate(Robot.chassis.getLeftEncoderPosition());
+                double r = right.calculate(-Robot.chassis.getRightEncoderPosition());
+                double desired_heading = Pathfinder.r2d(left.getHeading());
+                Robot.chassis.setSetpoint(desired_heading / 4.0);
+                //			Robot.chassis.setDrive(l, r);
+            }
+        }, 0, 50);
+    }
 
-	@Override
-	protected void execute() {
-		Robot.chassis.displayChasisData();
-	}
+    @Override
+    protected void execute() {
+        Robot.chassis.displayChasisData();
+    }
 
-	@Override
-	protected boolean isFinished() {
-		if (left.isFinished() || right.isFinished() || timeout.get() > 5.5) {
-			return true;
-		}
-		return false;
-	}
+    @Override
+    protected boolean isFinished() {
+        if (left.isFinished() || right.isFinished() || timeout.get() > 5.5) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	protected void end() {
-		timeout.stop();
-		timeout.reset();
-		
-		t.cancel();
-		Robot.chassis.setRotatePID(0.0);
-		RobotConstants.isTrajectory = false;
-	}
+    @Override
+    protected void end() {
+        timeout.stop();
+        timeout.reset();
 
-	@Override
-	protected void interrupted() {
-		end();
-	}
+        t.cancel();
+        Robot.chassis.setRotatePID(0.0);
+        RobotConstants.isTrajectory = false;
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
+    }
 
 }

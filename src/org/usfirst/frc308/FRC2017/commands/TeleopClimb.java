@@ -9,34 +9,34 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  */
 public class TeleopClimb extends Command {
 
-	public TeleopClimb() {
+    public TeleopClimb() {
 
-		requires(Robot.climb);
+        requires(Robot.climb);
 
-	}
+    }
 
-	// Called just before this Command runs the first time
-	protected void initialize() {
-		Robot.climb.setupClimb();
-	}
+    // Called just before this Command runs the first time
+    protected void initialize() {
+        Robot.climb.setupClimb();
+    }
 
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.climbButton))
-			Robot.climb.climbRope(RobotConstants.climbSpeed);
-	}
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+        if (Robot.oi.joystick1.getRawButton(RobotConstants.climbButton))
+            Robot.climb.climbRope(RobotConstants.climbSpeed);
+    }
 
-	// Make this return true when this Command no longer needs to run execute()
-	protected boolean isFinished() {
-		return false;
-	}
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+        return false;
+    }
 
-	// Called once after isFinished returns true
-	protected void end() {
-	}
+    // Called once after isFinished returns true
+    protected void end() {
+    }
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	protected void interrupted() {
-	}
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+    }
 }
