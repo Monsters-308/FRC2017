@@ -15,6 +15,7 @@ public class RobotConstants {
 	// right area. If no matches, you create your own one.
 
 	public static boolean last = true;
+	public static boolean isAutonomousAiming = false;
 
 	// Joystick 1 constants
 	public static boolean singleJoystick = true;

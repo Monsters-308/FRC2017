@@ -143,11 +143,12 @@ public class Chassis extends PIDSubsystem {
  		robotDrive6.arcadeDrive(forward, turn); // PID controlled Drive
  	} // End of BasicDrive PID Control
  	// ELSE PID is Off 
- 	else { // use standard arcadeDrive
-   System.out.println("standard drive");		
-   robotDrive6.arcadeDrive(forward, turn);
- 	     }
- 	} // End of PID enable loop 
+ 	else 
+ 	{ // use standard arcadeDrive
+ 		System.out.println("standard drive");		
+ 		robotDrive6.arcadeDrive(forward, turn);
+ 	    }
+     } // End of PID enable loop 
  	
 	public void disablePID() {
 		if (getPIDController().isEnabled()) {
@@ -161,19 +162,20 @@ public class Chassis extends PIDSubsystem {
 			gyro.reset();
 			IAccumulator = 0;
 			getPIDController().enable();
-			setSetpoint(0.0); }
+			setSetpoint(0.0); 
 		}
+	}
  	
-		/**
-		 * sets up the PID for rotate command
-		 */
-		public void setRotatePID(double angleSetPoint) {
-			gyro.reset(); // reset gyro so our angle is 0
-			getPIDController().setSetpoint(angleSetPoint);
-			IAccumulator = 0; // reset accumulator
-			settledTimer.reset();
-			settledPos = 0;
-		}
+	/**
+	 * sets up the PID for rotate command
+	 */
+	public void setRotatePID(double angleSetPoint) {
+		gyro.reset(); // reset gyro so our angle is 0
+		getPIDController().setSetpoint(angleSetPoint);
+		IAccumulator = 0; // reset accumulator
+		settledTimer.reset();
+		settledPos = 0;
+	}
 		
        public void setDrive(double left, double right) {
 			if (Math.abs(left) > 1.0) {
@@ -231,6 +233,15 @@ public class Chassis extends PIDSubsystem {
 		SmartDashboard.putNumber("gyro error", getPIDController().getError());
 		SmartDashboard.putNumber("IAcc", IAccumulator);
 	}
+ 	
+ 	/**
+ 	 * This simple method is needed to let the robot turn automatically
+ 	 * @author Alexander Kaschta
+ 	 * @param amount turning angle in degrees --> how much the robot should turn
+ 	 */
+ 	public void autonomousRotate(double amount){
+ 		//TODO: Implement function
+ 	}
  
  	/** 	
  	public double calcPID(){
