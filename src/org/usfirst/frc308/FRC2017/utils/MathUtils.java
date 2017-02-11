@@ -18,5 +18,16 @@ public class MathUtils {
         }
         return biggest;
     }
+	
+	/**
+	 * 
+	 * @author Alexander Kaschta
+	 * @param number1 
+	 * @param number2
+	 * @return the absolute diffrence between these two numbers
+	 */
+	public static double getDiffrence(double number1, double number2){
+		return Math.abs(number1 - number2);
+	}
 
 }

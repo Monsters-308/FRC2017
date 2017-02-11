@@ -29,7 +29,7 @@ public class AutonomousRotateToTarget extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return isFinished;
     }
 
     @Override
@@ -64,23 +64,69 @@ public class AutonomousRotateToTarget extends Command {
 		if(targets.length == 0){
 			//turn until you can see the target
 			
+			
 		}
 		else if(targets.length > 0){
 			//Target can be seen now
-			if(isInCenter())
-			{
-				//Done
+			
+			//Check if there is a biggest target
+			if(biggestTarget != -1){
+				
+				//Get X and Y values
+				double x = targets[biggestTarget];
+				double y = targets[biggestTarget];
+				
+				if(isInCenter(x, y))
+				{
+					//Done with rotating to the target
+					isFinished = true;
+				}
+				else{
+					//Calculate off and readjusts
+					//PID?
+					
+					
+				}
+				
 			}
 			else{
-				//Calculate off and readjusts
+				//Retry it
+				biggestTarget = MathUtils.getLargestIndex(targets3);
 			}
-			
+
 		}
 		
+		//If the robot didn't finished
+		if(isFinished == false){
+			//Restart
+			aim();
+		}
+		else{
+			//Your are now done with the whole process
+			//Enjoy it and do nothing
+		}
 		
     }
     
-    private boolean isInCenter(){
+    private boolean isInCenter(double x, double y){
+    	
+    	//Get the coordinates of the center of the camera
+    	int centerX = RobotConstants.x / 2;
+    	int centerY = RobotConstants.y / 2;
+    	
+    	//If the difference in x is smaller than the allowed tolerance
+    	if(MathUtils.getDiffrence(centerX, x) < RobotConstants.visionTolerance){
+    		//If the difference in y is smaller than the allowed tolerance
+    		
+    		
+    		return true;
+    		/**
+    		if(MathUtils.getDiffrence(centerY, y) < RobotConstants.visionTolerance){
+    			return true;
+    		}
+    		**/
+    	}
+    	
     	return false;
     }
 

@@ -30,6 +30,11 @@ public class RobotConstants {
 
 	// Vision
 	public static double cameraFieldOfView = 14.0; // in degrees
+	
+	//Vision --> Axis-Camera
+	public static int visionTolerance = 5; //Count in pixels
+	public static int x = 320; //Count in pixels
+	public static int y = 240; //Count in pixels
 
 	// Driving
 	public static boolean safetyEnabled = false;
@@ -97,6 +102,8 @@ public class RobotConstants {
 	public static double gyroPIDErrorTolerance = 1.0; // in degrees
 	public static boolean isTrajectory = false;
 
+	
+	
 	/**
 	 * FRC2016 Below this line
 	 * 
