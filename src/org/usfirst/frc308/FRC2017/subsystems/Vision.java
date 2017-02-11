@@ -20,16 +20,5 @@ public class Vision extends Subsystem {
 
     }
 
-    public int getLargestIndex(double[] input) {
-        if (input.length == 0) {
-            return -1;
-        }
-        int biggest = 0;
-        for (int i = 1; i < input.length; i++) {
-            if (input[i] > input[biggest]) {
-                biggest = i;
-            }
-        }
-        return biggest;
-    }
+    //Method moved to math-utils
 }
