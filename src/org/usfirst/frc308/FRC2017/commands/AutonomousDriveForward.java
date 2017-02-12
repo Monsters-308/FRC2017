@@ -11,7 +11,7 @@ public class AutonomousDriveForward extends CommandGroup {
     public AutonomousDriveForward() {
    	 SmartDashboard.putNumber("Drive forward", 0);
 		System.out.println("Drive forward");
-		addSequential(new AutonomousDistanceDrive(-0.6, 200)); // move 20" and 30% power
+		addSequential(new AutonomousDistanceDrive(-0.6, 300)); // move 20" and 30% power
 		SmartDashboard.putNumber("Turn", 0);
 		System.out.println("Turn");
 		addSequential(new AutonomousTimedRotate(.6,2)); //rotate 90 degrees 3 sec timeout

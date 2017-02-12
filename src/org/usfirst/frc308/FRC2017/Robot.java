@@ -26,7 +26,9 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
 	SendableChooser<Command> autoChooser;
-    CameraServer server;
+    SendableChooser startPositionChooser;
+    SendableChooser stopPositionChooser;
+	CameraServer server;
 
     public static OI oi;
     public static Chassis chassis = new Chassis();
@@ -58,8 +60,21 @@ public class Robot extends IterativeRobot {
         autoChooser = new SendableChooser();
 		autoChooser.addDefault("Do Nothing", new AutonomousDoNothing());
 		autoChooser.addObject("Drive Forward", new AutonomousDriveForward());
-		SmartDashboard.putData("Autonomous mode chooser", autoChooser);;
+		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
      
+		startPositionChooser = new SendableChooser();
+		startPositionChooser.addDefault("Start Position Left", 0);
+		startPositionChooser.addObject("Start Position Center", 1);
+		startPositionChooser.addObject("Start Position Right", 2);
+	    SmartDashboard.putData("Autonomous start position", startPositionChooser);
+		
+		stopPositionChooser = new SendableChooser();
+		stopPositionChooser.addDefault("Stop Position Left", 0);
+		stopPositionChooser.addObject("Stop Position Center", 1);
+		stopPositionChooser.addObject("Stop Position Right", 2);
+	    SmartDashboard.putData("Autonomous stop position", stopPositionChooser);
+		
+		
                 
         // instantiate the command used for the autonomous period
 		server = CameraServer.getInstance();
