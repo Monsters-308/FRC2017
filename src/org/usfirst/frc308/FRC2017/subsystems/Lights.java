@@ -19,22 +19,12 @@ public class Lights extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-
-    // Toggles lights for gear handler
-
-    public void gearExtendLights(boolean green, boolean off) {
-        gearExtendLights.set(green);
-        gearExtendLights.set(off);
+    public void setIntakeLights(){
+    	intakeLights.set(true);
     }
-
-    public void gearClawLights(boolean green, boolean off) {
-        gearClawLights.set(green);
-        gearClawLights.set(off);
-    }
-
-    public void modeSwitchLights(boolean green, boolean off) {
-        intakeLights.set(green);
-        intakeLights.set(off);
+    
+    public void disableIntakeLights(){
+    	intakeLights.set(false);
     }
 
     public void initDefaultCommand() {

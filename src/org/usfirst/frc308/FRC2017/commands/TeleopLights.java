@@ -1,5 +1,6 @@
 package org.usfirst.frc308.FRC2017.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
@@ -8,7 +9,7 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  *
  */
 public class TeleopLights extends Command {
-
+public Timer intakeLightTimer = new Timer();
     public TeleopLights() {
 
         requires(Robot.lights);
@@ -21,47 +22,31 @@ public class TeleopLights extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //if(RobotConstants.intakeMode == true){
-        //	Robot.lights.intakeLights();
-        //}else{
-        //	Robot.lights.disableIntakeLights();
-        //}
+    	if (RobotConstants.intakeMode == true) {
+			Robot.lights.setIntakeLights();
+			RobotConstants.intakeLightState = true;
+		} else {
+			if (RobotConstants.shooterMode == true) {
+				intakeLightTimer.start();
+				RobotConstants.intakeLightState = false;
+				Robot.lights.disableIntakeLights();
+				if (intakeLightTimer.get() > 500 && RobotConstants.intakeLightState == false) {
+					Robot.lights.setIntakeLights();
+					RobotConstants.intakeLightState = true;
+					intakeLightTimer.reset();
+				}else{
+					if(intakeLightTimer.get() > 500 && RobotConstants.intakeLightState == true){
+						Robot.lights.disableIntakeLights();
+						RobotConstants.intakeLightState = false;
+						intakeLightTimer.reset();
+					}else{
+						Robot.lights.disableIntakeLights();
+					}
+				}
+			}
+		}
 
-
-        // Extending lights are solid if claw is up
-        if (RobotConstants.clawExtendState == true) {
-            Robot.lights.gearExtendLights(true, true);
-            RobotConstants.extendLightState = true;
-        } else {
-
-            // Extend lights are flashing if claw is down
-            Robot.lights.gearClawLights(true, false);
-            RobotConstants.extendLightState = false;
-        }
-
-        // Claw lights are flashing if claw open
-        if (RobotConstants.clawOpenState == true) {
-            Robot.lights.gearExtendLights(true, true);
-            RobotConstants.clawLightState = true;
-        } else {
-
-            // Claw lights solid if claw closed
-            Robot.lights.gearClawLights(true, false);
-            RobotConstants.clawLightState = false;
-        }
-
-        // Mode-switch lights flashing if intake is active
-        if (RobotConstants.intakeMode == true) {
-            Robot.lights.modeSwitchLights(true, true);
-        } else {
-
-            // Mode-switch lights solid if shooter is active
-            if (RobotConstants.shooterMode == true) {
-                Robot.lights.modeSwitchLights(true, false);
-            } else {
-                Robot.lights.modeSwitchLights(false, false);
-            }
-        }
+  
 
 
     }
