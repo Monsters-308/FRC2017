@@ -32,12 +32,13 @@ public class RobotConstants {
     // need to setup 3 x 2 array
 
 	// Vision
-	public static double cameraFieldOfView = 14.0; // in degrees
 	
-	//Vision --> Axis-Camera
+	
+	//Vision --> Axis-Camera //TODO Needs to be changed when switching cameras
 	public static int visionTolerance = 5; //Count in pixels
 	public static int x = 320; //Count in pixels
 	public static int y = 240; //Count in pixels
+	public static double cameraFieldOfView = 14.0; // in degrees
 
 	// Driving
 	public static boolean safetyEnabled = false;
