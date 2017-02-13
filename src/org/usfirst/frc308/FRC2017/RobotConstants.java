@@ -27,6 +27,9 @@ public class RobotConstants {
 	public static int initShooter = 4;
 	public static int climbButton = 3;
 	public static int initIntake = 2;
+	
+	// Autonomous Drive profiles
+    // need to setup 3 x 2 array
 
 	// Vision
 	public static double cameraFieldOfView = 14.0; // in degrees
@@ -71,7 +74,10 @@ public class RobotConstants {
 	public static boolean intakeLightState = false;
 	public static boolean extendLightState = false;
 	public static boolean clawLightState = false;
-
+	public static boolean cameralightState = false;
+	public static double lightflashspeedlow = 3.0;
+	public static double lightflashspeedfast = 1.5;
+	
 	// Climbing constants
 	public static double climbSpeed = 1.0;
 

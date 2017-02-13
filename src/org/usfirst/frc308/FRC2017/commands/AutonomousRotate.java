@@ -33,9 +33,8 @@ public class AutonomousRotate extends Command {
 	protected void execute() {
 		Robot.chassis.displayChasisData();
 		System.out.println("Turn loop ");
-		Robot.chassis.setRotatePIDstart(setpointAngle * timer.get() / t);
-		Robot.chassis.setRotatePIDstop();
-	}
+		Robot.chassis.setRotatePID(setpointAngle * timer.get() / t);
+		}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
@@ -48,6 +47,7 @@ public class AutonomousRotate extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.chassis.setRotatePIDZero();
 	}
 
 	// Called when another command which requires one or more of the same

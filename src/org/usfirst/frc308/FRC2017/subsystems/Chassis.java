@@ -94,7 +94,7 @@ public class Chassis extends PIDSubsystem {
         getPIDController().setSetpoint(0); // make setpoint current angle
         getPIDController().enable();
         IAccumulator = 0; // reset accumulator
-        settledTimer.start();
+ //       settledTimer.start();  //not used
     }
 
 
@@ -196,7 +196,7 @@ public class Chassis extends PIDSubsystem {
         }
         return input;
     }
-
+/** Not used
 	public void setRotatePIDstart(double angleSetPoint) {
 		enablePID();
 		double out;
@@ -213,18 +213,31 @@ public class Chassis extends PIDSubsystem {
 		getPIDController().setSetpoint(0);
 	    robotDrive6.arcadeDrive(0, 0);
 	}
-
+*/
 	  /**
-     * sets up the PID for rotate command
+     * resets PID for to zero
      */
-  //public void setRotatePID(double angleSetPoint) {
- //     gyro.reset(); // reset gyro so our angle is 0
-  //    getPIDController().setSetpoint(angleSetPoint);
-  //    IAccumulator = 0; // reset accumulator
- //     settledTimer.reset();
- //     settledPos = 0;
- // }
-	
+  public void setRotatePIDZero() {
+      gyro.reset(); // reset gyro so our angle is 0
+      getPIDController().setSetpoint(0);
+      IAccumulator = 0; // reset accumulator
+     }
+  /**
+   * sets up the PID for rotate command
+   */
+  public void setRotatePID(double setpointAngle) {
+      gyro.reset(); // reset gyro so our angle is 0
+      getPIDController().setSetpoint(setpointAngle);
+      if (setpointAngle >= 0) {
+		setIAccumulator((0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+	  } else if (setpointAngle < 0) {
+		setIAccumulator((-0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+	  }
+     }
+  
+  
+  
+  
     public void displayChasisData() {
         SmartDashboard.putNumber("left enc", left1.getEncPosition());
         SmartDashboard.putNumber("right enc", right1.getEncPosition());

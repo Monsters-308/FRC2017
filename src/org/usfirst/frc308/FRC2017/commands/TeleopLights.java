@@ -30,9 +30,9 @@ private double lightcycle = 4.0;
     	
 // Set low or high light flash rate    	
     if (RobotConstants.processState == true)
-       	lightcycle = 2.0;
+       	lightcycle = RobotConstants.lightflashspeedlow;
     else
-        lightcycle = 4.0;
+        lightcycle = RobotConstants.lightflashspeedfast;
     	   
 // Reset Light Cycle when timer expires 
     if (lightTimer.get() >= lightcycle) {
@@ -57,7 +57,7 @@ private double lightcycle = 4.0;
          }
 
 // Light processing for clawExtendLights      
-    if (RobotConstants.clawExtendState) 
+    if (RobotConstants.clawOpenState) 
     	    Robot.lights.setgearClawLights();
     	    else 
     	    Robot.lights.disablegearClawLights();
@@ -67,13 +67,14 @@ private double lightcycle = 4.0;
     	    Robot.lights.setgearExtendLights();
     	    else 
     	    Robot.lights.disablegearExtendLights();
-          
     
-    
-    
-    
-    
-    
+ // Light processing for camera lights     
+    if (RobotConstants.cameralightState) 
+    	    Robot.lights.setcameraLights();
+    	    else 
+    	    Robot.lights.disablecameraLights();
+        
+        
     }  	// end execute 
     	
  /**  	if (RobotConstants.intakeMode == true) {

@@ -50,5 +50,13 @@ public class Lights extends Subsystem {
     public void disablegearExtendLights(){
     	gearExtendLights.set(false);
     }
+  ///  Camera Lights 
+    public void setcameraLights(){
+    	gearExtendLights.set(true);
+    }
+    
+    public void disablecameraLights(){
+    	gearExtendLights.set(false);
+    }
 
 }
