@@ -27,8 +27,6 @@ public class TeleopIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        // SmartDashboard.putBoolean("ALEX'S TEST", test);
-        // SmartDashboard.putBoolean("ALEX'S TEST2", out);
 
         SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
         SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));

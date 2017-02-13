@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class TeleopLights extends Command {
-public Timer intakeLightTimer = new Timer();
+// public Timer intakeLightTimer = new Timer();  /// remove 
+public Timer lightTimer = new Timer();
+private double lightcycle = 4.0;
     public TeleopLights() {
 
         requires(Robot.lights);
@@ -18,11 +21,62 @@ public Timer intakeLightTimer = new Timer();
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	lightTimer.reset();
+    	lightTimer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (RobotConstants.intakeMode == true) {
+    	
+// Set low or high light flash rate    	
+    if (RobotConstants.processState == true)
+       	lightcycle = 2.0;
+    else
+        lightcycle = 4.0;
+    	   
+// Reset Light Cycle when timer expires 
+    if (lightTimer.get() >= lightcycle) {
+         lightTimer.reset();	
+     }	
+
+// Light processing for shooter and intake
+    if (RobotConstants.shooterMode == true || RobotConstants.intakeMode == true) {
+    	if (RobotConstants.shooterMode == true) {
+    		// Flash lights for shoot motor
+    		if (lightTimer.get() >= (lightcycle/2)) 
+    		    Robot.lights.setIntakeLights();
+    	    else 
+    	    	Robot.lights.disableIntakeLights();
+        }else  //Must be intake mode light solid
+    		Robot.lights.setIntakeLights(); 
+        }
+         // end shoot mode
+    	else { // No lights on
+ 		Robot.lights.disableIntakeLights();
+        // end of all intake/shoot/process
+         }
+
+// Light processing for clawExtendLights      
+    if (RobotConstants.clawExtendState) 
+    	    Robot.lights.setgearClawLights();
+    	    else 
+    	    Robot.lights.disablegearClawLights();
+        
+ // Light processing for gearExtendLights     
+    if (RobotConstants.clawExtendState) 
+    	    Robot.lights.setgearExtendLights();
+    	    else 
+    	    Robot.lights.disablegearExtendLights();
+          
+    
+    
+    
+    
+    
+    
+    }  	// end execute 
+    	
+ /**  	if (RobotConstants.intakeMode == true) {
 			Robot.lights.setIntakeLights();
 			RobotConstants.intakeLightState = true;
 		} else {
@@ -41,15 +95,15 @@ public Timer intakeLightTimer = new Timer();
 						intakeLightTimer.reset();
 					}else{
 						Robot.lights.disableIntakeLights();
-					}
+					} 
 				}
-			}
-		}
+			} 
+		} */
 
   
 
 
-    }
+    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

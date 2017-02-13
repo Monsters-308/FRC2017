@@ -12,13 +12,21 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  *
  */
 public class Lights extends Subsystem {
-
+	
     DigitalOutput gearExtendLights = RobotMap.gearExtendLights;
     DigitalOutput intakeLights = RobotMap.intakeLights;
     DigitalOutput gearClawLights = RobotMap.gearClawLights;
+    
+    
+    public void initDefaultCommand() {
+
+        setDefaultCommand(new TeleopLights());
+    }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+    
+  ///  Intake Lights   
     public void setIntakeLights(){
     	intakeLights.set(true);
     }
@@ -26,13 +34,21 @@ public class Lights extends Subsystem {
     public void disableIntakeLights(){
     	intakeLights.set(false);
     }
-
-    public void initDefaultCommand() {
-
-        setDefaultCommand(new TeleopLights());
+///  Gear Claw Lights 
+    public void setgearClawLights(){
+    	gearClawLights.set(true);
     }
-
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    
+    public void disablegearClawLights(){
+    	gearClawLights.set(false);
+    }
+  ///  Gear Claw Lights 
+    public void setgearExtendLights(){
+    	gearExtendLights.set(true);
+    }
+    
+    public void disablegearExtendLights(){
+    	gearExtendLights.set(false);
+    }
 
 }
