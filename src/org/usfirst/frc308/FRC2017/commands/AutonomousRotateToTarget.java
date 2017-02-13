@@ -64,6 +64,9 @@ public class AutonomousRotateToTarget extends Command {
 		if(targets.length == 0){
 			//turn until you can see the target
 			
+			//Suggestion: Turn always 10°, to make sure that we don't miss anything
+			double suggestedAngle = 10.0; //Amount in degrees
+			
 			
 		}
 		else if(targets.length > 0){
@@ -83,6 +86,10 @@ public class AutonomousRotateToTarget extends Command {
 				}
 				else{
 					//Calculate off and readjusts
+					double diffrence = x - 160.0;
+					
+					double angleToTurn = MathUtils.pxToDeg(diffrence);
+					
 					
 					
 				}
@@ -111,19 +118,11 @@ public class AutonomousRotateToTarget extends Command {
     	
     	//Get the coordinates of the center of the camera
     	int centerX = RobotConstants.x / 2;
-    	int centerY = RobotConstants.y / 2;
     	
     	//If the difference in x is smaller than the allowed tolerance
     	if(MathUtils.getDiffrence(centerX, x) < RobotConstants.visionTolerance){
-    		//If the difference in y is smaller than the allowed tolerance
-    		
-    		
+    		//Don't care about y-axis
     		return true;
-    		/**
-    		if(MathUtils.getDiffrence(centerY, y) < RobotConstants.visionTolerance){
-    			return true;
-    		}
-    		**/
     	}
     	
     	return false;

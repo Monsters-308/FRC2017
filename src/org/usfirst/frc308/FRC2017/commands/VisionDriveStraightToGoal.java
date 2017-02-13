@@ -1,6 +1,7 @@
 package org.usfirst.frc308.FRC2017.commands;
 
 import org.usfirst.frc308.FRC2017.Robot;
+import org.usfirst.frc308.FRC2017.utils.MathUtils;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -40,7 +41,7 @@ public class VisionDriveStraightToGoal extends Command {
 	protected boolean isFinished() {
 		double[] targets = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerY", new double[0]);
 		double[] targets3 = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("area", new double[0]);
-		int biggestTarget = Robot.vision.getLargestIndex(targets3);
+		int biggestTarget = MathUtils.getLargestIndex(targets3);
 		if (targets.length == 0 && timeout.get() == 0) {
 			timeout.start();
 		} else if (targets.length > 0 && timeout.get() != 0) {
