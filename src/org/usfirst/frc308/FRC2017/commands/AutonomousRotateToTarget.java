@@ -24,6 +24,7 @@ public class AutonomousRotateToTarget extends Command {
     @Override
     protected void execute() {
     	super.execute();
+    	aim();
     	
     }
 
@@ -45,9 +46,13 @@ public class AutonomousRotateToTarget extends Command {
     }
     
     private void aim(){
+    	//Make sure, that aim() is called
+    	System.out.println("Aim() got called");
+    	
     	isFinished = false;
     	//Make clear, that the robot is trying to aim the target
     	RobotConstants.isAutonomousAiming = true;
+    	
 		
 		//Getting GRIP data from NetworkTable
 		double[] targets = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]);
@@ -58,7 +63,7 @@ public class AutonomousRotateToTarget extends Command {
 		int biggestTarget = MathUtils.getLargestIndex(targets3);
 		
 		//Create a new timer
-		timer = new Timer();
+		//timer = new Timer();
 		
 		//No target can be seen
 		if(targets.length == 0){
@@ -66,6 +71,8 @@ public class AutonomousRotateToTarget extends Command {
 			
 			//Suggestion: Turn always 10°, to make sure that we don't miss anything
 			double suggestedAngle = 10.0; //Amount in degrees
+			
+			//Check if this get called
 			
 			
 		}
@@ -105,6 +112,7 @@ public class AutonomousRotateToTarget extends Command {
 		//If the robot didn't finished
 		if(isFinished == false){
 			//Restart
+			//TODO This might create some problems
 			aim();
 		}
 		else{
@@ -114,6 +122,14 @@ public class AutonomousRotateToTarget extends Command {
 		
     }
     
+    
+    /**
+     * 
+     * @author Alexander Kaschta
+     * @param x
+     * @param y
+     * @return if the coordinates are in the center of the camera
+     */
     private boolean isInCenter(double x, double y){
     	
     	//Get the coordinates of the center of the camera
