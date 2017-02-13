@@ -47,8 +47,6 @@ public class Chassis extends PIDSubsystem {
 	double error = 0;
 	Timer settledTimer = new Timer();
 
-//	BuiltInAccelerometer accel;
-
 
     public Chassis() {
         super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
@@ -160,9 +158,6 @@ public class Chassis extends PIDSubsystem {
         if (Math.abs(right) > 1.0) {
             right /= Math.abs(right);
         }
-        SmartDashboard.putNumber("left power", left);
-        SmartDashboard.putNumber("right power", right);
-        SmartDashboard.putNumber("pid turn", RobotConstants.gyroPIDOutput);
         robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
                 (-(right - RobotConstants.gyroPIDOutput)));
     }

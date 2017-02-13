@@ -29,7 +29,6 @@ public class TeleopIntake extends Command {
     protected void execute() {
 
         SmartDashboard.putBoolean("Ball Intake ", RobotConstants.intakeMode);
-        SmartDashboard.putBoolean("Ball run ", Robot.oi.joystick1.getRawButton(RobotConstants.initIntake));
         if (Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)) {
 
             if (intakeTimer.get() == 0) {
@@ -56,7 +55,6 @@ public class TeleopIntake extends Command {
         if (intakeTimer.get() >= .4)
 
         {
-            System.out.println("In Reset Timer Code");
             intakeTimer.stop();
             intakeTimer.reset();
         }

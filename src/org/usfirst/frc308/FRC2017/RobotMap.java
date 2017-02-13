@@ -31,7 +31,7 @@ public class RobotMap {
 	public static AnalogGyro chassisAnalogGyro1;
 	public static CANTalon intakeCANTalon_Ball_1 = new CANTalon(15);
 	public static CANTalon intakeCANTalon_Ball_2 = new CANTalon(16);
-	public static CANTalon intakeCANTalon_Gear_1 = new CANTalon(17);
+	//public static CANTalon intakeCANTalon_Gear_1 = new CANTalon(17);
 	public static Solenoid gearDeliverySolenoid_1 = new Solenoid(0, 0);
 	public static Solenoid gearDeliverySolenoid_2 = new Solenoid(0, 1);
 	public static Solenoid gearDeliverySolenoid_3 = new Solenoid(0, 2);
