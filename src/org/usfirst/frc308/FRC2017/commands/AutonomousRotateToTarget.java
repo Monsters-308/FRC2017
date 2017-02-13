@@ -27,6 +27,12 @@ public class AutonomousRotateToTarget extends Command {
     	aim();
     	
     }
+    
+    @Override
+    protected void initialize() {
+    	super.initialize();
+    	Robot.chassis.setupDrive();
+    }
 
     @Override
     protected boolean isFinished() {
@@ -73,7 +79,7 @@ public class AutonomousRotateToTarget extends Command {
 			double suggestedAngle = 10.0; //Amount in degrees
 			
 			//Check if this get called
-			
+			Robot.chassis.arcadeDrive(0, MathUtils.degToDriveDouble(suggestedAngle));
 			
 		}
 		else if(targets.length > 0){
@@ -97,6 +103,7 @@ public class AutonomousRotateToTarget extends Command {
 					
 					double angleToTurn = MathUtils.pxToDeg(diffrence);
 					
+					Robot.chassis.arcadeDrive(0, MathUtils.degToDriveDouble(angleToTurn));
 					
 					
 				}

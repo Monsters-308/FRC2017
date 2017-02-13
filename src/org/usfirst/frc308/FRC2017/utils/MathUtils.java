@@ -60,5 +60,9 @@ public class MathUtils {
 			return onePixelInDegree * pixels;
 		}
 	}
+	
+	public static double degToDriveDouble(double degree){
+		return degree * (1 / 90);
+	}
 
 }
