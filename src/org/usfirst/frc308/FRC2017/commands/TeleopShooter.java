@@ -15,8 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class TeleopShooter extends Command {
 
     // Used for Button Toggle Code
-    private boolean buttonShooterState = false;
-    private Timer buttonShooterTimer = new Timer();
+    private Timer shooterTimer = new Timer();
 
     public TeleopShooter() {
 
@@ -40,7 +39,7 @@ public class TeleopShooter extends Command {
 
         if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)) {
 
-            if (buttonShooterTimer.get() == 0) {
+            if (shooterTimer.get() == 0) {
                 if (RobotConstants.shooterMode == false) {
                     RobotConstants.shooterMode = true;
                     Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
@@ -54,17 +53,16 @@ public class TeleopShooter extends Command {
                 }
 
                 // Start Timer to make sure the toggle happens only once
-                buttonShooterTimer.start();
+                shooterTimer.start();
             }
         }
 
-        // If the buttonShooterTimer is greater than value then reset it
+        // If the shooterTimer is greater than value then reset it
         // Note: Tune the value to better timing of when the button is pressed
         // and the next pressed
-        if (buttonShooterTimer.get() >= .4) {
-            System.out.println("In Reset Timer Code");
-            buttonShooterTimer.stop();
-            buttonShooterTimer.reset();
+        if (shooterTimer.get() >= .4) {
+            shooterTimer.stop();
+            shooterTimer.reset();
         }
 
         // Opens shooter door to allow bal1 into shooter wheels

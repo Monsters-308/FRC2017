@@ -1,60 +1,73 @@
 package org.usfirst.frc308.FRC2017.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import java.util.Timer;
+
 
 /**
  *
  */
 public class TeleopProcess extends Command {
 
-    Timer FeedBall = new Timer();
+	public Timer FeedBall = new Timer();
 
-    public TeleopProcess() {
+	public TeleopProcess() {
 
-        requires(Robot.processBalls);
+		requires(Robot.processBalls);
 
-    }
+	}
 
-    // Called just before this Command runs the first time
-    // Sets processor talon to voltage mode
-    protected void initialize() {
-        // Robot.processBalls.setupProcess();
-    }
+	// Called just before this Command runs the first time
+	// Sets processor talon to voltage mode
+	protected void initialize() {
+		Robot.processBalls.setupProcess();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    // Activates ball processor while shooting
-    protected void execute() {
-        if (Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)) {
-            if (RobotConstants.processState == false) {
-                RobotConstants.processState = true;
-                Robot.processBalls.runProcess(RobotConstants.processSpeed);
-            } else {
-                RobotConstants.processState = false;
-                Robot.processBalls.runProcess(0);
-            }
-        }
+	// Called repeatedly when this Command is scheduled to run
+	// Activates ball processor while shooting
+	protected void execute() {
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)) {
 
-        // // MG need to use timer
-        // sleep with crash roborio
-        // Robot.processBalls.runProcess(RobotConstants.processSpeed);
-    }
+			if (FeedBall.get() == 0) {
+				if (RobotConstants.processState == false) {
+					RobotConstants.processState = true;
+					Robot.processBalls.runProcess(RobotConstants.feederSpeed);
+				} else {
+					Robot.processBalls.runProcess(0);
+					RobotConstants.processState = false;
+				}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+				// Start Timer to make sure the toggle happens only once
+				FeedBall.start();
+			}
+		}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+		// If the buttonShooterTimer is greater than value then reset it
+		// Note: Tune the value to better timing of when the button is pressed
+		// and the next pressed
+		if (FeedBall.get() >= .4)
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+		{
+			FeedBall.stop();
+			FeedBall.reset();
+		}
+	}
+
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
+
+	// Called once after isFinished returns true
+	protected void end() {
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }
