@@ -164,7 +164,7 @@ public class Chassis extends PIDSubsystem {
         SmartDashboard.putNumber("right power", right);
         SmartDashboard.putNumber("pid turn", RobotConstants.gyroPIDOutput);
         robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
-                (-(right - RobotConstants.gyroPIDOutput)), true);
+                (-(right - RobotConstants.gyroPIDOutput)));
     }
 
     public void resetEncoders() {
@@ -181,7 +181,7 @@ public class Chassis extends PIDSubsystem {
     }
 
     public int getRightEncoderPosition() {
-        return right1.getEncPosition();
+        return -right1.getEncPosition();
     }
 
     public double getGyroAngle() {

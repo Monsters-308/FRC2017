@@ -30,13 +30,20 @@ public class AutonomousTrajectoryFollower extends Command {
         timeout = new edu.wpi.first.wpilibj.Timer();
         timeout.start();
         RobotConstants.isTrajectory = true;
+      //  Example   
+      // Waypoint[] points = new Waypoint[] {
+      //  	    new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+      //  	    new Waypoint(-2, -2, 0),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
+      //  	    new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+      //  	};
+
         Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(25, 20, 0.9)};
 
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
                 Trajectory.Config.SAMPLES_LOW, 0.05, 8.0, 2.0, 60.0);
         Trajectory trajectory = Pathfinder.generate(points, config);
 
-        double wheelbase_width = 2.125;
+        double wheelbase_width = 2.125; // **** NEED to UPDATE
 
         // Create the Modifier Object
         TankModifier modifier = new TankModifier(trajectory);
@@ -49,24 +56,52 @@ public class AutonomousTrajectoryFollower extends Command {
         left = new EncoderFollower(modifier.getLeftTrajectory());
         right = new EncoderFollower(modifier.getRightTrajectory());
 
-        left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 1000, 7.5 / 12.0);
-        right.configureEncoder(-Robot.chassis.getRightEncoderPosition(), 1000, 7.5 / 12.0);
-
+     // Encoder Position is the current, cumulative position of your encoder. 
+     //  If you're using an SRX, this will be the
+     // 'getEncPosition' function.
+     // 100 is the amount of encoder ticks per full revolution
+     // 20 ticks per rev * 5:1 gear ratio = 100 
+     // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
+     // 4" * .0254 = .1016
+      
+        left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 100, 0.1016);
+        right.configureEncoder(-Robot.chassis.getRightEncoderPosition(), 100, 0.1016);
+        
+        
+     // The first argument is the proportional gain. Usually this will be quite high
+     // The second argument is the integral gain. This is unused for motion profiling
+     // The third argument is the derivative gain. Tweak this if you are unhappy with the tracking of the trajectory
+     // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
+     // trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
+     // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
         left.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
         right.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
+       
         Robot.chassis.setRotatePIDZero();
         t = new Timer();
         t.schedule(new TimerTask() {
-
+      // Sample seup  	
+      //  	double l = left.calculate(encoder_position_left);
+      //  	double r = right.calculate(encoder_position_right);
+      // 
+      //  	double gyro_heading = ... your gyro code here ...    // Assuming the gyro is giving a value in degrees
+      //  	double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+      //
+      //  	double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+      //  	double turn = 0.8 * (-1.0/80.0) * angleDifference;
+      //
+      //  	setLeftMotors(l + turn);
+      //  	setRightMotors(r - turn);
+      //////   End sample setup  	
             @Override
             public void run() {
                 double l = left.calculate(Robot.chassis.getLeftEncoderPosition());
                 double r = right.calculate(-Robot.chassis.getRightEncoderPosition());
                 double desired_heading = Pathfinder.r2d(left.getHeading());
                 Robot.chassis.setSetpoint(desired_heading / 4.0);
-                //			Robot.chassis.setDrive(l, r);
+                Robot.chassis.setDrive(l, r);
             }
-        }, 0, 50);
+        }, 0, 50); // end timed task
     }
 
     @Override
@@ -88,7 +123,7 @@ public class AutonomousTrajectoryFollower extends Command {
         timeout.reset();
 
         t.cancel();
-  //      Robot.chassis.setRotatePID(0.0);
+        Robot.chassis.setRotatePIDZero();
         RobotConstants.isTrajectory = false;
     }
 
