@@ -44,9 +44,8 @@ public class TeleopShooter extends Command {
                     RobotConstants.shooterMode = true;
                     Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
 
-                    // Turn off intake
-                    Robot.intake.setballmotor(0);
-                    RobotConstants.intakeMode = false;
+                    // Turn up intake
+                    Robot.intake.setballmotor(RobotConstants.feederSpeed);
                 } else { // If the shooter mode was on then toggle off
                     Robot.shooter.setShootSpeed(0);
                     RobotConstants.shooterMode = false;
