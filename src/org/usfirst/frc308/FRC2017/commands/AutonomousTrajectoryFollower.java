@@ -37,8 +37,9 @@ public class AutonomousTrajectoryFollower extends Command {
       //  	    new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
       //  	};
 
-        Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(25, 20, 0.9)};
-
+        Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(1.5, 1.5,0)};
+ //       Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(25, 20, 0.9)};
+        
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
                 Trajectory.Config.SAMPLES_LOW, 0.05, 8.0, 2.0, 60.0);
         Trajectory trajectory = Pathfinder.generate(points, config);
@@ -64,8 +65,8 @@ public class AutonomousTrajectoryFollower extends Command {
      // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
      // 4" * .0254 = .1016
       
-        left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 100, 0.1016);
-        right.configureEncoder(-Robot.chassis.getRightEncoderPosition(), 100, 0.1016);
+        left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
+        right.configureEncoder(-Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
         
         
      // The first argument is the proportional gain. Usually this will be quite high

@@ -99,8 +99,8 @@ public class RobotConstants {
 
 	// Chassis Constants
 	public static boolean enablePID = true;
-	public static double Kp = 0.015; // 0.012
-	public static double Ki = 0.002; // 0.0025
+	public static double Kp = 0.005; // 0.012
+	public static double Ki = 0.001; // 0.0025
 	public static double Kd = 0.0;
 	public static double iZone = 15.0;
 	public static double maximumIZoneSpeed = 1.0;

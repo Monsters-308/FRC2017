@@ -81,13 +81,13 @@ public class Chassis extends PIDSubsystem {
 
     //Chassis setup
     public void setupDrive() {
-        left1.changeControlMode(TalonControlMode.PercentVbus);
-        left2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        left1.changeControlMode(TalonControlMode.PercentVbus);    
         left2.changeControlMode(TalonControlMode.PercentVbus);
+        left2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         left3.changeControlMode(TalonControlMode.PercentVbus);
         right1.changeControlMode(TalonControlMode.PercentVbus);
-        right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         right2.changeControlMode(TalonControlMode.PercentVbus);
+        right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         right3.changeControlMode(TalonControlMode.PercentVbus);
         gyro.reset();
         getPIDController().setSetpoint(0); // make setpoint current angle
@@ -115,6 +115,8 @@ public class Chassis extends PIDSubsystem {
 						   setPointTimer.reset();
 						   }
 		 			} else { // after initializing ** Driving straight using PID
+		 			   SmartDashboard.putNumber("turn", turn);
+		 			  SmartDashboard.putNumber("forward", forward);
 						turn = RobotConstants.gyroPIDOutput;
 		 		    }
 		 		    //ELSE the user is still commanding
@@ -126,6 +128,8 @@ public class Chassis extends PIDSubsystem {
 					turning = true;
 		 			//Reset angle
 		 		}	
+		 	    SmartDashboard.putNumber("Turn", turn);
+		 	   SmartDashboard.putNumber("Forward", forward);
 		 		robotDrive6.arcadeDrive(forward, turn); // PID controlled Drive
 		 	} // End of BasicDrive PID Control
 		 	// ELSE PID is Off 
@@ -164,20 +168,20 @@ public class Chassis extends PIDSubsystem {
     }
 
     public void resetEncoders() {
-        left1.setEncPosition(0);
-        right1.setEncPosition(0);
+        left2.setEncPosition(0);
+        right2.setEncPosition(0);
     }
 
     public double getEncoderPosition() {
-        return -left1.getEncPosition();
+        return -left2.getEncPosition();
     }
 
     public int getLeftEncoderPosition() {
-        return left1.getEncPosition();
+        return left2.getEncPosition();
     }
 
     public int getRightEncoderPosition() {
-        return -right1.getEncPosition();
+        return -right2.getEncPosition();
     }
 
     public double getGyroAngle() {
@@ -235,14 +239,15 @@ public class Chassis extends PIDSubsystem {
   
   
     public void displayChasisData() {
-        SmartDashboard.putNumber("left enc", left1.getEncPosition());
-        SmartDashboard.putNumber("right enc", right1.getEncPosition());
-        SmartDashboard.putNumber("left enc speed", left1.getEncVelocity());
-        SmartDashboard.putNumber("right enc speed", right1.getEncVelocity());
+        SmartDashboard.putNumber("left enc", left2.getEncPosition());
+        SmartDashboard.putNumber("right enc", right2.getEncPosition());
+        SmartDashboard.putNumber("left enc speed", left2.getEncVelocity());
+        SmartDashboard.putNumber("right enc speed", right2.getEncVelocity());
         SmartDashboard.putNumber("angle", gyro.getAngle());
         SmartDashboard.putNumber("gyro setpoint", getSetpoint());
         SmartDashboard.putNumber("gyro error", getPIDController().getError());
         SmartDashboard.putNumber("IAcc", IAccumulator);
+        SmartDashboard.putNumber("turn",RobotConstants.gyroPIDOutput);
     }
 
     
