@@ -32,6 +32,7 @@ public class AutonomousRotateToTarget extends Command {
     protected void initialize() {
     	super.initialize();
     	Robot.chassis.setupDrive();
+    	Robot.chassis.setRotatePIDZero();
     }
 
     @Override
@@ -75,11 +76,12 @@ public class AutonomousRotateToTarget extends Command {
 		if(targets.length == 0){
 			//turn until you can see the target
 			
-			//Suggestion: Turn always 10°, to make sure that we don't miss anything
+			//Suggestion: Turn always 10, to make sure that we don't miss anything
 			double suggestedAngle = 10.0; //Amount in degrees
 			
 			//Check if this get called
-			Robot.chassis.arcadeDrive(0, MathUtils.degToDriveDouble(suggestedAngle));
+			//Robot.chassis.arcadeDrive(0, MathUtils.degToDriveDouble(suggestedAngle));
+			Robot.chassis.setRotatePID(suggestedAngle);
 			
 		}
 		else if(targets.length > 0){
@@ -92,6 +94,7 @@ public class AutonomousRotateToTarget extends Command {
 				double x = targets[biggestTarget];
 				double y = targets[biggestTarget];
 				
+				
 				if(isInCenter(x, y))
 				{
 					//Done with rotating to the target
@@ -103,7 +106,7 @@ public class AutonomousRotateToTarget extends Command {
 					
 					double angleToTurn = MathUtils.pxToDeg(diffrence);
 					
-					Robot.chassis.arcadeDrive(0, MathUtils.degToDriveDouble(angleToTurn));
+					Robot.chassis.setRotatePID(angleToTurn);
 					
 					
 				}
@@ -120,7 +123,7 @@ public class AutonomousRotateToTarget extends Command {
 		if(isFinished == false){
 			//Restart
 			//TODO This might create some problems
-			aim();
+			//aim();
 		}
 		else{
 			//Your are now done with the whole process

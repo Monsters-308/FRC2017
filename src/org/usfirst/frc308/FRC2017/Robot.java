@@ -58,8 +58,8 @@ public class Robot extends IterativeRobot {
         oi = new OI();
 
         autoChooser = new SendableChooser();
-		autoChooser.addDefault("Do Nothing", new AutonomousDoNothing());
-		autoChooser.addObject("Drive Forward", new AutonomousDriveForward());
+		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
+		autoChooser.addDefault("Drive Forward", new AutonomousDriveForward());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
      
 		startPositionChooser = new SendableChooser();

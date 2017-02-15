@@ -54,6 +54,7 @@ public class Chassis extends PIDSubsystem {
         getPIDController().setContinuous(true);
         getPIDController().setInputRange(-180, 180);
         getPIDController().setOutputRange(-1.0, 1.0);
+        resetEncoders();
         gyro.calibrate();
     }
 
@@ -81,11 +82,11 @@ public class Chassis extends PIDSubsystem {
     //Chassis setup
     public void setupDrive() {
         left1.changeControlMode(TalonControlMode.PercentVbus);
-        left1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        left2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         left2.changeControlMode(TalonControlMode.PercentVbus);
         left3.changeControlMode(TalonControlMode.PercentVbus);
         right1.changeControlMode(TalonControlMode.PercentVbus);
-        right1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         right2.changeControlMode(TalonControlMode.PercentVbus);
         right3.changeControlMode(TalonControlMode.PercentVbus);
         gyro.reset();
@@ -168,7 +169,7 @@ public class Chassis extends PIDSubsystem {
     }
 
     public double getEncoderPosition() {
-        return left1.getEncPosition();
+        return -left1.getEncPosition();
     }
 
     public int getLeftEncoderPosition() {

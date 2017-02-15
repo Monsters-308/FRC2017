@@ -33,7 +33,8 @@ public class AutonomousRotate extends Command {
 	protected void execute() {
 		Robot.chassis.displayChasisData();
 		System.out.println("Turn loop ");
-		Robot.chassis.setRotatePID(setpointAngle * timer.get() / t);
+	//	Robot.chassis.setRotatePID(setpointAngle * timer.get() / t);
+		Robot.chassis.setRotatePID(setpointAngle);
 		}
 
 	// Make this return true when this Command no longer needs to run execute()
