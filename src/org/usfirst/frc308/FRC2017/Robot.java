@@ -60,6 +60,8 @@ public class Robot extends IterativeRobot {
         autoChooser = new SendableChooser();
 		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
 		autoChooser.addDefault("Drive Forward", new AutonomousDriveForward());
+		//Put the number here in
+		//autoChooser.addObject("AutonomousTrajectoryTest", new AutonomousCommandGroup(x0, y0, d0, x1, y1, d1));
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
      
 		startPositionChooser = new SendableChooser();
