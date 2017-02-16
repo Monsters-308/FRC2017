@@ -25,10 +25,10 @@ public class TeleopDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
+//Test
         if (RobotConstants.singleJoystick) { // One Driver
             double forward = Robot.chassis.deadZone(Robot.oi.joystick1.getY()); // forward
-            double turn = Robot.chassis.deadZone(Robot.oi.joystick1.getX()); // turn
+            double turn = -(Robot.chassis.deadZone(Robot.oi.joystick1.getX())); // turn
             Robot.chassis.arcadeDrive(forward, turn);
             SmartDashboard.putDouble("Controller forward", forward);
             SmartDashboard.putDouble("Controller turn", turn);
