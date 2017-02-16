@@ -151,6 +151,45 @@
 	<widget field="cernterY" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="24" y="73"/>
 	</widget>
+	<widget field="Autonomous start position" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="12" y="13"/>
+	</widget>
+	<widget field="Distance Drive " type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="31" y="28"/>
+	</widget>
+	<widget field="Autonomous stop position" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="17" y="24"/>
+	</widget>
+	<widget field="Drive forward" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="26" y="2"/>
+	</widget>
+	<widget field="Distance LEFT2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="20" y="25"/>
+	</widget>
+	<widget field="Driviiiiiing iiiiii" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="30"/>
+	</widget>
+	<widget field="Distance LEFT" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="8"/>
+	</widget>
+	<widget field="turn" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="19" y="8"/>
+	</widget>
+	<widget field="Drive forward 2" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="16" y="22"/>
+	</widget>
+	<widget field="Turn" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="12" y="9"/>
+	</widget>
+	<widget field="Driviiiiiing forward" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="4"/>
+	</widget>
+	<widget field="forward" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="15" y="27"/>
+	</widget>
+	<widget field="Forward" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="6" y="9"/>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>

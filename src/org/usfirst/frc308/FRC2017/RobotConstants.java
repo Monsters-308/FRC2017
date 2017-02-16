@@ -1,5 +1,7 @@
 package org.usfirst.frc308.FRC2017;
 
+import jaci.pathfinder.Waypoint;
+
 /**
  * This class contains all the variables set by the developers for the robot.
  *
@@ -29,8 +31,25 @@ public class RobotConstants {
 	public static int initIntake = 2;
 	
 	// Autonomous Drive profiles
-    // need to setup 3 x 2 array
-
+	// units in inch and degree with scaling to meter and radians in command
+    public Waypoint[] pointsTwo = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
+    public Waypoint[] pointsThree = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
+    double [][] autostartposition = {
+            {0, 0, 0}, // Left 
+            {0, 0,0},  // Center
+            {0, 0,0}   // Right
+            };
+    double [][] autoairshipposition = {
+            {-50, 169.3, 0}, // Left
+            {0, 84.7,0},  // Center
+            {36.7, 121.3,0}   // Right
+            };
+    double [][] autoboilerhipposition = {
+            {-135.5, 16.94, 0}, 
+            };
+    double [][] autoextrawaypointposition = {
+            {0, 0, 0}, // Left
+             };
 	// Vision
 	
 	
