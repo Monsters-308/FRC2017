@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.hal.HAL;
 
+import org.usfirst.frc308.FRC2017.RobotConstants;
+
 import com.ctre.CANTalon;
 
 
@@ -250,7 +252,7 @@ public class AdvancedRobotDrive implements MotorSafety {
      * @param rightValue value for the right motors
      */
     public void tankDrive(double leftValue, double rightValue) {
-        tankDrive(leftValue, rightValue, false);
+        tankDrive(leftValue, rightValue, RobotConstants.exponentialDrive);
     }
     
     /**
@@ -365,7 +367,7 @@ public class AdvancedRobotDrive implements MotorSafety {
      * @param rotateValue value how much the robot should rotate (x-axis)
      */
     public void arcadeDrive(double moveValue, double rotateValue) {
-        arcadeDrive(moveValue, rotateValue, false);
+        arcadeDrive(moveValue, rotateValue, RobotConstants.exponentialDrive);
     }
 
     /**
