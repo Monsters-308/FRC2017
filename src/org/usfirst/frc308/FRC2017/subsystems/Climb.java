@@ -5,6 +5,7 @@ import org.usfirst.frc308.FRC2017.commands.*;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
@@ -12,7 +13,7 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  *
  */
 public class Climb extends Subsystem {
-
+    private final Solenoid climbActuator = RobotMap.climberSolenoid_1;
     private final CANTalon climb = RobotMap.climbCANTalon;
 
     // Put methods for controlling this subsystem
@@ -32,6 +33,10 @@ public class Climb extends Subsystem {
 
     public void climbRope(double climbSpeed) {
         climb.set(climbSpeed);
+    }
+    
+    public void climbActuator(boolean actuate){
+    	climbActuator.set(actuate);
     }
 
 }

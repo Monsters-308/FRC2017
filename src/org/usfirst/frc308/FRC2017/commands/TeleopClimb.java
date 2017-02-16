@@ -24,26 +24,13 @@ public class TeleopClimb extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.initIntake)) {
+		Robot.climb.climbRope(Robot.oi.joystick1.getZ());
 
-			if (climbTimer.get() == 0) {
-				Robot.climb.climbRope(RobotConstants.climbSpeed);
-
-			} else { // If the shooter mode was on then toggle off
-				Robot.climb.climbRope(0);
-			}
-
-			// Start Timer to make sure the toggle happens only once
-			climbTimer.start();
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.climbActuator)) {
+			Robot.climb.climbActuator(true);
+		}else{
+			Robot.climb.climbActuator(false);
 		}
-
-		if (climbTimer.get() >= .4)
-
-		{
-			climbTimer.stop();
-			climbTimer.reset();
-		}
-
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -29,6 +29,7 @@ public class RobotConstants {
 	public static int initShooter = 4;
 	public static int climbButton = 3;
 	public static int initIntake = 2;
+	public static int climbActuator = 9;
 	
 	// Autonomous Drive profiles
 	// units in inch and degree with scaling to meter and radians in command
