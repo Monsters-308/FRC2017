@@ -55,6 +55,7 @@ public class Robot extends IterativeRobot {
         //(which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
+        
         oi = new OI();
 
         autoChooser = new SendableChooser();
