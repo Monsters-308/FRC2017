@@ -20,9 +20,16 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
     Timer t;
     EncoderFollower left;
     EncoderFollower right;
+    private static double inchesToMeter = 0.0254;
+    //This has a max size of two
+    Waypoint[] waypoints = new Waypoint[2];
 
     public AutonomousTrajectoryFollowerTwoPoint(double x0, double y0, double d0, double x1, double y1, double d1) {
         requires(Robot.chassis);
+        
+        waypoints[0] = new Waypoint(x0 * inchesToMeter, y0 * inchesToMeter, Math.toRadians(d0)); 
+        waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
+        
 
     }
 
