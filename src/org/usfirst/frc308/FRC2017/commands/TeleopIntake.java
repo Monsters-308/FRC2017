@@ -35,12 +35,13 @@ public class TeleopIntake extends Command {
                 if (RobotConstants.intakeMode == false) {
                     RobotConstants.intakeMode = true;
                     Robot.intake.setballmotor(RobotConstants.ballintakespeed);
-
+                    Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
                     // Turn off shooter
                     Robot.shooter.setShootSpeed(0);
                     RobotConstants.shooterMode = false;
                 } else { // If the shooter mode was on then toggle off
                     Robot.intake.setballmotor(0);
+                    Robot.intake.setgearmotor(0);
                     RobotConstants.intakeMode = false;
                 }
 

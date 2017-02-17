@@ -20,6 +20,7 @@ public class Intake extends Subsystem {
 
 
     private final CANTalon ballmotor1 = RobotMap.intakeCANTalon_Ball_1;
+    private final CANTalon GearMotor = RobotMap.intakeCANTalon_GearIntake;
     // private final CANTalon ballmotor2 = RobotMap.intakeCANTalon_Ball_2;
   //  private final CANTalon gearmotor1 = RobotMap.intakeCANTalon_Gear_1;
 
@@ -31,6 +32,9 @@ public class Intake extends Subsystem {
     public void setupIntake() {
         ballmotor1.changeControlMode(TalonControlMode.PercentVbus); // MG changed from Voltage to PercentVbus
         ballmotor1.setProfile(0);
+        
+        GearMotor.changeControlMode(TalonControlMode.PercentVbus);
+        GearMotor.setProfile(0);
 
 //        gearmotor1.changeControlMode(TalonControlMode.PercentVbus); // MG changed from Voltage to PercentVbus
  //       gearmotor1.setProfile(0);
@@ -42,6 +46,10 @@ public class Intake extends Subsystem {
     public void setballmotor(double bspeed) {
         ballmotor1.set(bspeed);
         SmartDashboard.putDouble("Ball Intake Speed", bspeed);
+    }
+    
+    public void setgearmotor(double gspeed){
+    	GearMotor.set(gspeed);
     }
 
 

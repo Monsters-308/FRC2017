@@ -30,7 +30,7 @@ public class RobotMap {
 	public static AdvancedRobotDrive chassisRobotDrive6 = new AdvancedRobotDrive(chassisCANTalon_1, chassisCANTalon_2, chassisCANTalon_3, chassisCANTalon_4, chassisCANTalon_5, chassisCANTalon_6);
 	public static AnalogGyro chassisAnalogGyro1;
 	public static CANTalon intakeCANTalon_Ball_1 = new CANTalon(15);
-	public static CANTalon intakeCANTalon_Ball_2 = new CANTalon(16);
+	public static CANTalon intakeCANTalon_GearIntake = new CANTalon(16);
 	//public static CANTalon intakeCANTalon_Gear_1 = new CANTalon(17);
 	public static Solenoid gearDeliverySolenoid_1 = new Solenoid(0, 0);
 	public static Solenoid gearDeliverySolenoid_2 = new Solenoid(0, 1);
