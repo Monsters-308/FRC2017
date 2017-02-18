@@ -11,9 +11,10 @@ public class AutonomousDriveForward extends CommandGroup {
     public AutonomousDriveForward() {
    	 SmartDashboard.putNumber("Drive forward", 0);
 		System.out.println("Drive forward");
-		
-	//	addSequential(new AutonomousTrajectoryFollower());
-		addSequential(new AutonomousRotateToTarget());
+	SmartDashboard.putNumber("Drive forward 134", 0);
+	addSequential(new AutonomousTrajectoryFollower());
+		//addSequential(new AutonomousTrajectoryFollower());
+		//addSequential(new AutonomousRotateToTarget());
 //		addSequential(new RotateUntilGoalIsDetected(0.25));
 //		addSequential(new VisionDriveStraightToGoal(.5));
 //   	addSequential(new AutonomousDistanceDrive(0.5, 100)); // move 20" and 30% power

@@ -15,7 +15,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class AutonomousTrajectoryFollower extends Command {
-
+    
     edu.wpi.first.wpilibj.Timer timeout;
     Timer t;
     EncoderFollower left;
@@ -27,32 +27,62 @@ public class AutonomousTrajectoryFollower extends Command {
 
     @Override
     protected void initialize() {
+    	
         timeout = new edu.wpi.first.wpilibj.Timer();
         timeout.start();
         RobotConstants.isTrajectory = true;
+        System.out.println("tra initialize");
       //  Example   
       // Waypoint[] points = new Waypoint[] {
       //  	    new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
       //  	    new Waypoint(-2, -2, 0),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
       //  	    new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
       //  	};
-
-        Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(1.5, 1.5,0)};
- //       Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(25, 20, 0.9)};
         
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
-                Trajectory.Config.SAMPLES_LOW, 0.05, 8.0, 2.0, 60.0);
+      
+// This is the origina Config
+//        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
+  //      		Trajectory.Config.SAMPLES_LOW, 0.05, 8.0, 2.0, 60.0);
+        // Prepare the Trajectory for Generation.
+        //
+        // Arguments: 
+        // Fit Function:        FIT_HERMITE_CUBIC or FIT_HERMITE_QUINTIC
+        // Sample Count:        PATHFINDER_SAMPLES_HIGH (100 000)
+        //                              PATHFINDER_SAMPLES_LOW  (10 000)
+        //                              PATHFINDER_SAMPLES_FAST (1 000)
+        // Time Step:           0.001 Seconds
+        // Max Velocity:        15 m/s
+        // Max Acceleration:    10 m/s/s
+        // Max Jerk:            60 m/s/s/s
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW, 0.05, 1.7, 2.0, 60.0);
+
+// This example CRASHES the RoboRio - Remove when not needed
+//        Waypoint[] points = new Waypoint[]{
+//        		new Waypoint(0, 0, 0), 
+//        		new Waypoint(0, 1, 0)
+//        		};
+
+        //This works - Robot spins around
+//        Waypoint[] points = new Waypoint[]{
+//        		new Waypoint(-4, -1, Pathfinder.d2r(-45)), 
+//        		new Waypoint(-2, -2, 0)
+//        		};
+        
+        Waypoint[] points = new Waypoint[]{
+        		new Waypoint(1, -1, Pathfinder.d2r(0)), 
+        		new Waypoint(0, 0, 0)
+        		};
+        
+
+        System.out.println("points done  initialize");
+      
+        //Next Line causes crash if the Waypoints are not set correctly!!!!
         Trajectory trajectory = Pathfinder.generate(points, config);
 
-        double wheelbase_width = 2.125; // **** NEED to UPDATE
+        double wheelbase_width = 0.82; // MG updated
 
         // Create the Modifier Object
-        TankModifier modifier = new TankModifier(trajectory);
-
-        // Generate the Left and Right trajectories using the original
-        // trajectory
-        // as the center
-        modifier.modify(wheelbase_width);
+        TankModifier modifier = new TankModifier(trajectory).modify(wheelbase_width);
 
         left = new EncoderFollower(modifier.getLeftTrajectory());
         right = new EncoderFollower(modifier.getRightTrajectory());
@@ -64,8 +94,9 @@ public class AutonomousTrajectoryFollower extends Command {
      // 20 ticks per rev * 5:1 gear ratio = 100 
      // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
      // 4" * .0254 = .1016
-      
+  
         left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
+        //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
         right.configureEncoder(-Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
         
         
@@ -77,11 +108,17 @@ public class AutonomousTrajectoryFollower extends Command {
      // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
         left.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
         right.configurePIDVA(0.1, 0.0, 0.0, 1 / 8.0, 0);
-       
+
+        System.out.println("Before Robot Chassis Set Rotate");
         Robot.chassis.setRotatePIDZero();
+        System.out.println("Before Reset Encoders");
+        Robot.chassis.resetEncoders();
+
+        
+        //MARTY - WHAT DOES THIS DO???
         t = new Timer();
         t.schedule(new TimerTask() {
-      // Sample seup  	
+      // Sample setup  	
       //  	double l = left.calculate(encoder_position_left);
       //  	double r = right.calculate(encoder_position_right);
       // 
@@ -101,14 +138,20 @@ public class AutonomousTrajectoryFollower extends Command {
                 double desired_heading = Pathfinder.r2d(left.getHeading());
                 Robot.chassis.setSetpoint(desired_heading / 4.0);
                 Robot.chassis.setDrive(l, r);
+                SmartDashboard.putDouble("right", r);
+                SmartDashboard.putDouble("left", l);
             }
         }, 0, 50); // end timed task
+
+        System.out.println("End of initialize");
     }
 
     @Override
     protected void execute() {
         Robot.chassis.displayChasisData();
+
     }
+    
 
     @Override
     protected boolean isFinished() {
@@ -131,6 +174,7 @@ public class AutonomousTrajectoryFollower extends Command {
     @Override
     protected void interrupted() {
         end();
+        System.out.println("At the End of the End");
     }
-
+    
 }

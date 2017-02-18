@@ -31,6 +31,7 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
         waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
         
 
+        
     }
 
     @Override
@@ -46,7 +47,8 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
       //  	};
 //
  // 
-      Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(25, 20, 0.9)};
+      //Waypoint[] points = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(1, 1, 0)};
+        Waypoint[] points = waypoints;
 
      // Prepare the Trajectory for Generation.
         //

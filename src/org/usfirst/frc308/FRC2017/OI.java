@@ -53,7 +53,7 @@ public class OI {
 
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Distance Drive ", new AutonomousDistanceDrive(.4, 20));
+        //SmartDashboard.putData("Distance Drive ", new AutonomousDistanceDrive(.4, 20));
 
 
 

@@ -59,13 +59,13 @@ public class Robot extends IterativeRobot {
         oi = new OI();
 
         autoChooser = new SendableChooser();
-		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
+//		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
 		autoChooser.addDefault("Drive Forward", new AutonomousDriveForward());
 		//Put the number here in
-		//autoChooser.addObject("AutonomousTrajectoryTest", new AutonomousCommandGroup(x0, y0, d0, x1, y1, d1));
+		//autoChooser.addDefault("AutonomousTrajectoryTest", new AutonomousCommandGroup());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
      
-		startPositionChooser = new SendableChooser();
+/**	startPositionChooser = new SendableChooser();
 		startPositionChooser.addDefault("Start Position Left", 0);
 		startPositionChooser.addObject("Start Position Center", 1);
 		startPositionChooser.addObject("Start Position Right", 2);
@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
 		stopPositionChooser.addObject("Stop Position Center", 1);
 		stopPositionChooser.addObject("Stop Position Right", 2);
 	    SmartDashboard.putData("Autonomous stop position", stopPositionChooser);
-		
+*/		
 		
                 
         // instantiate the command used for the autonomous period
@@ -132,6 +132,7 @@ public class Robot extends IterativeRobot {
     	autonomousCommand = (Command) autoChooser.getSelected();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
+			 System.out.println("robot initialize");
 		}
     }
 

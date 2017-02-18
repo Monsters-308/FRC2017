@@ -1,12 +1,16 @@
 package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonomousCommandGroup extends CommandGroup{
 	
-	public AutonomousCommandGroup(double x0, double y0, double d0, double x1, double y1, double d1){
-		
-		addSequential(new AutonomousTrajectoryFollowerTwoPoint(x0, y0, d0, x1, y1, d1));
+	public AutonomousCommandGroup(){
+		SmartDashboard.putNumber("Trajectory", 0);
+		System.out.println("Drive trajectory");
+		//addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 40, 40, 90));
+		addSequential(new AutonomousTrajectoryFollower());
+		System.out.println("commadGroup");
 	}
 
 }

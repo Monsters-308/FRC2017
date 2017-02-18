@@ -190,6 +190,15 @@
 	<widget field="Forward" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="6" y="9"/>
 	</widget>
+	<widget field="left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="18" y="27"/>
+	</widget>
+	<widget field="Trajectory" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="6"/>
+	</widget>
+	<widget field="right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="23" y="17"/>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>

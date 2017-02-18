@@ -252,7 +252,7 @@ public class AdvancedRobotDrive implements MotorSafety {
      * @param rightValue value for the right motors
      */
     public void tankDrive(double leftValue, double rightValue) {
-        tankDrive(leftValue, rightValue, RobotConstants.exponentialDrive);
+        tankDrive(leftValue, rightValue, false); // MG keep false
     }
     
     /**
@@ -367,7 +367,7 @@ public class AdvancedRobotDrive implements MotorSafety {
      * @param rotateValue value how much the robot should rotate (x-axis)
      */
     public void arcadeDrive(double moveValue, double rotateValue) {
-        arcadeDrive(moveValue, rotateValue, RobotConstants.exponentialDrive);
+        arcadeDrive(moveValue, rotateValue, false); // MG keep false
     }
 
     /**
