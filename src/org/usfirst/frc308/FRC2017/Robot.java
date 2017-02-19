@@ -101,8 +101,6 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble("shooter kf", RobotConstants.shooterPIDKf);
         Preferences.getInstance().putDouble("shooter PID Ramprate", RobotConstants.shooterPIDRampRate);
         Preferences.getInstance().putDouble("ball intake spd", RobotConstants.ballintakespeed);
-        Preferences.getInstance().putDouble("gear intake spd", RobotConstants.gearintakespeed);
-        Preferences.getInstance().putDouble("feed speed", RobotConstants.feederSpeed);
         Preferences.getInstance().putDouble("processSpeed", RobotConstants.processSpeed);
         Preferences.getInstance().putBoolean("enable drive PID", RobotConstants.enablePID);
         Preferences.getInstance().putDouble("Drive Kp", RobotConstants.Kp);
@@ -161,8 +159,6 @@ public class Robot extends IterativeRobot {
         RobotConstants.shooterPIDKf = Preferences.getInstance().getDouble("shooter kf", RobotConstants.shooterPIDKf);
         RobotConstants.shooterPIDRampRate = Preferences.getInstance().getDouble("shooter PID Ramprate", RobotConstants.shooterPIDRampRate);
         RobotConstants.ballintakespeed = Preferences.getInstance().getDouble("ball intake spd", RobotConstants.ballintakespeed);
-        RobotConstants.gearintakespeed = Preferences.getInstance().getDouble("gear intake spd", RobotConstants.gearintakespeed);
-        RobotConstants.feederSpeed = Preferences.getInstance().getDouble("feed speed", RobotConstants.feederSpeed);
         RobotConstants.processSpeed = Preferences.getInstance().getDouble("processSpeed", RobotConstants.processSpeed);
         RobotConstants.enablePID = Preferences.getInstance().getBoolean("enable drive PID", RobotConstants.enablePID);
         RobotConstants.Kp = Preferences.getInstance().getDouble("Drive Kp", RobotConstants.Kp);

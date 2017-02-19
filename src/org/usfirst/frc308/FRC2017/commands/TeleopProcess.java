@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TeleopProcess extends Command {
 
-	public Timer FeedBall = new Timer();
+	public Timer FeedBalltimer = new Timer();
 
 	public TeleopProcess() {
 
@@ -32,29 +32,28 @@ public class TeleopProcess extends Command {
 	protected void execute() {
 		if (Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)) {
 
-			if (FeedBall.get() == 0) {
+			if (FeedBalltimer.get() == 0) {
 				if (RobotConstants.processState == false) {
 					RobotConstants.processState = true;
-					Robot.processBalls.runProcess(RobotConstants.feederSpeed);
-		//			Robot.Intake.setballmotor(RobotConstants.bspeed);
+					Robot.processBalls.runProcess(RobotConstants.processSpeed);
 				} else {
 					Robot.processBalls.runProcess(0);
 					RobotConstants.processState = false;
 				}
 
 				// Start Timer to make sure the toggle happens only once
-				FeedBall.start();
+				FeedBalltimer.start();
 			}
 		}
 
 		// If the buttonShooterTimer is greater than value then reset it
 		// Note: Tune the value to better timing of when the button is pressed
 		// and the next pressed
-		if (FeedBall.get() >= .4)
+		if (FeedBalltimer.get() >= RobotConstants.feedBalltimer_time)
 
 		{
-			FeedBall.stop();
-			FeedBall.reset();
+			FeedBalltimer.stop();
+			FeedBalltimer.reset();
 		}
 	}
 

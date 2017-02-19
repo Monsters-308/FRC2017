@@ -43,9 +43,6 @@ public class TeleopShooter extends Command {
                 if (RobotConstants.shooterMode == false) {
                     RobotConstants.shooterMode = true;
                     Robot.shooter.setShootSpeed(RobotConstants.shootertargetspeed);
-
-                    // Turn off intake
-                    Robot.intake.setballmotor(0);
                 } else { // If the shooter mode was on then toggle off
                     Robot.shooter.setShootSpeed(0);
                     RobotConstants.shooterMode = false;
@@ -59,7 +56,7 @@ public class TeleopShooter extends Command {
         // If the shooterTimer is greater than value then reset it
         // Note: Tune the value to better timing of when the button is pressed
         // and the next pressed
-        if (shooterTimer.get() >= .4) {
+        if (shooterTimer.get() >= RobotConstants.shooterTimer_timer) {
             shooterTimer.stop();
             shooterTimer.reset();
         }

@@ -10,8 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class TeleopLights extends Command {
-// public Timer intakeLightTimer = new Timer();  /// remove 
+ 
 public Timer lightTimer = new Timer();
+public Timer cameralightTimer = new Timer();
 private double lightcycle = 4.0;
     public TeleopLights() {
 
@@ -56,7 +57,7 @@ private double lightcycle = 4.0;
         // end of all intake/shoot/process
          }
 
-// Light processing for clawExtendLights      
+// Light processing for clawExtendLights   
     if (RobotConstants.clawOpenState) 
     	    Robot.lights.setgearClawLights();
     	    else 
@@ -68,12 +69,38 @@ private double lightcycle = 4.0;
     	    else 
     	    Robot.lights.disablegearExtendLights();
     
- // Light processing for camera lights     
-    if (true) //mg
-    	    Robot.lights.setcameraLights();
-    	    else 
-    	    Robot.lights.disablecameraLights();
-        
+    
+    
+    
+    
+ // Light processing for camera lights  
+    SmartDashboard.putBoolean("Camera Lights ", RobotConstants.cameralightState);
+    if (Robot.oi.joystick1.getRawButton(RobotConstants.cameralight)) {
+
+        if (cameralightTimer.get() == 0) {
+            if (RobotConstants.cameralightState == false) {
+                RobotConstants.cameralightState = true;
+                Robot.lights.setcameraLights();
+             } else { // If the camera light was on then toggle off
+            	Robot.lights.disablecameraLights();
+                RobotConstants.cameralightState = false;
+            }
+
+            // Start Timer to make sure the toggle happens only once
+            cameralightTimer.start();
+        }
+    }
+
+    // If the cameralightTimer is greater than value then reset it
+    // Note: Tune the value to better timing of when the button is pressed
+    // and the next pressed
+    if (cameralightTimer.get() >= RobotConstants.cameralightTimer_time )
+
+    {
+    	cameralightTimer.stop();
+    	cameralightTimer.reset();
+    }
+
         
     }  	// end execute 
     	

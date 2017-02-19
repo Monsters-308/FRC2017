@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class TeleopIntake extends Command {
-    private boolean buttonIntakeState = false;
     private Timer intakeTimer = new Timer();
 
     public TeleopIntake() {
@@ -35,13 +34,8 @@ public class TeleopIntake extends Command {
                 if (RobotConstants.intakeMode == false) {
                     RobotConstants.intakeMode = true;
                     Robot.intake.setballmotor(RobotConstants.ballintakespeed);
-      //              Robot.intake.setgearmotor(RobotConstants.gearintakespeed);
-                    // Turn off shooter
-                    Robot.shooter.setShootSpeed(0);
-                    RobotConstants.shooterMode = false;
-                } else { // If the shooter mode was on then toggle off
+                 } else { // If the shooter mode was on then toggle off
                     Robot.intake.setballmotor(0);
-     //               Robot.intake.setgearmotor(0);
                     RobotConstants.intakeMode = false;
                 }
 
@@ -53,7 +47,7 @@ public class TeleopIntake extends Command {
         // If the buttonShooterTimer is greater than value then reset it
         // Note: Tune the value to better timing of when the button is pressed
         // and the next pressed
-        if (intakeTimer.get() >= .4)
+        if (intakeTimer.get() >= RobotConstants.intakeTimer_time )
 
         {
             intakeTimer.stop();

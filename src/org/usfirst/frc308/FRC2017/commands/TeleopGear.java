@@ -44,8 +44,7 @@ public class TeleopGear extends Command {
                 // Start Timer to make sure the toggle happens only once
                 extendTimer.start();
             }
-        if (extendTimer.get() >= .4) {
-            System.out.println("In Reset Timer Code");
+        if (extendTimer.get() >= RobotConstants.extendTimer_timer) {
             extendTimer.stop();
             extendTimer.reset();
         }
@@ -65,8 +64,7 @@ public class TeleopGear extends Command {
                 // Start Timer to make sure the toggle happens only once
                 closeTimer.start();
             }
-        if (closeTimer.get() >= .4) {
-            System.out.println("In Reset Timer Code");
+        if (closeTimer.get() >= RobotConstants.closeTimer_timer) {
             closeTimer.stop();
             closeTimer.reset();
         }
@@ -86,8 +84,7 @@ public class TeleopGear extends Command {
                 // Start Timer to make sure the toggle happens only once
                 doorTimer.start();
             }
-        if (doorTimer.get() >= .4) {
-            System.out.println("In Reset Timer Code");
+        if (doorTimer.get() >= RobotConstants.doorTimer_timer) {
             doorTimer.stop();
             doorTimer.reset();
         }
