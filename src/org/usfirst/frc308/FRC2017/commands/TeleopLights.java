@@ -57,26 +57,42 @@ private double lightcycle = 4.0;
         // end of all intake/shoot/process
          }
 
-// Light processing for clawExtendLights   
-    if (RobotConstants.clawOpenState) 
-    	    Robot.lights.setgearClawLights();
-    	    else 
-    	    Robot.lights.disablegearClawLights();
+// Light processing for claw Lights       
+    if (RobotConstants.clawOpenState == true ) {
+    	if (RobotConstants.clawDoorState == true) {
+    		// Flash lights for door closed
+    		if (lightTimer.get() >= (lightcycle/2)) { 
+    			Robot.lights.setgearClawLights();;
+    		}else 
+    	    	Robot.lights.disablegearClawLights();
+        } else  // lights solid
+        	Robot.lights.setgearClawLights(); 
+        // end shoot mode
+     } else { // No lights on
+    		Robot.lights.disablegearClawLights();;
+        // end of all claw extend process
+     } 
+     
         
  // Light processing for gearExtendLights     
-    if (RobotConstants.clawExtendState) 
-    	    Robot.lights.setgearExtendLights();
-    	    else 
-    	    Robot.lights.disablegearExtendLights();
-    
-    
-    
-    
-    
+       if (RobotConstants.clawExtendState == true ) {
+    	if (RobotConstants.clawDoorState == true) {
+    		// Flash lights for door closed
+    		if (lightTimer.get() >= (lightcycle/2)) { 
+    			Robot.lights.setgearExtendLights();;
+    		}else 
+    			Robot.lights.disablegearExtendLights();
+        } else  // lights solid
+        	Robot.lights.setgearExtendLights(); 
+        // end shoot mode
+     } else { // No lights on
+    	 Robot.lights.disablegearExtendLights();
+        // end of all gear extend process  
+ 
+    	 
  // Light processing for camera lights  
     SmartDashboard.putBoolean("Camera Lights ", RobotConstants.cameralightState);
     if (Robot.oi.joystick1.getRawButton(RobotConstants.cameralight)) {
-
         if (cameralightTimer.get() == 0) {
             if (RobotConstants.cameralightState == false) {
                 RobotConstants.cameralightState = true;
@@ -84,53 +100,24 @@ private double lightcycle = 4.0;
              } else { // If the camera light was on then toggle off
             	Robot.lights.disablecameraLights();
                 RobotConstants.cameralightState = false;
-            }
-
-            // Start Timer to make sure the toggle happens only once
-            cameralightTimer.start();
+             }
+         } // end timer check
+           // Start Timer to make sure the toggle happens only once
+        cameralightTimer.start();
         }
-    }
+    } //end camera light
 
     // If the cameralightTimer is greater than value then reset it
     // Note: Tune the value to better timing of when the button is pressed
     // and the next pressed
     if (cameralightTimer.get() >= RobotConstants.cameralightTimer_time )
-
     {
     	cameralightTimer.stop();
     	cameralightTimer.reset();
     }
-
         
     }  	// end execute 
     	
- /**  	if (RobotConstants.intakeMode == true) {
-			Robot.lights.setIntakeLights();
-			RobotConstants.intakeLightState = true;
-		} else {
-			if (RobotConstants.shooterMode == true) {
-				intakeLightTimer.start();
-				RobotConstants.intakeLightState = false;
-				Robot.lights.disableIntakeLights();
-				if (intakeLightTimer.get() > 500 && RobotConstants.intakeLightState == false) {
-					Robot.lights.setIntakeLights();
-					RobotConstants.intakeLightState = true;
-					intakeLightTimer.reset();
-				}else{
-					if(intakeLightTimer.get() > 500 && RobotConstants.intakeLightState == true){
-						Robot.lights.disableIntakeLights();
-						RobotConstants.intakeLightState = false;
-						intakeLightTimer.reset();
-					}else{
-						Robot.lights.disableIntakeLights();
-					} 
-				}
-			} 
-		} */
-
-  
-
-
     
 
     // Make this return true when this Command no longer needs to run execute()
