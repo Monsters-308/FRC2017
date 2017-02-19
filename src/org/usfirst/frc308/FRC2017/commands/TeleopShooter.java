@@ -66,9 +66,9 @@ public class TeleopShooter extends Command {
 
         // Opens shooter door to allow bal1 into shooter wheels
 
-        if (Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)) {
-            Robot.shooter.Trigger(true);
-        }
+   //     if (Robot.oi.joystick1.getRawButton(RobotConstants.shootBall)) {
+   //         Robot.shooter.Trigger(true);
+    //    }
     }
 
     // Make this return true when this Command no longer needs to run execute()

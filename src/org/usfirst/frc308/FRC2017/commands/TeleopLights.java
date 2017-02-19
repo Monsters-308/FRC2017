@@ -69,7 +69,7 @@ private double lightcycle = 4.0;
     	    Robot.lights.disablegearExtendLights();
     
  // Light processing for camera lights     
-    if (RobotConstants.cameralightState) 
+    if (true) //mg
     	    Robot.lights.setcameraLights();
     	    else 
     	    Robot.lights.disablecameraLights();

@@ -35,8 +35,7 @@ public class RobotMap {
 	public static Solenoid gearDeliverySolenoid_1 = new Solenoid(0, 0);
 	public static Solenoid gearDeliverySolenoid_2 = new Solenoid(0, 1);
 	public static Solenoid gearDeliverySolenoid_3 = new Solenoid(0, 2);
-	public static Solenoid shooterTriggerSolenoid_1 = new Solenoid(0, 3);
-	public static Solenoid climberSolenoid_1 = new Solenoid(0, 4);
+	public static Solenoid climberSolenoid_1 = new Solenoid(0, 3);
 	public static CANTalon climbCANTalon = new CANTalon(20);
 	public static CANTalon processBallsCANTalon = new CANTalon(19);
 	public static CANTalon shooterCANTalon_1 = new CANTalon(10);
@@ -45,4 +44,5 @@ public class RobotMap {
 	public static DigitalOutput gearExtendLights = new DigitalOutput(0);
 	public static DigitalOutput gearClawLights = new DigitalOutput(1);
 	public static DigitalOutput intakeLights = new DigitalOutput(2);
+	public static DigitalOutput camLights = new DigitalOutput(3);
 }

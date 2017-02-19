@@ -177,11 +177,11 @@ public class Chassis extends PIDSubsystem {
     }
 
     public int getLeftEncoderPosition() {
-        return left2.getEncPosition();
+        return -left2.getEncPosition();
     }
 
     public int getRightEncoderPosition() {
-        return -right2.getEncPosition();
+        return right2.getEncPosition();
     }
 
     public double getGyroAngle() {

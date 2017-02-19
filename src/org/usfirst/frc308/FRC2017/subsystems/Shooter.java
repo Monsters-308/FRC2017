@@ -24,7 +24,6 @@ public class Shooter extends Subsystem {
 
     //private final CANTalon shootMotor1 = RobotMap.shooterCANTalon_1;
     private CANTalon shooterMotor1 = RobotMap.shooterCANTalon_1;
-    private Solenoid shooterTrigger = RobotMap.shooterTriggerSolenoid_1;
 
 
     // Put methods for controlling this subsystem
@@ -64,13 +63,13 @@ public class Shooter extends Subsystem {
     }
 
 
-    public void Trigger(boolean triggerState) {
-        shooterTrigger.set(triggerState);
-        // TODO Auto-generated method stub
+//    public void Trigger(boolean triggerState) {
+//.set(triggerState);
+   //     // TODO Auto-generated method stub
 
     }
 
-}
+
 
 
 

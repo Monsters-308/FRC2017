@@ -16,6 +16,7 @@ public class Lights extends Subsystem {
     DigitalOutput gearExtendLights = RobotMap.gearExtendLights;
     DigitalOutput intakeLights = RobotMap.intakeLights;
     DigitalOutput gearClawLights = RobotMap.gearClawLights;
+    DigitalOutput camLights = RobotMap.camLights;
     
     
     public void initDefaultCommand() {
@@ -52,11 +53,11 @@ public class Lights extends Subsystem {
     }
   ///  Camera Lights 
     public void setcameraLights(){
-    	gearExtendLights.set(true);
+    	camLights.set(true);
     }
     
     public void disablecameraLights(){
-    	gearExtendLights.set(false);
+    	camLights.set(false);
     }
 
 }

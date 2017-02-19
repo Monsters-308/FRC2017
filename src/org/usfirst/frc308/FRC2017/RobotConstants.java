@@ -106,7 +106,7 @@ public class RobotConstants {
 	// Intake constants
 	public static double ballintakespeed = -0.8;
 	public static double gearintakespeed = .1;
-	public static double feederSpeed = -1.0;
+	public static double feederSpeed = -.3;
 	public static boolean intakeMode = false;
 
 	// Gear constants
@@ -115,7 +115,7 @@ public class RobotConstants {
 	public static boolean clawDoorState = false;
 
 	// Hopper constants
-	public static double processSpeed = 1.0;
+	public static double processSpeed = .1;  // not used
 	public static boolean processState = false;
 
 	// Chassis Constants

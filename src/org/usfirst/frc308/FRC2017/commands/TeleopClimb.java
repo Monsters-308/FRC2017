@@ -26,11 +26,11 @@ public class TeleopClimb extends Command {
 	protected void execute() {
 		Robot.climb.climbRope(Robot.oi.joystick1.getZ());
 
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.climbActuator)) {
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.climbActuator)) 
 			Robot.climb.climbActuator(true);
-		}else{
+		else
 			Robot.climb.climbActuator(false);
-		}
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

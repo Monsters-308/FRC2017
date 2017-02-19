@@ -199,6 +199,9 @@
 	<widget field="right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="23" y="17"/>
 	</widget>
+	<widget field="Drive forward 134" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="25" y="5"/>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>
