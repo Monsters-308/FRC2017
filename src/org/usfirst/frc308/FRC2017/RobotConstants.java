@@ -91,7 +91,7 @@ public class RobotConstants {
 	public static double shooterPIDKf = 1023.0 / 13000.0; // 1023/maximumspeed
 	public static int shooterPIDIZone = 4000;
 	public static double shooterPIDRampRate = 0.0;
-	public static double shooterTimer_timer = 0.4;
+	public static double shooterTimer_timer = 0.7;
 	public static boolean shooterMode = false;
 
 	// Light Constants
@@ -99,29 +99,29 @@ public class RobotConstants {
 	public static boolean extendLightState = false;
 	public static boolean clawLightState = false;
 	public static boolean cameralightState = false;
-	public static double cameralightTimer_time = .4;
+	public static double cameralightTimer_time = .7;
 	public static double lightflashspeedlow = 2.0;
 	public static double lightflashspeedfast = 1.0;
 	
 	// Climbing constants
 	public static double climbSpeed = 1.0;
+	public static double shakecycle = 2.0;
 
 	// Intake constants
 	public static double ballintakespeed = -0.8;
-	public static double intakeTimer_time =.4;
+	public static double intakeTimer_time =.7;
 	public static boolean intakeMode = false;
 
 	// Gear constants
 	public static boolean clawExtendState = false;
 	public static boolean clawOpenState = false;
 	public static boolean clawDoorState = false;
-	public static double extendTimer_timer = .4;
-	public static double doorTimer_timer = .4;
-	public static double closeTimer_timer = 4;
+	public static double extendTimer_timer = .7;
+	public static double doorTimer_timer = .7;
+	public static double closeTimer_timer = .7;
 
 	// Process-Hopper constants
-//	public static double feederSpeed = -.3;
-	public static double feedBalltimer_time = .4;
+	public static double feedBalltimer_time = .7;
 	public static double processSpeed = -.3;  // not used
 	public static boolean processState = false;
 

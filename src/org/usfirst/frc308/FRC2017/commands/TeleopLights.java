@@ -13,7 +13,7 @@ public class TeleopLights extends Command {
  
 public Timer lightTimer = new Timer();
 public Timer cameralightTimer = new Timer();
-private double lightcycle = 4.0;
+private double lightcycle;
     public TeleopLights() {
 
         requires(Robot.lights);

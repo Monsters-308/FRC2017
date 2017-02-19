@@ -9,7 +9,7 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
  *
  */
 public class TeleopClimb extends Command {
-	public Timer climbTimer = new Timer();
+	public Timer shakeTimer = new Timer();
 
 	public TeleopClimb() {
 
@@ -20,16 +20,35 @@ public class TeleopClimb extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.climb.setupClimb();
+		shakeTimer.reset();
+		shakeTimer.start();
 	}
+	
+
+
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
+		
+		// Reset Light Cycle when timer expires 
+	    if (shakeTimer.get() >= RobotConstants.shakecycle) {
+	    	shakeTimer.reset();	
+	     }
+		
+		
+		/// use throttle control
 		Robot.climb.climbRope(Robot.oi.joystick1.getZ());
-
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.climbActuator)) 
-			Robot.climb.climbActuator(true);
-		else
-			Robot.climb.climbActuator(false);
+		
+		// Shake the root
+	
+	       if (Robot.oi.joystick1.getRawButton(RobotConstants.climbActuator) || RobotConstants.processState) {
+	         	// Flash lights for door closed
+	       		if (shakeTimer.get() >= (RobotConstants.shakecycle/2))  
+	       			Robot.climb.climbActuatorclose();
+	       		else 
+	       			Robot.climb.climbActuatoropen();
+	      }   		
 		
 	}
 

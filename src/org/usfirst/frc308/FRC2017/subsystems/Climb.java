@@ -35,8 +35,13 @@ public class Climb extends Subsystem {
         climb.set(climbSpeed);
     }
     
-    public void climbActuator(boolean actuate){
-    	climbActuator.set(actuate);
+    public void climbActuatorclose(){
+    	climbActuator.set(true);
     }
 
+    public void climbActuatoropen(){
+    	climbActuator.set(false);
+    }
+    
+    
 }
