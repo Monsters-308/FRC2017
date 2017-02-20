@@ -15,8 +15,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class AutonomousTrajectoryFollowerTwoPoint extends Command {
-
-       
+	 
         edu.wpi.first.wpilibj.Timer timeout;
         Timer t;
         EncoderFollower left;
@@ -31,12 +30,13 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
             waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
             
             }  
-    
+  
 
         @Override
         protected void initialize() {
         	  timeout = new edu.wpi.first.wpilibj.Timer();
               timeout.start();
+              Robot.chassis.setupDrive();
               RobotConstants.isTrajectory = true;
               Robot.chassis.setRotatePIDZero();
               Robot.chassis.resetEncoders();

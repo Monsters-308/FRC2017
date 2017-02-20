@@ -10,6 +10,7 @@ public class AutonomousCommandStopProcess extends Command {
 	public AutonomousCommandStopProcess() {
 		requires(Robot.intake);
 		requires(Robot.processBalls);
+		requires(Robot.shooter);
 	}
 
 	@Override
