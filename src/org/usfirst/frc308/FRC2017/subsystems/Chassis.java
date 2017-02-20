@@ -168,6 +168,9 @@ public class Chassis extends PIDSubsystem {
         if (Math.abs(right) > 1.0) {
             right /= Math.abs(right);
         }
+        SmartDashboard.putNumber("tra left",left);
+        SmartDashboard.putNumber("tra right",right);
+        SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
         robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
                 (-(right - RobotConstants.gyroPIDOutput)));
     }
@@ -187,17 +190,19 @@ public class Chassis extends PIDSubsystem {
     }
 
     public int getLeftEncoderPosition() {
-     //   return -left2.getEncPosition();
-        SmartDashboard.putNumber("sim left encoed", lencodetemp);
-    	lencodetemp = lencodetemp +100; 
-    	return lencodetemp;
+        return -left2.getEncPosition();
+      // Used for simulation testing  MG
+     //   SmartDashboard.putNumber("sim left encoed", lencodetemp);
+    //	lencodetemp = lencodetemp +100; 
+    //	return lencodetemp;
     }
 
     public int getRightEncoderPosition() {
-   //     return right2.getEncPosition();
-        SmartDashboard.putNumber("sim right encoed", rencodetemp);
-    	rencodetemp = rencodetemp +100; 
-    	return rencodetemp;
+       return right2.getEncPosition();
+       // Used for simulation testing  MG   
+   //     SmartDashboard.putNumber("sim right encoed", rencodetemp);
+   // 	rencodetemp = rencodetemp +100; 
+   // 	return rencodetemp;
     }
 
     public double getGyroAngle() {
