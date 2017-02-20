@@ -46,7 +46,9 @@ public class Chassis extends PIDSubsystem {
 	double lastError = 0.0;
 	double error = 0;
 	Timer settledTimer = new Timer();
-
+	public double encodetemp = 0;
+	public int rencodetemp = 0;
+	public int  lencodetemp = 0;
 
     public Chassis() {
         super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
@@ -81,14 +83,21 @@ public class Chassis extends PIDSubsystem {
 
     //Chassis setup
     public void setupDrive() {
-        left1.changeControlMode(TalonControlMode.PercentVbus);    
+
+        left1.changeControlMode(TalonControlMode.PercentVbus);
+        left1.enableBrakeMode(false);
         left2.changeControlMode(TalonControlMode.PercentVbus);
+        left2.enableBrakeMode(false);
         left2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         left3.changeControlMode(TalonControlMode.PercentVbus);
+    	left3.enableBrakeMode(false);
         right1.changeControlMode(TalonControlMode.PercentVbus);
+		right1.enableBrakeMode(false);
         right2.changeControlMode(TalonControlMode.PercentVbus);
+		right2.enableBrakeMode(false);
         right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         right3.changeControlMode(TalonControlMode.PercentVbus);
+		right3.enableBrakeMode(false);
         gyro.reset();
         getPIDController().setSetpoint(0); // make setpoint current angle
         getPIDController().enable();
@@ -115,8 +124,6 @@ public class Chassis extends PIDSubsystem {
 						   setPointTimer.reset();
 						   }
 		 			} else { // after initializing ** Driving straight using PID
-		 			   SmartDashboard.putNumber("turn", turn);
-		 			  SmartDashboard.putNumber("forward", forward);
 						turn = RobotConstants.gyroPIDOutput;
 		 		    }
 		 		    //ELSE the user is still commanding
@@ -128,8 +135,6 @@ public class Chassis extends PIDSubsystem {
 					turning = true;
 		 			//Reset angle
 		 		}	
-		 	    SmartDashboard.putNumber("Turn", turn);
-		 	   SmartDashboard.putNumber("Forward", forward);
 		 		robotDrive6.arcadeDrive(forward, turn); // PID controlled Drive
 		 	} // End of BasicDrive PID Control
 		 	// ELSE PID is Off 
@@ -170,18 +175,29 @@ public class Chassis extends PIDSubsystem {
     public void resetEncoders() {
         left2.setEncPosition(0);
         right2.setEncPosition(0);
+        encodetemp = 0;
+        lencodetemp = 0;
+        rencodetemp = 0;
     }
 
     public double getEncoderPosition() {
-        return -left2.getEncPosition();
+    //	return -left2.getEncPosition();
+    	encodetemp = encodetemp +100; 
+    	return encodetemp;
     }
 
     public int getLeftEncoderPosition() {
-        return -left2.getEncPosition();
+     //   return -left2.getEncPosition();
+        SmartDashboard.putNumber("sim left encoed", lencodetemp);
+    	lencodetemp = lencodetemp +100; 
+    	return lencodetemp;
     }
 
     public int getRightEncoderPosition() {
-        return right2.getEncPosition();
+   //     return right2.getEncPosition();
+        SmartDashboard.putNumber("sim right encoed", rencodetemp);
+    	rencodetemp = rencodetemp +100; 
+    	return rencodetemp;
     }
 
     public double getGyroAngle() {
@@ -239,15 +255,15 @@ public class Chassis extends PIDSubsystem {
   
   
     public void displayChasisData() {
-        SmartDashboard.putNumber("left enc", left2.getEncPosition());
-        SmartDashboard.putNumber("right enc", right2.getEncPosition());
-        SmartDashboard.putNumber("left enc speed", left2.getEncVelocity());
-        SmartDashboard.putNumber("right enc speed", right2.getEncVelocity());
-        SmartDashboard.putNumber("angle", gyro.getAngle());
-        SmartDashboard.putNumber("gyro setpoint", getSetpoint());
-        SmartDashboard.putNumber("gyro error", getPIDController().getError());
-        SmartDashboard.putNumber("IAcc", IAccumulator);
-        SmartDashboard.putNumber("turn",RobotConstants.gyroPIDOutput);
+      SmartDashboard.putNumber("Chassis left enc", left2.getEncPosition());
+      SmartDashboard.putNumber("Chassis right enc", right2.getEncPosition());
+      SmartDashboard.putNumber("Chassis left enc speed", left2.getEncVelocity());
+      SmartDashboard.putNumber("Chassis right enc speed", right2.getEncVelocity());
+      SmartDashboard.putNumber("Chassis angle", gyro.getAngle());
+      SmartDashboard.putNumber("Chassis gyro setpoint", getSetpoint());
+      SmartDashboard.putNumber("Chassis gyro error", getPIDController().getError());
+      SmartDashboard.putNumber("Chassis IAcc", IAccumulator);
+      SmartDashboard.putNumber("Chassis turn",RobotConstants.gyroPIDOutput);
     }
 
     

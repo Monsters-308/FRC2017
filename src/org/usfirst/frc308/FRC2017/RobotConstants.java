@@ -34,22 +34,22 @@ public class RobotConstants {
 	
 	// Autonomous Drive profiles
 	// units in inch and degree with scaling to meter and radians in command
-    public Waypoint[] pointsTwo = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
-    public Waypoint[] pointsThree = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
-    double [][] autostartposition = {
+//    public Waypoint[] pointsTwo = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
+//    public Waypoint[] pointsThree = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
+    public double [][] autostartposition = {
             {0, 0, 0}, // Left 
             {0, 0,0},  // Center
             {0, 0,0}   // Right
             };
-    double [][] autoairshipposition = {
+    public double [][] autoairshipposition = {
             {-50, 169.3, 0}, // Left
             {0, 84.7,0},  // Center
             {36.7, 121.3,0}   // Right
             };
-    double [][] autoboilerhipposition = {
+    public double [][] autoboilerposition = {
             {-135.5, 16.94, 0}, 
             };
-    double [][] autoextrawaypointposition = {
+    public double [][] autoextrawaypointposition = {
             {0, 0, 0}, // Left
              };
 	// Vision

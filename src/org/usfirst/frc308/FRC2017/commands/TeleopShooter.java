@@ -35,7 +35,6 @@ public class TeleopShooter extends Command {
     protected void execute() {
         // if button A is pressed
         SmartDashboard.putBoolean("shoot mode ", RobotConstants.shooterMode);
-        SmartDashboard.putBoolean("shoot start ", Robot.oi.joystick1.getRawButton(RobotConstants.initShooter));
 
         if (Robot.oi.joystick1.getRawButton(RobotConstants.initShooter)) {
 

@@ -20,7 +20,6 @@ public class GearDelivery extends Subsystem {
     private final Solenoid clawDoor = RobotMap.gearDeliverySolenoid_3;
 
 
-    // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     public void initDefaultCommand() {

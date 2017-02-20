@@ -59,13 +59,8 @@ public class Shooter extends Subsystem {
     public void setShootSpeed(double speed) {
         //shootMotor1.set(speed);
         shooterMotor1.set(speed);
-        SmartDashboard.putDouble("shoot speed ", speed);
-    }
+     }
 
-
-//    public void Trigger(boolean triggerState) {
-//.set(triggerState);
-   //     // TODO Auto-generated method stub
 
     }
 

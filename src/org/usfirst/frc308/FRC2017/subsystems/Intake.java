@@ -36,7 +36,6 @@ public class Intake extends Subsystem {
      */
     public void setballmotor(double bspeed) {
         ballmotor1.set(bspeed);
-        SmartDashboard.putDouble("Ball Intake Speed", bspeed);
     }
     
 

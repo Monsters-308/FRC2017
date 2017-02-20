@@ -13,6 +13,7 @@ public class AutonomousDriveForward extends CommandGroup {
 		System.out.println("Drive forward");
 	SmartDashboard.putNumber("Drive forward 134", 0);
 	addSequential(new AutonomousTrajectoryFollower());
+	addSequential(new AutonomousTrajectoryFollowerTwoPoint( 0,0,0,196,0,0));
 		//addSequential(new AutonomousTrajectoryFollower());
 		//addSequential(new AutonomousRotateToTarget());
 //		addSequential(new RotateUntilGoalIsDetected(0.25));

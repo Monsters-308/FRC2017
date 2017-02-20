@@ -59,13 +59,12 @@ public class Robot extends IterativeRobot {
         oi = new OI();
 
         autoChooser = new SendableChooser();
-//		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
-		autoChooser.addDefault("Drive Forward", new AutonomousDriveForward());
-		//Put the number here in
-		//autoChooser.addDefault("AutonomousTrajectoryTest", new AutonomousCommandGroup());
+		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
+		autoChooser.addObject("Deliver Gear Only", new AutonomousDeliverGearOnly());
+		autoChooser.addDefault("Deliver Gear and shoot balls", new AutonomousDeliverGearShootBall());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
      
-/**	startPositionChooser = new SendableChooser();
+        startPositionChooser = new SendableChooser();
 		startPositionChooser.addDefault("Start Position Left", 0);
 		startPositionChooser.addObject("Start Position Center", 1);
 		startPositionChooser.addObject("Start Position Right", 2);
@@ -76,12 +75,12 @@ public class Robot extends IterativeRobot {
 		stopPositionChooser.addObject("Stop Position Center", 1);
 		stopPositionChooser.addObject("Stop Position Right", 2);
 	    SmartDashboard.putData("Autonomous stop position", stopPositionChooser);
-*/		
+		
 		
                 
         // instantiate the command used for the autonomous period
 		server = CameraServer.getInstance();
-		server.addAxisCamera("Rear", "169.254.44.183");
+		server.addAxisCamera("Rear", "10.3.8.3");
 		server.startAutomaticCapture();
 		
 		//autonomousCommand = new AutonomousCommand(); MG remove after autoChooser works
