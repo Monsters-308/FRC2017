@@ -55,11 +55,21 @@ public class AutonomousRotateToTarget extends Command {
 			else{
 				double diffrence = MathUtils.getDiffrence(centerX, array[index]);
 				double correction = diffrence - (RobotConstants.x / 2); 
-				rot = correction / 200;
-				
+				if(correction > 0){
+					//Positive
+					rot = 0.25;
+				}else{
+					rot = -0.25;
+				}
+				return false;
 			}
 			
 		}
-		return false;
+		else{
+			
+			return true;
+		}
+		//This line is only needed by eclipse
+		
 	}
 }
