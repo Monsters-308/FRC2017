@@ -83,13 +83,13 @@ public class RobotConstants {
 	public static double shootertargetRPM = 675; // Desired RPM
 	// public static double shootertargetspeed = (shootertargetRPM * 1/60 *1/10
 	// * 4096); // Desired RPM
-	public static double shootertargetspeed = 4000;
+	public static double shootertargetspeed = 5000;
 	public static double shooterTolerance = 300.0;
 	public static double shooterPIDKp = 0.4;
 	public static double shooterPIDKi = 0.00004;
 	public static double shooterPIDKd = 0.0;
 	public static double shooterPIDKf = 1023.0 / 13000.0; // 1023/maximumspeed
-	public static int shooterPIDIZone = 4000;
+	public static int shooterPIDIZone = 2000;
 	public static double shooterPIDRampRate = 0.0;
 	public static double shooterTimer_timer = 0.7;
 	public static boolean shooterMode = false;

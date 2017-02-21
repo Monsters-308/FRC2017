@@ -105,7 +105,20 @@ public class Chassis extends PIDSubsystem {
  //       settledTimer.start();  //not used
     }
 
-
+  public void brakemode ( boolean brakemode) {
+        left1.enableBrakeMode(false);
+        left2.enableBrakeMode(false);
+       	left3.enableBrakeMode(false);
+		right1.enableBrakeMode(false);
+		right2.enableBrakeMode(false);
+  		right3.enableBrakeMode(false);
+  
+    };
+    
+    
+    
+    
+    
     public void arcadeDrive(double forward, double turn) {
 
 		if (RobotConstants.enablePID == true )  { // use PID process
@@ -162,17 +175,21 @@ public class Chassis extends PIDSubsystem {
   
 
     public void setDrive(double left, double right) {
-        if (Math.abs(left) > 1.0) {
-            left /= Math.abs(left);
-        }
-        if (Math.abs(right) > 1.0) {
-            right /= Math.abs(right);
-        }
+      //  if (Math.abs(left) > 1.0) {
+      //      left /= Math.abs(left);
+    //    }
+   //     if (Math.abs(right) > 1.0) {
+   //         right /= Math.abs(right);
+  //      }
+   //     IAccumulator = 0; // reset accumulator
+    	 SmartDashboard.putNumber("tra setpoint", getSetpoint());
+    	 SmartDashboard.putNumber("tra gyro", gyro.getAngle());
+         SmartDashboard.putNumber("tra  gyro error", getPIDController().getError());
         SmartDashboard.putNumber("tra left",left);
         SmartDashboard.putNumber("tra right",right);
         SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
         robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
-                (-(right - RobotConstants.gyroPIDOutput)));
+                ((right - RobotConstants.gyroPIDOutput)));
     }
 
     public void resetEncoders() {
@@ -209,6 +226,11 @@ public class Chassis extends PIDSubsystem {
         return gyro.getAngle();
     }
 
+    public void  resetGyro() {
+    	 gyro.reset();
+         }
+    
+   
 
     public double deadZone(double input) {
         double d = Math.abs(input);

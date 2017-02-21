@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
 		server = CameraServer.getInstance();
 		server.addAxisCamera("Rear", "10.3.8.3");
-		server.startAutomaticCapture();
+		//server.startAutomaticCapture();
 		
 		//autonomousCommand = new AutonomousCommand(); MG remove after autoChooser works
 
@@ -137,7 +137,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
+    	Scheduler.getInstance().run();
     }
 
     public void teleopInit() {
@@ -146,6 +146,12 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+	    Robot.intake.setballmotor(0);
+		RobotConstants.intakeMode = false;
+		Robot.processBalls.runProcess(0);
+		RobotConstants.processState = false;
+		Robot.shooter.setShootSpeed(0);
+		RobotConstants.shooterMode = false;
 
         /// The Robot Preference function allows for temporary adjustment of variables
         //  When teleop is started the temp variables from the roborio memory are used instead of the had code values

@@ -8,8 +8,8 @@ public class AutonomousDeliverGearShootBall extends CommandGroup{
 	
 	public AutonomousDeliverGearShootBall(){
 		addSequential(new AutonomousCommandClaw(true)); // close claw
-		addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 84.7, 0, 0)); 
-		addSequential(new AutonomousCommandClawDoor(false)); // open claw door
+ 	    addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 40, 0, 0, true)); 
+     	addSequential(new AutonomousCommandClawDoor(false)); // open claw door
     	addSequential(new AutonomousCommandLights(true)); // turn on vision lights
     	addSequential(new AutonomousWait(1)); // wait 
   //  	addSequential(new AutonomousRotateToTarget ()); // Need to finish
@@ -17,16 +17,17 @@ public class AutonomousDeliverGearShootBall extends CommandGroup{
   //  	addSequential(new AutonomousRotateToTarget ()); // Need to finish
     	addSequential(new AutonomousCommandLights(false)); // turn on vision lights
     	addSequential(new AutonomousCommandClaw(false)); // open claw
-    	addSequential(new AutonomousTrajectoryFollowerTwoPoint(84.7, 0, 0, 16.94, 135.5, -60)); 
-    	addSequential(new AutonomousCommandIntake(RobotConstants.ballintakespeed)); // turn on intake
+    	addSequential(new AutonomousWait(1)); // wait 
+  	    addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 30, 0, 0, false)); 
     	addSequential(new AutonomousCommandShooter()); // turn on shooter
-    	addSequential(new AutonomousWait(.5)); // wait 
+    	addSequential(new AutonomousWait(1)); // wait 
     	addSequential(new AutonomousCommandStartProcess()); 
-    	addSequential(new AutonomousWait(.5)); // wait 
+    	addSequential(new AutonomousWait(2)); // wait 
     	addSequential(new AutonomousCommandClimbShake(true)); 
     	addSequential(new AutonomousWait(.5)); // wait 
-    	addSequential(new AutonomousCommandClimbShake(false)); 
-    	addSequential(new AutonomousCommandStopProcess());
+    	addSequential(new AutonomousCommandClimbShake(false));
+    	addSequential(new AutonomousWait(2)); // wait 
+    	addSequential(new AutonomousCommandStopProcess()); 
 	};
 }
 

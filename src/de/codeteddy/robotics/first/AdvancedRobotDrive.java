@@ -230,9 +230,8 @@ public class AdvancedRobotDrive implements MotorSafety {
         }
         leftValue = limit(leftValue);
         rightValue = limit(rightValue);
-        if (squaredInputs) {
-            if (leftValue >= 0.0D) {
-                leftValue *= leftValue;
+   /**     if (squaredInputs) {
+                 leftValue *= leftValue;
             } else {
                 leftValue = -(leftValue * leftValue);
             }
@@ -241,7 +240,7 @@ public class AdvancedRobotDrive implements MotorSafety {
             } else {
                 rightValue = -(rightValue * rightValue);
             }
-        }
+       }  */
         setLeftRightMotorOutputs(leftValue, rightValue);
     }
     
