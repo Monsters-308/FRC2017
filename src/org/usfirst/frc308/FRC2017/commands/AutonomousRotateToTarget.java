@@ -44,32 +44,25 @@ public class AutonomousRotateToTarget extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		//Enhance this method
+		
 		if (NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]).length > 0) {
+			//Check more
+			int indexBiggest = MathUtils.getLargestIndex(NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]));
 			double[] array = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]);
-			int index = MathUtils.getLargestIndex(array);
 			double centerX = RobotConstants.x / 2;
-			if(MathUtils.getDiffrence(centerX, array[index]) < RobotConstants.visionTolerance){
+			if(MathUtils.getDiffrence(centerX, array[indexBiggest]) < RobotConstants.visionTolerance){
+				
+				//Done;
 				return true;
-			}
-			else{
-				double diffrence = MathUtils.getDiffrence(centerX, array[index]);
-				double correction = diffrence - (RobotConstants.x / 2); 
-				if(correction > 0){
-					//Positive
-					rot = 0.25;
-				}else{
-					rot = -0.25;
-				}
+			}else{
+				//Do adjustments later
 				return false;
 			}
-			
 		}
 		else{
-			
+			//Done if there is no target
 			return true;
 		}
-		//This line is only needed by eclipse
 		
 	}
 }
