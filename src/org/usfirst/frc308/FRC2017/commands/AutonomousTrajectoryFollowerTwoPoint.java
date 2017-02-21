@@ -112,8 +112,8 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
               
                    t = new Timer();
                    gyrowait = 0; 
-                   left.reset();
-          	       right.reset();
+             //      left.reset();
+          	 //      right.reset();
                    Robot.chassis.brakemode(true);
                    t.schedule(new TimerTask() {
                  // Sample setup  	

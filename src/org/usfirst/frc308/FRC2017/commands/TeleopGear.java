@@ -1,6 +1,8 @@
 package org.usfirst.frc308.FRC2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 import edu.wpi.first.wpilibj.Timer;
@@ -72,8 +74,9 @@ public class TeleopGear extends Command {
         }
 
         // if button to open/close passive assist doors is pressed
+        SmartDashboard.putBoolean("geardoor" , RobotConstants.clawDoorState);
         if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton))
-        	if (!RobotConstants.clawExtendState) { // cannot extend claw if door shut
+       // 	if (!RobotConstants.clawExtendState) { // cannot extend claw if door shut
               if (doorTimer.get() == 0) {
                  if (RobotConstants.clawDoorState == false) {
                      RobotConstants.clawDoorState = true;
@@ -83,7 +86,7 @@ public class TeleopGear extends Command {
                      RobotConstants.clawDoorState = false;
                   } // end claw door
                } // end timer check 
-        	} // end claw door check
+      //  	} // end claw door check
          // Start Timer to make sure the toggle happens only once
          doorTimer.start();
         }  // end joystick button
