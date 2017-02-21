@@ -59,7 +59,7 @@ public class RobotConstants {
 	public static int visionTolerance = 5; //Count in pixels
 	public static int x = 320; //Count in pixels
 	public static int y = 240; //Count in pixels
-	public static double cameraFieldOfView = 14.0; // in degrees
+	public static double cameraFieldOfView = 67.0; // in degrees
 
 	// Driving
 	public static boolean safetyEnabled = false;
