@@ -43,6 +43,8 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
               RobotConstants.isTrajectory = true;
               Robot.chassis.setRotatePIDZero();
               Robot.chassis.resetEncoders();
+              left.reset();
+              right.reset();
               //  Example   
               // Waypoint[] points = new Waypoint[] {
               //  	    new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
