@@ -12,8 +12,8 @@ public class AutonomousRotateToTarget extends Command {
 
 	private double rot;
 	
-	public AutonomousRotateToTarget(double rotation){
-		rot = rotation;
+	public AutonomousRotateToTarget(){
+		rot = 0.35;
 		requires(Robot.chassis);
 	}
 	
@@ -53,8 +53,10 @@ public class AutonomousRotateToTarget extends Command {
 				return true;
 			}
 			else{
-				//Maybe we need to adjust the rotation value here ...
-				//but it wasn't required to do that now
+				double diffrence = MathUtils.getDiffrence(centerX, array[index]);
+				double correction = diffrence - (RobotConstants.x / 2); 
+				rot = correction / 200;
+				
 			}
 			
 		}
