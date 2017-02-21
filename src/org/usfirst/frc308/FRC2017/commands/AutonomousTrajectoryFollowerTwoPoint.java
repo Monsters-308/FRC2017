@@ -110,6 +110,8 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
               
                    t = new Timer();
                    gyrowait = 0; 
+                   left.reset();
+          	       right.reset();
                    Robot.chassis.brakemode(true);
                    t.schedule(new TimerTask() {
                  // Sample setup  	
@@ -129,14 +131,13 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                        public void run() {
                     	   SmartDashboard.putDouble("tra gyro 3", Robot.chassis.getGyroAngle());
                     	   if (gyrowait >= 1) {
-                    	     
                   	       double l = left.calculate(Robot.chassis.getLeftEncoderPosition());
                            double r = right.calculate(Robot.chassis.getRightEncoderPosition());
                            double desired_heading = Pathfinder.r2d(left.getHeading());
                            if (!drivef)  {
                         	   l = -l;
                                r = -r;
-                               desired_heading = desired_heading +180; 
+                               desired_heading = 179; 
                               }
                            Robot.chassis.getPIDController().setSetpoint(desired_heading / 4.0);
                            SmartDashboard.putDouble("tra gyro 2", Robot.chassis.getGyroAngle());

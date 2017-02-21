@@ -148,11 +148,22 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
 	    Robot.intake.setballmotor(0);
 		RobotConstants.intakeMode = false;
+//
+		Robot.lights.disableIntakeLights();
 		Robot.processBalls.runProcess(0);
+//
 		RobotConstants.processState = false;
 		Robot.shooter.setShootSpeed(0);
+//	
 		RobotConstants.shooterMode = false;
-
+		Robot.shooter.setShootSpeed(0);
+//		
+		Robot.lights.setcameraLights();
+		RobotConstants.cameralightState = true;
+//
+		Robot.gearDelivery.extendClaw();
+		
+		
         /// The Robot Preference function allows for temporary adjustment of variables
         //  When teleop is started the temp variables from the roborio memory are used instead of the had code values
 

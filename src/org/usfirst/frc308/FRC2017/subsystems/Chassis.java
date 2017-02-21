@@ -175,13 +175,13 @@ public class Chassis extends PIDSubsystem {
   
 
     public void setDrive(double left, double right) {
-      //  if (Math.abs(left) > 1.0) {
-      //      left /= Math.abs(left);
-    //    }
-   //     if (Math.abs(right) > 1.0) {
-   //         right /= Math.abs(right);
-  //      }
-   //     IAccumulator = 0; // reset accumulator
+       if (Math.abs(left) > 1.0) {
+            left /= Math.abs(left);
+       }
+        if (Math.abs(right) > 1.0) {
+           right /= Math.abs(right);
+       }
+        IAccumulator = 0; // reset accumulator
     	 SmartDashboard.putNumber("tra setpoint", getSetpoint());
     	 SmartDashboard.putNumber("tra gyro", gyro.getAngle());
          SmartDashboard.putNumber("tra  gyro error", getPIDController().getError());
