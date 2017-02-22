@@ -56,6 +56,12 @@ public class AutonomousRotateToTarget extends Command {
 				return true;
 			}else{
 				//Do adjustments later
+				double diffrence = array[indexBiggest] - centerX;
+				if(diffrence > 0){
+					rot = 0.25;
+				}else{
+					rot = -0.25;
+				}
 				return false;
 			}
 		}
