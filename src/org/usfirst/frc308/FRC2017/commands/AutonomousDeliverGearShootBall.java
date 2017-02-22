@@ -8,7 +8,9 @@ public class AutonomousDeliverGearShootBall extends CommandGroup{
 	
 	public AutonomousDeliverGearShootBall(){
 		addSequential(new AutonomousCommandClaw(true)); // close claw
-  //      addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 20, 0, 0, true)); 
+		addSequential(new AutonomousCommandExtendClaw(true)); // Extend  claw
+		addSequential(new AutonomousCommandClawDoor(true)); // Open door 
+       addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 20, 0, 0, true)); 
      	addSequential(new AutonomousCommandClawDoor(false)); // open claw door
      	addSequential(new AutonomousCommandLights(true)); // turn on vision lights
   //  	addSequential(new AutonomousWait(3)); // wait 

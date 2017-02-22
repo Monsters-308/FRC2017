@@ -22,15 +22,15 @@ public class RobotConstants {
 	// Joystick 1 constants
 	public static boolean singleJoystick = true;
 	public static double deadzone = 0.1; // updated by MG
-	public static int shootBall = 1;
+	public static int shootBall = 9;
 	public static int extendClawButton = 5;
 	public static int closeClawButton = 6;
 	public static int clawDoorButton = 7;
-	public static int initShooter = 4;
+	public static int initShooter = 10;
 	public static int climbButton = 3;
-	public static int initIntake = 2;
-	public static int climbActuator = 9;
-	public static int cameralight = 10;
+	public static int initIntake = 8;
+	public static int climbActuator = 4;
+	public static int cameralight = 2;
 	
 	// Autonomous Drive profiles
 	// units in inch and degree with scaling to meter and radians in command
@@ -115,7 +115,7 @@ public class RobotConstants {
 	// Gear constants
 	public static boolean clawExtendState = false;
 	public static boolean clawOpenState = false;
-	public static boolean clawDoorState = false;
+	public static boolean batDoorState = false;
 	public static double extendTimer_timer = .7;
 	public static double doorTimer_timer = .7;
 	public static double closeTimer_timer = .7;

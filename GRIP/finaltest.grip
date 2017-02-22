@@ -4,7 +4,7 @@
       <property name="address" value="http://10.3.8.3"/>
     </grip:Camera>
     <grip:ImageFile>
-      <property name="path" value="C:\Users\Team308-4\Desktop\filtertest.png"/>
+      <property name="path" value="C:\Users\Home\workspace2017\FRC2017\GRIP\filtertest.png"/>
     </grip:ImageFile>
   </sources>
   <steps>
@@ -68,9 +68,21 @@
           <double>100.0</double>
         </value>
       </grip:Input>
+      <grip:Input step="3" socket="8">
+        <value>1000000</value>
+      </grip:Input>
+      <grip:Input step="3" socket="9">
+        <value>0</value>
+      </grip:Input>
+      <grip:Input step="3" socket="10">
+        <value>0</value>
+      </grip:Input>
+      <grip:Input step="3" socket="11">
+        <value>1000</value>
+      </grip:Input>
       <grip:Output step="3" socket="0" previewed="true"/>
     </grip:Step>
-    <grip:Step name="Publish ContoursReport">
+    <grip:Step name="NTPublish ContoursReport">
       <grip:Input step="4" socket="0"/>
       <grip:Input step="4" socket="1">
         <value>myContoursReport</value>
@@ -97,28 +109,28 @@
   </steps>
   <connections>
     <grip:Connection>
-      <grip:Output step="3" socket="0" previewed="true"/>
-      <grip:Input step="4" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
       <grip:Output source="1" socket="0" previewed="false"/>
       <grip:Input step="0" socket="1"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output source="0" socket="0" previewed="true"/>
-      <grip:Input step="0" socket="0"/>
+      <grip:Output step="3" socket="0" previewed="true"/>
+      <grip:Input step="4" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="0" socket="0" previewed="true"/>
       <grip:Input step="1" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="2" socket="0" previewed="true"/>
-      <grip:Input step="3" socket="0"/>
+      <grip:Output source="0" socket="0" previewed="true"/>
+      <grip:Input step="0" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="1" socket="0" previewed="true"/>
-      <grip:Input step="2" socket="0"/>
+      <grip:Output step="2" socket="0" previewed="true"/>
+      <grip:Input step="3" socket="0"/>
     </grip:Connection>
   </connections>
   <settings>
@@ -130,4 +142,12 @@
     <deployJavaHome>/usr/local/frc/JRE/</deployJavaHome>
     <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError</deployJvmOptions>
   </settings>
+  <codeGenerationSettings>
+    <language>Java</language>
+    <className>GripPipeline</className>
+    <implementWpilibPipeline>false</implementWpilibPipeline>
+    <saveDir>C:\Users\Home\GRIP</saveDir>
+    <packageName></packageName>
+    <moduleName>grip</moduleName>
+  </codeGenerationSettings>
 </grip:Pipeline>

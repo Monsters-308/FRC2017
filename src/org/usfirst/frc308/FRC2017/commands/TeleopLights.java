@@ -59,7 +59,7 @@ private double lightcycle;
 
 // Light processing for claw Lights       
     if (RobotConstants.clawOpenState == true ) {
-    	if (RobotConstants.clawDoorState == true) {
+    	if (RobotConstants.batDoorState == true) {
     		// Flash lights for door closed
     		if (lightTimer.get() >= (lightcycle/2)) { 
     			Robot.lights.setgearClawLights();;
@@ -76,7 +76,7 @@ private double lightcycle;
         
  // Light processing for gearExtendLights     
        if (RobotConstants.clawExtendState == true ) {
-    	if (RobotConstants.clawDoorState == true) {
+    	if (RobotConstants.batDoorState == true) {
     		// Flash lights for door closed
     		if (lightTimer.get() >= (lightcycle/2)) { 
     			Robot.lights.setgearExtendLights();;

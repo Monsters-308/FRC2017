@@ -16,10 +16,10 @@ public class AutonomousCommandClawDoor extends Command {
 	protected void initialize() {
 		if (State) {
 			Robot.gearDelivery.openClawDoor();
-			RobotConstants.clawDoorState = true;
+			RobotConstants.batDoorState = true;
 		} else {
 			Robot.gearDelivery.closeClawDoor();
-			RobotConstants.clawDoorState = false;
+			RobotConstants.batDoorState = false;
 		}
 	}
 

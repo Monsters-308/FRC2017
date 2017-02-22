@@ -148,14 +148,11 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
  // Reset to initial states       
 	    Robot.intake.setballmotor(0);
-		RobotConstants.shooterMode = false;
-//
+		RobotConstants.intakeMode = false;
 		Robot.lights.disableIntakeLights();
+//		
 		Robot.processBalls.runProcess(0);
-		RobotConstants.intakeLightState = false;
-//
 		RobotConstants.processState = false;
-		Robot.shooter.setShootSpeed(0);
 //	
 		RobotConstants.shooterMode = false;
 		Robot.shooter.setShootSpeed(0);
@@ -163,16 +160,16 @@ public class Robot extends IterativeRobot {
 		Robot.lights.setcameraLights();
 		RobotConstants.cameralightState = true;
 //		
-		Robot.gearDelivery.openClaw();
+		Robot.gearDelivery.closeClaw();
 		RobotConstants.clawOpenState = true;
 		RobotConstants.clawLightState = true;
 //
 		Robot.gearDelivery.extendClaw();
-		RobotConstants.clawExtendState = false;
-		RobotConstants.extendLightState = false;
+		RobotConstants.clawExtendState = true;
+		RobotConstants.extendLightState = true;
 //		
 		Robot.gearDelivery.openClawDoor();
-		RobotConstants.clawDoorState = true;
+		RobotConstants.batDoorState = true;
 		
 		
         /// The Robot Preference function allows for temporary adjustment of variables

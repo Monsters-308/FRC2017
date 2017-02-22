@@ -32,13 +32,13 @@ public class GearDelivery extends Subsystem {
 
     public void extendClaw() {
         //
-        // extends claw
+        // extends extend
         Robot.gearDelivery.extendClaw.set(true);
     }
 
     public void retractClaw() {
         //
-        // retracts claw
+        // retracts  extend
         Robot.gearDelivery.extendClaw.set(false);
     }
 

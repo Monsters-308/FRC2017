@@ -3,11 +3,11 @@ import org.usfirst.frc308.FRC2017.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
-public class AutonomousCommandClaw extends Command {
+public class AutonomousCommandExtendClaw extends Command {
 
 	boolean State;
 
-	public AutonomousCommandClaw(boolean state) {
+	public AutonomousCommandExtendClaw(boolean state) {
 		requires(Robot.gearDelivery);
 		State = state;
 	}
@@ -15,11 +15,11 @@ public class AutonomousCommandClaw extends Command {
 	@Override
 	protected void initialize() {
 		if (State) {
-			Robot.gearDelivery.openClaw(); 
-			RobotConstants.clawOpenState = true;
+			Robot.gearDelivery.extendClaw();
+			RobotConstants.clawExtendState = true;
 		} else {
-			Robot.gearDelivery.closeClaw();;
-			RobotConstants.clawOpenState = false;
+			Robot.gearDelivery.retractClaw();
+			RobotConstants.clawExtendState = false;
 		}
 	}
 

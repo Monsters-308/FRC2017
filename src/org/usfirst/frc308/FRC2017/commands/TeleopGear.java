@@ -11,104 +11,106 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class TeleopGear extends Command {
-    private Timer extendTimer = new Timer();
-    private Timer closeTimer = new Timer();
-    private Timer doorTimer = new Timer();
-    private static boolean buttonExtendState = false;
+	private Timer extendTimer = new Timer();
+	private Timer closeTimer = new Timer();
+	private Timer doorTimer = new Timer();
+	private static boolean buttonExtendState = false;
 
-    public TeleopGear() {
+	public TeleopGear() {
 
-        requires(Robot.gearDelivery);
+		requires(Robot.gearDelivery);
 
-    }
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-        RobotConstants.clawExtendState = false;
-        RobotConstants.clawOpenState = false;
-        RobotConstants.clawDoorState = false;
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		RobotConstants.clawExtendState = false;
+		RobotConstants.clawOpenState = false;
+		RobotConstants.batDoorState = false;
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-        // if button to extend/retract claw is pressed
-    	if (!RobotConstants.clawDoorState) { // cannot move if door shut
-          if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton))
-              if (extendTimer.get() == 0) {
-                  if (RobotConstants.clawExtendState == false) {
-                      RobotConstants.clawExtendState = true;
-                      Robot.gearDelivery.extendClaw();
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	// if button to open/close passive assist doors is pressed
 
-                  } else { // If the shooter mode was on then toggle off
-                      Robot.gearDelivery.retractClaw();
-                      RobotConstants.clawExtendState = false;
-                  }
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
+			if (doorTimer.get() == 0) {
+				
+				if (RobotConstants.batDoorState == false) {
+					RobotConstants.batDoorState = true;
+					Robot.gearDelivery.closeClawDoor();
+				
+				} else { // If the shooter mode was on then toggle off
+					RobotConstants.batDoorState = false;
+					Robot.gearDelivery.openClawDoor();
+				} // end state check
+			} // end timer check
+			// Start Timer to make sure the toggle happens only once
+			doorTimer.start();
+		} // end joystick button
+		if (doorTimer.get() >= RobotConstants.doorTimer_timer) {
+			doorTimer.stop();
+			doorTimer.reset();
+		}
 
-                  // Start Timer to make sure the toggle happens only once
-                  extendTimer.start();
-            }
-        { //end claw door check can not extend/retract if door is closed
-        if (extendTimer.get() >= RobotConstants.extendTimer_timer) {
-            extendTimer.stop();
-            extendTimer.reset();
-        }
+		// if button to extend/retract claw is pressed
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
+			if (extendTimer.get() == 0) {
+				if (RobotConstants.clawExtendState == false) {
+					RobotConstants.clawExtendState = true;
+					Robot.gearDelivery.extendClaw();
 
-        // if button to open/close claw is pressed
-        if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton))
-            if (closeTimer.get() == 0) {
-                if (RobotConstants.clawOpenState == false) {
-                    RobotConstants.clawOpenState = true;
-                    Robot.gearDelivery.openClaw();
+				} else { // If the shooter mode was on then toggle off
+					Robot.gearDelivery.retractClaw();
+					RobotConstants.clawExtendState = false;
+				} // state check
+			} // end timer check
 
-                } else { // If the shooter mode was on then toggle off
-                    Robot.gearDelivery.closeClaw();
-                    RobotConstants.clawOpenState = false;
-                }
+			// Start Timer to make sure the toggle happens only once
+			extendTimer.start();
+		} // end joystick check
 
-                // Start Timer to make sure the toggle happens only once
-                closeTimer.start();
-            }
-        if (closeTimer.get() >= RobotConstants.closeTimer_timer) {
-            closeTimer.stop();
-            closeTimer.reset();
-        }
+		if (extendTimer.get() >= RobotConstants.extendTimer_timer) {
+			extendTimer.stop();
+			extendTimer.reset();
+		} // end timer loop
 
-        // if button to open/close passive assist doors is pressed
-        SmartDashboard.putBoolean("geardoor" , RobotConstants.clawDoorState);
-        if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton))
-       // 	if (!RobotConstants.clawExtendState) { // cannot extend claw if door shut
-              if (doorTimer.get() == 0) {
-                 if (RobotConstants.clawDoorState == false) {
-                     RobotConstants.clawDoorState = true;
-                     Robot.gearDelivery.closeClawDoor();
-                  } else { // If the shooter mode was on then toggle off
-                     Robot.gearDelivery.openClawDoor();
-                     RobotConstants.clawDoorState = false;
-                  } // end claw door
-               } // end timer check 
-      //  	} // end claw door check
-         // Start Timer to make sure the toggle happens only once
-         doorTimer.start();
-        }  // end joystick button
-          if (doorTimer.get() >= RobotConstants.doorTimer_timer) {
-            doorTimer.stop();
-            doorTimer.reset();
-        }
-      }  // end check if claw extended  
+		// if button to open/close claw is pressed
+		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
+			if (closeTimer.get() == 0) {
+				if (RobotConstants.clawOpenState == false) {
+					RobotConstants.clawOpenState = true;
+					Robot.gearDelivery.openClaw();
 
-    }
+				} else { // If the shooter mode was on then toggle off
+					Robot.gearDelivery.closeClaw();
+					RobotConstants.clawOpenState = false;
+				} // end sate check
+			} // end timer
+				// Start Timer to make sure the toggle happens only once
+			closeTimer.start();
+		} // End joystick check
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+		if (closeTimer.get() >= RobotConstants.closeTimer_timer) {
+			closeTimer.stop();
+			closeTimer.reset();
+		}
+		SmartDashboard.putBoolean("claw end", RobotConstants.clawOpenState);
+		SmartDashboard.putBoolean("extend end", RobotConstants.clawExtendState);
+		SmartDashboard.putBoolean("Geardoor end", RobotConstants.batDoorState);
+	} // end exectute
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }
