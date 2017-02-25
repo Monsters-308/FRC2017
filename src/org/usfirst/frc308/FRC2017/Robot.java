@@ -146,7 +146,12 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
- // Reset to initial states       
+        
+        
+// Reset to initial states   
+//  
+        Robot.chassis.brakemode(false);
+//         
 	    Robot.intake.setballmotor(0);
 		RobotConstants.intakeMode = false;
 		Robot.lights.disableIntakeLights();

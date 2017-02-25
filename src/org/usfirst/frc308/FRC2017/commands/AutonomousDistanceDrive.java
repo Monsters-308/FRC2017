@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutonomousDistanceDrive extends Command {
 
 	double power;
-	double distanceinch;
+	double distanceinch = 34.85;
 	double distancetorun;
 	
 	
@@ -24,8 +24,8 @@ public class AutonomousDistanceDrive extends Command {
 		// One rotation = 20 ticks =  2 pi r == 12.56 
 		// One inch = .628 ticks
 		/// * 5:1 gear ratio
-		power = motorpower;
-		distancetorun= .628 * distance_inch;
+		power = .2;
+		distancetorun= .20* distance_inch;
 		requires(Robot.chassis);
 	}
 

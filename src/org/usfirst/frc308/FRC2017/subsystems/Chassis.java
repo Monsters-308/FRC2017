@@ -12,6 +12,8 @@ import de.codeteddy.robotics.first.*;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.hal.HAL;
+
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
@@ -29,16 +31,24 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
 
 public class Chassis extends PIDSubsystem {
 
+//	private final AdvancedRobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
     private final CANTalon left1 = RobotMap.chassisCANTalon_1;
     private final CANTalon left2 = RobotMap.chassisCANTalon_2;
     private final CANTalon left3 = RobotMap.chassisCANTalon_3;
     private final CANTalon right1 = RobotMap.chassisCANTalon_4;
     private final CANTalon right2 = RobotMap.chassisCANTalon_5;
     private final CANTalon right3 = RobotMap.chassisCANTalon_6;
-    private final AdvancedRobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
     Timer setPointTimer = new Timer();
 
+    
+    public static final double ExpirationTime = 0.1D;
+    public static final double Sensitivity = 0.5D;
+    protected double m_sensitivity = 0.5D;
+    protected double m_maxOutput = 1.0;
+    
+   
+    
     private boolean turning = true;
 
 	// PID Stuff
@@ -46,9 +56,9 @@ public class Chassis extends PIDSubsystem {
 	double lastError = 0.0;
 	double error = 0;
 	Timer settledTimer = new Timer();
-	public double encodetemp = 0;
-	public int rencodetemp = 0;
-	public int  lencodetemp = 0;
+	public double encodetemp = 1;
+	public int rencodetemp = 1;
+	public int  lencodetemp = 1;
 
     public Chassis() {
         super("Drivetrain", RobotConstants.Kp, 0, RobotConstants.Kd);
@@ -84,20 +94,31 @@ public class Chassis extends PIDSubsystem {
     //Chassis setup
     public void setupDrive() {
 
-        left1.changeControlMode(TalonControlMode.PercentVbus);
-        left1.enableBrakeMode(false);
+     
         left2.changeControlMode(TalonControlMode.PercentVbus);
         left2.enableBrakeMode(false);
         left2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        left3.changeControlMode(TalonControlMode.PercentVbus);
-    	left3.enableBrakeMode(false);
-        right1.changeControlMode(TalonControlMode.PercentVbus);
-		right1.enableBrakeMode(false);
+        
+        left1.enableBrakeMode(false);           
+		left1.changeControlMode(TalonControlMode.Follower);
+		left1.set(2);
+        
+     	left3.enableBrakeMode(false);
+		left3.changeControlMode(TalonControlMode.Follower);
+		left3.set(2);
+    			
         right2.changeControlMode(TalonControlMode.PercentVbus);
 		right2.enableBrakeMode(false);
-        right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        right3.changeControlMode(TalonControlMode.PercentVbus);
+		right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		
+		right1.enableBrakeMode(false);
+		right1.changeControlMode(TalonControlMode.Follower);
+		right1.set(5);
+				
 		right3.enableBrakeMode(false);
+		right3.changeControlMode(TalonControlMode.Follower);
+		right3.set(5);
+		
         gyro.reset();
         getPIDController().setSetpoint(0); // make setpoint current angle
         getPIDController().enable();
@@ -106,14 +127,14 @@ public class Chassis extends PIDSubsystem {
     }
 
   public void brakemode ( boolean brakemode) {
-        left1.enableBrakeMode(false);
-        left2.enableBrakeMode(false);
-       	left3.enableBrakeMode(false);
-		right1.enableBrakeMode(false);
-		right2.enableBrakeMode(false);
-  		right3.enableBrakeMode(false);
-  
-    };
+	    boolean brakestate = brakemode; 
+        left1.enableBrakeMode(brakestate);
+        left2.enableBrakeMode(brakestate);
+       	left3.enableBrakeMode(brakestate);
+		right1.enableBrakeMode(brakestate);
+		right2.enableBrakeMode(brakestate);
+  		right3.enableBrakeMode(brakestate);
+      };
     
     
     
@@ -148,11 +169,13 @@ public class Chassis extends PIDSubsystem {
 					turning = true;
 		 			//Reset angle
 		 		}	
-		 		robotDrive6.arcadeDrive(forward, turn); // PID controlled Drive
+		 		displayChasisData();
+		 		arcade(forward, turn); // PID controlled Drive
 		 	} // End of BasicDrive PID Control
 		 	// ELSE PID is Off 
 		 	else { // use standard arcadeDrive
-		   robotDrive6.arcadeDrive(forward, turn);
+		   displayChasisData();		
+		   arcade(forward, turn);
 		 	     }
 		 	} // End of PID enable loop
 
@@ -171,7 +194,6 @@ public class Chassis extends PIDSubsystem {
             setSetpoint(0.0);
         }
     }
-
   
 
     public void setDrive(double left, double right) {
@@ -188,8 +210,8 @@ public class Chassis extends PIDSubsystem {
         SmartDashboard.putNumber("tra left",left);
         SmartDashboard.putNumber("tra right",right);
         SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
-        robotDrive6.tankDrive((left + RobotConstants.gyroPIDOutput),
-                ((right - RobotConstants.gyroPIDOutput)));
+        tankDrive(-(left + RobotConstants.gyroPIDOutput),
+                (-(right - RobotConstants.gyroPIDOutput)));
     }
 
     public void resetEncoders() {
@@ -197,28 +219,31 @@ public class Chassis extends PIDSubsystem {
         right2.setEncPosition(0);
         encodetemp = 0;
         lencodetemp = 0;
-        rencodetemp = 0;
+     
     }
 
     public double getEncoderPosition() {
-    //	return -left2.getEncPosition();
-    	encodetemp = encodetemp +100; 
-    	return encodetemp;
+    return -left2.getEncPosition();
+  //  	encodetemp = encodetemp +100; 
+  //  	return encodetemp;
     }
 
     public int getLeftEncoderPosition() {
-        return -left2.getEncPosition();
-      // Used for simulation testing  MG
-     //   SmartDashboard.putNumber("sim left encoed", lencodetemp);
-    //	lencodetemp = lencodetemp +100; 
-    //	return lencodetemp;
+    	
+    	   SmartDashboard.putNumber("sim left encoed",-left2.getEncPosition());
+     return -left2.getEncPosition();
+  //    Used for simulation testing  MG
+  //  
+   // 	lencodetemp = lencodetemp +100; 
+ //  	return lencodetemp;
     }
 
     public int getRightEncoderPosition() {
-       return right2.getEncPosition();
-       // Used for simulation testing  MG   
-   //     SmartDashboard.putNumber("sim right encoed", rencodetemp);
-   // 	rencodetemp = rencodetemp +100; 
+    	SmartDashboard.putNumber("sim right encoed", right2.getEncPosition());
+    return right2.getEncPosition();
+  //      Used for simulation testing  MG   
+   //    
+    //	rencodetemp = rencodetemp +100; 
    // 	return rencodetemp;
     }
 
@@ -260,11 +285,14 @@ public class Chassis extends PIDSubsystem {
 	  /**
      * resets PID for to zero
      */
+    
+    
   public void setRotatePIDZero() {
       gyro.reset(); // reset gyro so our angle is 0
       getPIDController().setSetpoint(0);
       IAccumulator = 0; // reset accumulator
      }
+  
   /**
    * sets up the PID for rotate command
    */
@@ -293,5 +321,119 @@ public class Chassis extends PIDSubsystem {
       SmartDashboard.putNumber("Chassis turn",RobotConstants.gyroPIDOutput);
     }
 
+    
+    // ***********************************************************************************************
+    
+    public void setLeftRightMotorOutputs(double leftOutput, double rightOutput) {
+      left2.set(limit(leftOutput) * this.m_maxOutput);
+      right2.set(-limit(rightOutput) * this.m_maxOutput);
+  	SmartDashboard.putNumber("right output ",rightOutput );
+  	SmartDashboard.putNumber("left output ",leftOutput );
+      }
+       
+    
+    
+    
+    
+    /**
+     * Method to check if input is in range
+     * @param number to check
+     * @return checked number
+     * @author Alexander Kaschta
+     */
+    protected static double limit(double number) {
+        if (number > 1.0D) {
+            return 1.0D;
+        }
+        if (number < -1.0D) {
+            return -1.0D;
+        }
+        return number;
+    }
+
+    /**
+     * Simple method to drive the robot like a tank
+     * @author Alexander Kaschta
+     * @param leftValue value for the left motors
+     * @param rightValue value for the right motors
+     * @param squaredInputs are the input values already squared?
+     */
+    public void tankDrive(double leftValue, double rightValue) {
+       
+    	boolean squaredInputs = false;
+        leftValue = limit(leftValue);
+        rightValue = limit(rightValue);
+      if (squaredInputs) {
+                 leftValue *= leftValue;
+            } else {
+                leftValue = -(leftValue * leftValue);
+            }
+            if (rightValue >= 0.0D) {
+                rightValue *= rightValue;
+            } else {
+                rightValue = -(rightValue * rightValue);
+            }
+       
+        setLeftRightMotorOutputs( leftValue, rightValue);
+    }
+    
+      
+    
+    /**
+     * More advanced method to control the robot with just one joystick
+     * @author Alexander Kaschta
+     * @param moveValue value that show how much the robot should go forward (y-axis)
+     * @param rotateValue value how much the robot should rotate (x-axis)
+     * @param squaredInputs show's if the input values already had been squared (usually true)
+     */
+    
+    public void arcade(double moveValue, double rotateValue) {
+                
+    	boolean squaredInputs = false;
+        moveValue = limit(moveValue);
+        rotateValue = limit(rotateValue);
+        
+        if (squaredInputs) {
+            if (moveValue >= 0.0D) {	
+                moveValue *= moveValue;
+            } else {
+                moveValue = -(moveValue * moveValue);
+            }
+       
+            if (rotateValue >= 0.0D) {
+                rotateValue *= rotateValue;
+            } else {
+                rotateValue = -(rotateValue * rotateValue);
+            }
+        }
+        
+        
+        double rightMotorSpeed;
+        double leftMotorSpeed;
+        
+        if (moveValue > 0.0D) {
+            if (rotateValue > 0.0D) {
+                leftMotorSpeed = moveValue - rotateValue;
+                rightMotorSpeed = Math.max(moveValue, rotateValue);
+            } else {
+                leftMotorSpeed = Math.max(moveValue, -rotateValue);
+                rightMotorSpeed = moveValue + rotateValue;
+            }
+        } else {
+            
+            if (rotateValue > 0.0D) {
+                leftMotorSpeed = -Math.max(-moveValue, rotateValue);
+                rightMotorSpeed = moveValue + rotateValue;
+            } else {
+                leftMotorSpeed = moveValue - rotateValue;
+                rightMotorSpeed = -Math.max(-moveValue, -rotateValue);
+            }
+        }
+        
+
+        setLeftRightMotorOutputs(leftMotorSpeed, rightMotorSpeed);
+    }
+    
+   
     
 }

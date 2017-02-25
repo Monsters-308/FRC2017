@@ -91,12 +91,12 @@ public class AdvancedRobotDrive implements MotorSafety {
     {
         this.m_sensitivity = 0.5D;
         this.m_maxOutput = 1.0D;
-        this.m_left1 = new Talon(left1);
-        this.m_left2 = new Talon(left2);
-        this.m_left3 = new Talon(left3);
-        this.m_rigth1 = new Talon(rigth4);
-        this.m_rigth2 = new Talon(rigth5);
-        this.m_rigth3 = new Talon(rigth6);
+ //       this.m_left1 = new Talon(left1);
+ //       this.m_left2 = new Talon(left2);
+ //       this.m_left3 = new Talon(left3);
+ //       this.m_rigth1 = new Talon(rigth4);
+//        this.m_rigth2 = new Talon(rigth5);
+//        this.m_rigth3 = new Talon(rigth6);
         this.m_allocatedSpeedControllers = true;
         setupMotorSafety();
     }
