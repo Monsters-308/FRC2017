@@ -23,7 +23,7 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
         int gyrowait; 
         double lasttime;
         double timelapse;
-        EncoderFollower left;
+       EncoderFollower left;
         EncoderFollower right;
         private static double inchesToMeter = 0.0254 ;
         private boolean drivef;
@@ -76,21 +76,21 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                    // Max Velocity:        15 m/s
                    // Max Acceleration:    10 m/s/s
                    // Max Jerk:            60 m/s/s/s
-                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, 1.1, 6.0, 15.0);
+                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .3, .3, 1.0);
                
                    //Next Line causes crash if the Waypoints are not set correctly!!!!
                    Trajectory trajectory = Pathfinder.generate(points, config);
                   File myFile = new File("/home/lvuser/mytrafile.csv");
                  Pathfinder.writeToCSV(myFile, trajectory);
 
-                 double wheelbase_width =  1.0; // MG updated
+                 double wheelbase_width =  .82; // MG updated
 
                    // Create the Modifier Object
-                   TankModifier modifier = new TankModifier(trajectory).modify(wheelbase_width);
+                  TankModifier modifier = new TankModifier(trajectory).modify(wheelbase_width);
 
                       
-                   left = new EncoderFollower(modifier.getLeftTrajectory());
-                   right = new EncoderFollower(modifier.getRightTrajectory());
+                  left = new EncoderFollower(modifier.getLeftTrajectory());
+                  right = new EncoderFollower(modifier.getRightTrajectory());
 
                 // Encoder Position is the current, cumulative position of your encoder. 
                 //  If you're using an SRX, this will be the
@@ -100,24 +100,24 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                 // Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
                 // 4" * .0254 = .1016
 
-          //         left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
+                    left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
                    //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
-          //         right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
+                   right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
                 
-                   left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
+                  left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
                    //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
-                   right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);     
+                  right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);     
                    
                    
-                   
+                  
                 // The first argument is the proportional gain. Usually this will be quite high
                 // The second argument is the integral gain. This is unused for motion profiling
                 // The third argument is the derivative gain. Tweak this if you are unhappy with the tracking of the trajectory
                 // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
                 // trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
                 // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-                   left.configurePIDVA(.01, 0.0, 0.0, 1/1.1, 0);
-                   right.configurePIDVA(.01, 0.0, 0.0, 1/1.1, 0);
+                   left.configurePIDVA(0.95, 0.0, 0.00, 2.0, 0);
+                   right.configurePIDVA(0.95, 0.0, 0.00, 2.0, 0);
 
                  
               
@@ -139,23 +139,24 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                  //  	setRightMotors(r - turn);
                  //////   End sample setup  	
                        
-                       double desired_heading = 50 ;
                        double l = 0;
                        double r =0;
                        public void run() {
                     	   lasttime = edu.wpi.first.wpilibj.Timer.getFPGATimestamp();
                     	   timelapse = edu.wpi.first.wpilibj.Timer.getFPGATimestamp() - lasttime;
+                    	   System.out.println("***************encoder left " + Robot.chassis.getLeftEncoderPosition());
                     	   double l = left.calculate(Robot.chassis.getLeftEncoderPosition()) ;
+                    	   System.out.println("***************encoder right " + Robot.chassis.getRightEncoderPosition());
                            double r = right.calculate(Robot.chassis.getRightEncoderPosition()) ;
-                           double desired_heading = Pathfinder.r2d(left.getHeading());
-                     //      System.out.println(Robot.chassis.getLeftEncoderPosition());      	                                       	      
+                           double desired_heading = - Pathfinder.r2d(left.getHeading());
+                          	                                       	      
                            if (!drivef)  {
                         	   l = -l;
                                r = -r;
                                desired_heading = 179; 
                               }
-                           Robot.chassis.setDrive(l*.6, r*.6);
-                    //       System.out.println(desired_heading);
+                           Robot.chassis.setDrive(l, r);
+                          System.out.println(desired_heading);
                            Robot.chassis.getPIDController().setSetpoint(desired_heading / 4.0);
                            SmartDashboard.putDouble("tra gyro 2", Robot.chassis.getGyroAngle());
                            SmartDashboard.putDouble("tra head", desired_heading);
@@ -168,9 +169,9 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                     	   }
                                               	 
                    }, 0, 50); // end timed task
-                   left.reset();
+                  left.reset();
                   Robot.chassis.brakemode(true);
-                   right.reset();
+                  right.reset();
                    Robot.chassis.displayChasisData();
               
         }
@@ -185,7 +186,7 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
 
         @Override
         protected boolean isFinished() {
-            if (left.isFinished() || right.isFinished() || timeout.get() > 8) {
+           if (left.isFinished() || right.isFinished() || timeout.get() > 15) {
                 return true;
             }
             return false;

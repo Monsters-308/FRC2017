@@ -1,3 +1,4 @@
+/**
 package org.usfirst.frc308.FRC2017.commands;
 
 import java.util.Timer;
@@ -69,7 +70,7 @@ public class AutonomousTrajectoryFollower extends Command {
                TankModifier modifier = new TankModifier(trajectory).modify(wheelbase_width);
 
                left = new EncoderFollower(modifier.getLeftTrajectory());
-               right = new EncoderFollower(modifier.getRightTrajectory());
+              right = new EncoderFollower(modifier.getRightTrajectory());
 
             // Encoder Position is the current, cumulative position of your encoder. 
             //  If you're using an SRX, this will be the
@@ -81,7 +82,7 @@ public class AutonomousTrajectoryFollower extends Command {
 
                left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
                //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
-               right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
+              right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
                
                
             // The first argument is the proportional gain. Usually this will be quite high
@@ -91,12 +92,13 @@ public class AutonomousTrajectoryFollower extends Command {
             // trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
             // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
                left.configurePIDVA(0.1, 0.0, 0.0, 1 / 3.0, 0);
-               right.configurePIDVA(0.1, 0.0, 0.0, 1 / 3.0, 0);
+              right.configurePIDVA(0.1, 0.0, 0.0, 1 / 3.0, 0);
 
          
                
                //MARTY - WHAT DOES THIS DO???
                t = new Timer();
+               System.out.println("***************before timer " + Robot.chassis.getLeftEncoderPosition());
                t.schedule(new TimerTask() {
              // Sample setup  	
              //  	double l = left.calculate(encoder_position_left);
@@ -113,13 +115,15 @@ public class AutonomousTrajectoryFollower extends Command {
              //////   End sample setup  	
                    @Override
                    public void run() {
+                	 System.out.println("***************encoder left " + Robot.chassis.getLeftEncoderPosition());
                        double l = left.calculate(Robot.chassis.getLeftEncoderPosition());
-                       double r = right.calculate(Robot.chassis.getRightEncoderPosition());
+                  	 System.out.println("***************encoder right " + Robot.chassis.getRightEncoderPosition());
+                      double r = right.calculate(Robot.chassis.getRightEncoderPosition());
                        double desired_heading = Pathfinder.r2d(left.getHeading());
                        Robot.chassis.setSetpoint(desired_heading / 4.0);
                        Robot.chassis.setDrive(l, r);
                        SmartDashboard.putDouble("tra head", desired_heading);
-                       SmartDashboard.putDouble("tra right", r);
+                      SmartDashboard.putDouble("tra right", r);
                        SmartDashboard.putDouble("tra left", l);
                    }
                }, 0, 50); // end timed task
@@ -162,3 +166,4 @@ public class AutonomousTrajectoryFollower extends Command {
     }
     
 }
+*/

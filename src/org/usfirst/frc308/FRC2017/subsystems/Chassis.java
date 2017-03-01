@@ -97,7 +97,8 @@ public class Chassis extends PIDSubsystem {
      
         left2.changeControlMode(TalonControlMode.PercentVbus);
         left2.enableBrakeMode(false);
-        left2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+   //     left2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        left2.isSensorPresent(FeedbackDevice.QuadEncoder);
         
         left1.enableBrakeMode(false);           
 		left1.changeControlMode(TalonControlMode.Follower);
@@ -109,7 +110,8 @@ public class Chassis extends PIDSubsystem {
     			
         right2.changeControlMode(TalonControlMode.PercentVbus);
 		right2.enableBrakeMode(false);
-		right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+//		right2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+	    right2.isSensorPresent(FeedbackDevice.QuadEncoder);
 		
 		right1.enableBrakeMode(false);
 		right1.changeControlMode(TalonControlMode.Follower);
@@ -197,12 +199,12 @@ public class Chassis extends PIDSubsystem {
   
 
     public void setDrive(double left, double right) {
-       if (Math.abs(left) > 1.0) {
-            left /= Math.abs(left);
-       }
-        if (Math.abs(right) > 1.0) {
-           right /= Math.abs(right);
-       }
+  //     if (Math.abs(left) > 1.0) {
+   //         left /= Math.abs(left);
+  //     }
+  //      if (Math.abs(right) > 1.0) {
+ //          right /= Math.abs(right);
+ //      }
         IAccumulator = 0; // reset accumulator
     	 SmartDashboard.putNumber("tra setpoint", getSetpoint());
     	 SmartDashboard.putNumber("tra gyro", gyro.getAngle());
@@ -210,8 +212,8 @@ public class Chassis extends PIDSubsystem {
         SmartDashboard.putNumber("tra left",left);
         SmartDashboard.putNumber("tra right",right);
         SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
-        tankDrive(-(left + RobotConstants.gyroPIDOutput),
-                (-(right - RobotConstants.gyroPIDOutput)));
+        tankDrive(-(left - RobotConstants.gyroPIDOutput),
+                (-(right + RobotConstants.gyroPIDOutput)));
     }
 
     public void resetEncoders() {
@@ -219,31 +221,34 @@ public class Chassis extends PIDSubsystem {
         right2.setEncPosition(0);
         encodetemp = 0;
         lencodetemp = 0;
+        rencodetemp = 0;
      
     }
 
-    public double getEncoderPosition() {
-    return -left2.getEncPosition();
+    public int getEncoderPosition() {
+      int intValue = (int) left2.getPosition();
+      return  intValue; 
   //  	encodetemp = encodetemp +100; 
-  //  	return encodetemp;
+ //  	return encodetemp;
     }
 
     public int getLeftEncoderPosition() {
-    	
-    	   SmartDashboard.putNumber("sim left encoed",-left2.getEncPosition());
-     return -left2.getEncPosition();
-  //    Used for simulation testing  MG
+    	 int intValue = (int) left2.getPosition();
+    	   SmartDashboard.putNumber("sim left encoed",left2.getPosition());
+    return intValue;
+  //  Used for simulation testing  MG
   //  
    // 	lencodetemp = lencodetemp +100; 
- //  	return lencodetemp;
+  //	return lencodetemp;
     }
 
     public int getRightEncoderPosition() {
-    	SmartDashboard.putNumber("sim right encoed", right2.getEncPosition());
-    return right2.getEncPosition();
+    	SmartDashboard.putNumber("sim right encoed", right2.getPosition());
+    	 int intValue = (int) right2.getPosition();
+    return intValue; 
   //      Used for simulation testing  MG   
    //    
-    //	rencodetemp = rencodetemp +100; 
+   // 	rencodetemp = rencodetemp +100; 
    // 	return rencodetemp;
     }
 
@@ -310,8 +315,8 @@ public class Chassis extends PIDSubsystem {
   
   
     public void displayChasisData() {
-      SmartDashboard.putNumber("Chassis left enc", left2.getEncPosition());
-      SmartDashboard.putNumber("Chassis right enc", right2.getEncPosition());
+      SmartDashboard.putNumber("Chassis left enc", left2.getPosition());
+      SmartDashboard.putNumber("Chassis right enc", right2.getPosition());
       SmartDashboard.putNumber("Chassis left enc speed", left2.getEncVelocity());
       SmartDashboard.putNumber("Chassis right enc speed", right2.getEncVelocity());
       SmartDashboard.putNumber("Chassis angle", gyro.getAngle());
