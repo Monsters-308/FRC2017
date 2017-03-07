@@ -212,8 +212,11 @@ public class Chassis extends PIDSubsystem {
         SmartDashboard.putNumber("tra left",left);
         SmartDashboard.putNumber("tra right",right);
         SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
-        tankDrive(-(left - RobotConstants.gyroPIDOutput),
-                (-(right + RobotConstants.gyroPIDOutput)));
+        tankDrive(-(left ),
+                (-(right )));     
+        
+  //      tankDrive(-(left + RobotConstants.gyroPIDOutput),
+  //              (-(right - RobotConstants.gyroPIDOutput)));
     }
 
     public void resetEncoders() {

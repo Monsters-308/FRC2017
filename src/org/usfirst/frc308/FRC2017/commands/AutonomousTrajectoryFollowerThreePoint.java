@@ -76,7 +76,7 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                    // Max Velocity:        15 m/s
                    // Max Acceleration:    10 m/s/s
                    // Max Jerk:            60 m/s/s/s
-                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .3, .3, 1.0);
+                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .35, .3, .5);
                
                    //Next Line causes crash if the Waypoints are not set correctly!!!!
                    Trajectory trajectory = Pathfinder.generate(points, config);
@@ -116,8 +116,8 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                 // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
                 // trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
                 // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-                   left.configurePIDVA(0.95, 0.0, 0.00, 2.0, 0);
-                   right.configurePIDVA(0.95, 0.0, 0.00, 2.0, 0);
+                   left.configurePIDVA(0.7, 0.0, 0.00, 1.2, 0);
+                   right.configurePIDVA(0.7, 0.0, 0.00, 1.2, 0);
 
                  
               

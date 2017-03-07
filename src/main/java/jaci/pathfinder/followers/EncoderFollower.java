@@ -1,5 +1,6 @@
 package jaci.pathfinder.followers;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Trajectory;
 
 /**
@@ -94,6 +95,7 @@ public class EncoderFollower {
             System.out.println("segment " + segment);
             System.out.println("distance_covered " + distance_covered );
             error = seg.position - distance_covered;
+            SmartDashboard.putDouble("tra encode error", error);
             System.out.println("error " + error);
             double calculated_value =
                     kp * error +                                    // Proportional
