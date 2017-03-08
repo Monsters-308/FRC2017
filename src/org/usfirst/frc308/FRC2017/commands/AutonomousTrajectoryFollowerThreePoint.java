@@ -76,7 +76,7 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                    // Max Velocity:        15 m/s
                    // Max Acceleration:    10 m/s/s
                    // Max Jerk:            60 m/s/s/s
-                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .35, .3, .5);
+                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .35, .3, .4);
                
                    //Next Line causes crash if the Waypoints are not set correctly!!!!
                    Trajectory trajectory = Pathfinder.generate(points, config);
@@ -104,9 +104,9 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                    //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
                    right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
                 
-                  left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
-                   //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
-                  right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);     
+          //        left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
+          //         //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
+         //         right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);     
                    
                    
                   
@@ -153,7 +153,7 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
                            if (!drivef)  {
                         	   l = -l;
                                r = -r;
-                               desired_heading = 179; 
+                               desired_heading = 0; 
                               }
                            Robot.chassis.setDrive(l, r);
                           System.out.println(desired_heading);

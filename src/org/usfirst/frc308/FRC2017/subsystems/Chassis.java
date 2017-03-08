@@ -32,12 +32,15 @@ import org.usfirst.frc308.FRC2017.RobotConstants;
 public class Chassis extends PIDSubsystem {
 
 //	private final AdvancedRobotDrive robotDrive6 = RobotMap.chassisRobotDrive6;
-    private final CANTalon left1 = RobotMap.chassisCANTalon_1;
-    private final CANTalon left2 = RobotMap.chassisCANTalon_2;
-    private final CANTalon left3 = RobotMap.chassisCANTalon_3;
-    private final CANTalon right1 = RobotMap.chassisCANTalon_4;
-    private final CANTalon right2 = RobotMap.chassisCANTalon_5;
-    private final CANTalon right3 = RobotMap.chassisCANTalon_6;
+    private final CANTalon left1 = RobotMap.chassisCANTalon_4;
+    private final CANTalon left2 = RobotMap.chassisCANTalon_5;
+    private final CANTalon left3 = RobotMap.chassisCANTalon_6;
+    
+    private final CANTalon right1 = RobotMap.chassisCANTalon_1;
+    private final CANTalon right2 = RobotMap.chassisCANTalon_2;
+    private final CANTalon right3 = RobotMap.chassisCANTalon_3;
+   
+
     private final ADXRS450_Gyro gyro = RobotMap.spiGyro_1;
     Timer setPointTimer = new Timer();
 
@@ -73,7 +76,7 @@ public class Chassis extends PIDSubsystem {
     protected double returnPIDInput() { // Set PID Input value
         // Used - in code to create PID thread
         // Return your input value for the PID loop
-        return gyro.getAngle();
+        return -gyro.getAngle();
     }
 
     protected void usePIDOutput(double output) {  // Get PID Output value
@@ -102,11 +105,11 @@ public class Chassis extends PIDSubsystem {
         
         left1.enableBrakeMode(false);           
 		left1.changeControlMode(TalonControlMode.Follower);
-		left1.set(2);
+		left1.set(5);
         
      	left3.enableBrakeMode(false);
 		left3.changeControlMode(TalonControlMode.Follower);
-		left3.set(2);
+		left3.set(5);
     			
         right2.changeControlMode(TalonControlMode.PercentVbus);
 		right2.enableBrakeMode(false);
@@ -115,11 +118,11 @@ public class Chassis extends PIDSubsystem {
 		
 		right1.enableBrakeMode(false);
 		right1.changeControlMode(TalonControlMode.Follower);
-		right1.set(5);
+		right1.set(2);
 				
 		right3.enableBrakeMode(false);
 		right3.changeControlMode(TalonControlMode.Follower);
-		right3.set(5);
+		right3.set(2);
 		
         gyro.reset();
         getPIDController().setSetpoint(0); // make setpoint current angle
@@ -212,11 +215,11 @@ public class Chassis extends PIDSubsystem {
         SmartDashboard.putNumber("tra left",left);
         SmartDashboard.putNumber("tra right",right);
         SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
-        tankDrive(-(left ),
-                (-(right )));     
+   //     tankDrive(-(left ),
+   //            (-(right )));     
         
-  //      tankDrive(-(left + RobotConstants.gyroPIDOutput),
-  //              (-(right - RobotConstants.gyroPIDOutput)));
+     tankDrive(-(left + RobotConstants.gyroPIDOutput),
+              (-(right - RobotConstants.gyroPIDOutput)));
     }
 
     public void resetEncoders() {
@@ -230,7 +233,7 @@ public class Chassis extends PIDSubsystem {
 
     public int getEncoderPosition() {
       int intValue = (int) left2.getPosition();
-      return  intValue; 
+      return -intValue; 
   //  	encodetemp = encodetemp +100; 
  //  	return encodetemp;
     }
@@ -238,7 +241,7 @@ public class Chassis extends PIDSubsystem {
     public int getLeftEncoderPosition() {
     	 int intValue = (int) left2.getPosition();
     	   SmartDashboard.putNumber("sim left encoed",left2.getPosition());
-    return intValue;
+    return -intValue;
   //  Used for simulation testing  MG
   //  
    // 	lencodetemp = lencodetemp +100; 
@@ -248,7 +251,7 @@ public class Chassis extends PIDSubsystem {
     public int getRightEncoderPosition() {
     	SmartDashboard.putNumber("sim right encoed", right2.getPosition());
     	 int intValue = (int) right2.getPosition();
-    return intValue; 
+    return -intValue; 
   //      Used for simulation testing  MG   
    //    
    // 	rencodetemp = rencodetemp +100; 
