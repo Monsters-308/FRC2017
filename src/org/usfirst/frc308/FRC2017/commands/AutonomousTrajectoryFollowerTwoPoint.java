@@ -16,7 +16,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 
-public class AutonomousTrajectoryFollowerThreePoint extends Command {
+public class AutonomousTrajectoryFollowerTwoPoint extends Command {
 	 
         edu.wpi.first.wpilibj.Timer timeout;
         Timer t;
@@ -28,13 +28,12 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
         private static double inchesToMeter = 0.0254 ;
         private boolean drivef;
         //This has a max size of three
-        Waypoint[] waypoints = new Waypoint[3];
+        Waypoint[] waypoints = new Waypoint[2];
         
-        public AutonomousTrajectoryFollowerThreePoint(double x0, double y0, double d0, double x1, double y1, double d1,double x2, double y2, double d2, boolean driveforward) {
+        public AutonomousTrajectoryFollowerTwoPoint(double x0, double y0, double d0, double x1, double y1, double d1, boolean driveforward) {
             requires(Robot.chassis);
             waypoints[0] = new Waypoint(x0 * inchesToMeter, y0 * inchesToMeter, Math.toRadians(d0)); 
             waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
-            waypoints[2] = new Waypoint(x2 * inchesToMeter, y2 * inchesToMeter, Math.toRadians(d2));
             drivef = driveforward;
             }  
   
@@ -188,7 +187,7 @@ public class AutonomousTrajectoryFollowerThreePoint extends Command {
 
         @Override
         protected boolean isFinished() {
-        	 if (left.isFinished() || right.isFinished() || timeout.get() > 10) {
+        	 if (left.isFinished() || right.isFinished() || timeout.get() > RobotConstants.TrajectorySegments*.05) {
         	   Robot.chassis.setDrive(0, 0);
                 return true;
             }

@@ -12,7 +12,8 @@ public class AutonomousDeliverGearShootBall extends CommandGroup{
 		addSequential(new AutonomousCommandClawDoor(true)); // Open door 
 		
 //	  addSequential(new AutonomousTrajectoryFollowerThreePoint(0, 0, 0, -36,0 ,0, -72, 0, 0, true)); 
- addSequential(new AutonomousTrajectoryFollowerThreePoint(-100,-46, 1, -17, -17,40, 0, 0, 75, true)); 
+	  addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0, 0,  97, 45, 60, true)); 
+//  addSequential(new AutonomousTrajectoryFollowerThreePoint(-100,-46, 1, -17, -17,40, 0, 0, 75, true)); 
  // 	 addSequential(new AutonomousWait(2)); // wait
  //   addSequential(new AutonomousTrajectoryFollowerThreePoint (-4, -2, 0, -2,-2,45, 0, 0, 0, true));
  //

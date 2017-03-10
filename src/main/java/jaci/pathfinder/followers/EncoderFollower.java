@@ -1,5 +1,7 @@
 package jaci.pathfinder.followers;
 
+import org.usfirst.frc308.FRC2017.RobotConstants;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Trajectory;
 
@@ -82,6 +84,7 @@ public class EncoderFollower {
      * @return             The desired output for your motor controller
      */
     public double calculate(int encoder_tick) {
+        RobotConstants.TrajectorySegments =  trajectory.length();
         // Number of Revolutions * Wheel Circumference
         double distance_covered = ((double)(encoder_tick - encoder_offset) / encoder_tick_count)
                 * wheel_circumference;
