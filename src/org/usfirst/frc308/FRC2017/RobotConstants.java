@@ -34,25 +34,31 @@ public class RobotConstants {
 	
 	// Autonomous Drive profiles
 	// units in inch and degree with scaling to meter and radians in command
-//    public Waypoint[] pointsTwo = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
-//    public Waypoint[] pointsThree = new Waypoint[]{new Waypoint(0, 0, 0), new Waypoint(0, 0, 0), new Waypoint(0, 0, 0)}; 
-    public double [][] autostartposition = {
-            {0, 0, 0}, // Left 
-            {0, 0,0},  // Center
-            {0, 0,0}   // Right
+	
+	public static int startPositionChooser;
+	public static int boilPositionChooser;
+	
+	public static double [][] autostartposition = {
+            {76.87, -59.8, -72.07}, // Left 
+            {84.7, 0,0},            // Center
+            {76.87, 59.8, 72.07}    // Right
             };
-    public double [][] autoairshipposition = {
-            {-50, 169.3, 0}, // Left
-            {0, 84.7,0},  // Center
-            {36.7, 121.3,0}   // Right
-            };
-    public double [][] autoboilerposition = {
-            {-135.5, 16.94, 0}, 
-            };
-    public double [][] autoextrawaypointposition = {
+    public static double [][][] autoairshipposition = {
+    		{
+            {10, 0,0}, // Left + Left boiler
+            {10, 0,0},  // Center + Left boiler
+            {10, 0,0}},  // Right + Left boiler
+            {
+            {10, 0,0}, // Left + right boiler
+            {10, 0,0},  // Center + right boiler
+            {10, 0,0}   // Right  + right boiler
+             }};
+    
+    public static double [][] autoextrawaypointposition = { 
             {0, 0, 0}, // Left
+            {0, 0, 0}, // Center
+            {0, 0, 0}  // Right
              };
-	// Vision
 	
 	
 	//Vision --> Axis-Camera //TODO Needs to be changed when switching cameras

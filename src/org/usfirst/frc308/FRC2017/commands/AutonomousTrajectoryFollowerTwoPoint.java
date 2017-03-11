@@ -46,7 +46,6 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
               Robot.chassis.setupDrive();
               Robot.chassis.brakemode(true);
               RobotConstants.isTrajectory = true;
-              Robot.chassis.setRotatePIDZero();
               Robot.chassis.resetEncoders();
               //  Example   
               // Waypoint[] points = new Waypoint[] {
@@ -100,12 +99,8 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                 // 4" * .0254 = .1016
 
                     left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
-                   //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
-                   right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
-                
-          //        left.configureEncoder(Robot.chassis.getLeftEncoderPosition(), 400, 0.1016);
-          //         //Tom 2/18: Changed from Robot.  to -Robot.  (negative)
-         //         right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);     
+                    right.configureEncoder(Robot.chassis.getRightEncoderPosition(), 400, 0.1016);
+   
                    
                    
                   
@@ -139,31 +134,31 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                  //////   End sample setup  	
                        
                        double l = 0;
-                       double r =0;
+                       double r = 0;
                        public void run() {
                     	   lasttime = edu.wpi.first.wpilibj.Timer.getFPGATimestamp();
                     	   timelapse = edu.wpi.first.wpilibj.Timer.getFPGATimestamp() - lasttime;
-                    	   System.out.println("***************encoder left " + Robot.chassis.getLeftEncoderPosition());
                     	   double l = left.calculate(Robot.chassis.getLeftEncoderPosition()) ;
-                    	   System.out.println("***************encoder right " + Robot.chassis.getRightEncoderPosition());
                            double r = right.calculate(Robot.chassis.getRightEncoderPosition()) ;
-                           double desired_heading = - Pathfinder.r2d(left.getHeading());
-                          	                                       	      
-                           if (!drivef)  {
-                        	   l = -l;
-                               r = -r;
-                               desired_heading = 0; 
-                              }
-                           Robot.chassis.setDrive(l, r);
-                          System.out.println(desired_heading);
-                           Robot.chassis.getPIDController().setSetpoint(desired_heading / 4.0);
+                           double gyro_heading = Robot.chassis.getGyroAngle();   // Assuming the gyro is giving a value in degrees
+                           double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+                     	   double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+                           double turn = 0.8 * (-1.0/80.0) * angleDifference;
+                           if  (!left.isFinished() || !right.isFinished()) {
+                              if (drivef)   // normal forward mode 
+                                 Robot.chassis.tankDrive(-(l + turn),-(r - turn)); 
+                              else 
+                                   // reverse mode only use for straight back
+                               Robot.chassis.tankDrive((l + turn),(r - turn)); 
+                            } else {
+                        	   Robot.chassis.tankDrive(0,0); 
+                            }
                            SmartDashboard.putDouble("tra gyro 2", Robot.chassis.getGyroAngle());
                            SmartDashboard.putDouble("tra head", desired_heading);
                            SmartDashboard.putDouble("tra right", r);
                            SmartDashboard.putDouble("tra left", l);  
                            SmartDashboard.putDouble("tra encoder right", Robot.chassis.getRightEncoderPosition());
                            SmartDashboard.putDouble("tra encodeer left", Robot.chassis.getLeftEncoderPosition());  
-                           
                            SmartDashboard.putDouble("time lapse", timelapse);  
                            System.out.println(" Run specific task at given time." + System.currentTimeMillis());
                            System.out.println(" Total time." + RobotConstants.TrajectorySegments*.05);
@@ -171,25 +166,19 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                                               	 
                    }, 0, 50); // end timed task  0 delay, execute every 50 mSec
                   left.reset();
-                  Robot.chassis.brakemode(true);
                   right.reset();
-                   Robot.chassis.displayChasisData();
+                  Robot.chassis.displayChasisData();
               
         }
-
         @Override
         protected void execute() {
-     
-
-
-        }
+         }
         
 
         @Override
         protected boolean isFinished() {
         	 if (left.isFinished() || right.isFinished() || timeout.get() > RobotConstants.TrajectorySegments*.05) {
-        	   Robot.chassis.setDrive(0, 0);
-                return true;
+        	  return true;
             }
             return false;
         }
@@ -198,9 +187,7 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
         protected void end() {
             timeout.stop();
             timeout.reset();
-
             t.cancel();
-            Robot.chassis.setRotatePIDZero();
             RobotConstants.isTrajectory = false;
             Robot.chassis.brakemode(false);
         }

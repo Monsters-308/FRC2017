@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
 	SendableChooser<Command> autoChooser;
     SendableChooser startPositionChooser;
-    SendableChooser stopPositionChooser;
+    SendableChooser boilPositionChooser;
 	CameraServer server;
 
     public static OI oi;
@@ -68,13 +68,12 @@ public class Robot extends IterativeRobot {
 		startPositionChooser.addDefault("Start Position Left", 0);
 		startPositionChooser.addObject("Start Position Center", 1);
 		startPositionChooser.addObject("Start Position Right", 2);
-	    SmartDashboard.putData("Autonomous start position", startPositionChooser);
+	    SmartDashboard.putInt("Autonomous start position", RobotConstants.startPositionChooser);
 		
-		stopPositionChooser = new SendableChooser();
-		stopPositionChooser.addDefault("Stop Position Left", 0);
-		stopPositionChooser.addObject("Stop Position Center", 1);
-		stopPositionChooser.addObject("Stop Position Right", 2);
-	    SmartDashboard.putData("Autonomous stop position", stopPositionChooser);
+		boilPositionChooser = new SendableChooser();
+		boilPositionChooser.addDefault("Boilier Left", 0);
+		boilPositionChooser.addObject("Boilier Right", 1);
+	    SmartDashboard.putInt("Autonomous Boiler position", RobotConstants.boilPositionChooser);
 		
 		
                 
