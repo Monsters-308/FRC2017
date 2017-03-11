@@ -23,7 +23,7 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
         int gyrowait; 
         double lasttime;
         double timelapse;
-       EncoderFollower left;
+        EncoderFollower left;
         EncoderFollower right;
         private static double inchesToMeter = 0.0254 ;
         private boolean drivef;
@@ -47,6 +47,7 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
               Robot.chassis.brakemode(true);
               RobotConstants.isTrajectory = true;
               Robot.chassis.resetEncoders();
+              RobotConstants.TrajectorySegments = 0; 
               //  Example   
               // Waypoint[] points = new Waypoint[] {
               //  	    new Waypoint(-4, -1, Pathfinder.d2r(-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees

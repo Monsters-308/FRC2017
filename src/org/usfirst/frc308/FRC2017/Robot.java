@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.usfirst.frc308.FRC2017.commands.*;
 import org.usfirst.frc308.FRC2017.subsystems.*;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CameraServer;
 
 
@@ -149,8 +150,8 @@ public class Robot extends IterativeRobot {
 		RobotConstants.clawLightState = true;
 //
 		Robot.gearDelivery.extendClaw();
-		RobotConstants.clawExtendState = true;
-		RobotConstants.extendLightState = true;
+		RobotConstants.clawExtendState = false;
+		RobotConstants.extendLightState = false;
 //		
 		Robot.gearDelivery.openClawDoor();
 		RobotConstants.batDoorState = true;

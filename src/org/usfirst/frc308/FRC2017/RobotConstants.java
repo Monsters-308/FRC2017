@@ -40,7 +40,7 @@ public class RobotConstants {
 	
 	public static double [][] autostartposition = {
             {76.87, 59.8, 72.07}, // Left 
-            {76.87, 0, 0}, // Center
+            {65, 0, 0}, // Center
             {76.87, -59.8, -72.07}  // Right
             };
     public static double [][][] autoairshipposition = {
