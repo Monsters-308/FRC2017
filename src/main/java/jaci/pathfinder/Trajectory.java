@@ -1,4 +1,4 @@
-package jaci.pathfinder;
+package main.java.jaci.pathfinder;
 
 /**
  * The Trajectory object contains an array of Segments that represent the location, velocity, acceleration, jerk and heading

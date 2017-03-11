@@ -10,17 +10,18 @@ public class AutonomousDeliverGearShootBall extends CommandGroup{
 	   addSequential(new AutonomousCommandClaw(true)); // close claw
 	   addSequential(new AutonomousCommandExtendClaw(false)); // Extend  claw
 	   addSequential(new AutonomousCommandClawDoor(true)); // Open door 
-	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
-	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][0], // left
-	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][1], // center
-	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][2], // right
-	   true));                   
+	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0, 86.87, -59.8, -72, true));
+//	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
+//	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][0], // left
+ //      RobotConstants.autostartposition[RobotConstants.startPositionChooser][1], // center
+//	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][2], // right
+  //     true));                   
  //    addSequential(new AutonomousWait(2)); // wait
-	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
-       RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][0],
-       RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][1],
-       RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][2],
-       true)); 
+//	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
+ //      RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][0],
+ //      RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][1],
+ //      RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][2],
+ //      true)); 
  //
      	addSequential(new AutonomousCommandClaw(false)); // open claw door
      	 addSequential(new AutonomousWait(2)); // wait 

@@ -1,4 +1,4 @@
-package jaci.pathfinder.modifiers;
+package main.java.jaci.pathfinder.modifiers;
 
 import jaci.pathfinder.PathfinderJNI;
 import jaci.pathfinder.Trajectory;

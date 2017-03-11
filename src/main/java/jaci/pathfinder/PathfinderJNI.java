@@ -1,4 +1,4 @@
-package jaci.pathfinder;
+package main.java.jaci.pathfinder;
 
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.SwerveModifier;
