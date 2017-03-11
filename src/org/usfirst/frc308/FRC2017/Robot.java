@@ -26,8 +26,6 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
 	SendableChooser<Command> autoChooser;
-    SendableChooser startPositionChooser;
-    SendableChooser boilPositionChooser;
 	CameraServer server;
 
     public static OI oi;
@@ -60,21 +58,15 @@ public class Robot extends IterativeRobot {
 
         autoChooser = new SendableChooser();
 		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
+		autoChooser.addObject("Drive Forward", new AutonomousDriveForward());
 		autoChooser.addObject("Deliver Gear Only", new AutonomousDeliverGearOnly());
 		autoChooser.addDefault("Deliver Gear and shoot balls", new AutonomousDeliverGearShootBall());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
      
-        startPositionChooser = new SendableChooser();
-		startPositionChooser.addDefault("Start Position Left", 0);
-		startPositionChooser.addObject("Start Position Center", 1);
-		startPositionChooser.addObject("Start Position Right", 2);
-	    SmartDashboard.putInt("Autonomous start position", RobotConstants.startPositionChooser);
-		
-		boilPositionChooser = new SendableChooser();
-		boilPositionChooser.addDefault("Boilier Left", 0);
-		boilPositionChooser.addObject("Boilier Right", 1);
-	    SmartDashboard.putInt("Autonomous Boiler position", RobotConstants.boilPositionChooser);
-		
+        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
+        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
+        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
+        SmartDashboard.putNumber("Boiler position set" , RobotConstants.boilPositionChooser);
 		
                 
         // instantiate the command used for the autonomous period
@@ -91,24 +83,8 @@ public class Robot extends IterativeRobot {
         //  The code below loads reset the temp smartdash board variables with the values hard coded
         //  THis code is run only when the Robrio is restarted enabling will not reset the values
 
-        Preferences.getInstance().putDouble("shooter ticks target", RobotConstants.shootertargetspeed);
-        Preferences.getInstance().putDouble("shooter Tolerance", RobotConstants.shooterTolerance);
-        Preferences.getInstance().putDouble("shooter kp", RobotConstants.shooterPIDKp);
-        Preferences.getInstance().putDouble("shooter ki", RobotConstants.shooterPIDKi);
-        Preferences.getInstance().putDouble("shooter kd", RobotConstants.shooterPIDKd);
-        Preferences.getInstance().putDouble("shooter kf", RobotConstants.shooterPIDKf);
-        Preferences.getInstance().putDouble("shooter PID Ramprate", RobotConstants.shooterPIDRampRate);
-        Preferences.getInstance().putDouble("ball intake spd", RobotConstants.ballintakespeed);
-        Preferences.getInstance().putDouble("processSpeed", RobotConstants.processSpeed);
-        Preferences.getInstance().putBoolean("enable drive PID", RobotConstants.enablePID);
-        Preferences.getInstance().putDouble("Drive Kp", RobotConstants.Kp);
-        Preferences.getInstance().putDouble("Drive Ki", RobotConstants.Ki);
-        Preferences.getInstance().putDouble("Drive Kd", RobotConstants.Kd);
-        Preferences.getInstance().putDouble("iZone", RobotConstants.iZone);
-        Preferences.getInstance().putDouble("maximumIZoneSpeed", RobotConstants.maximumIZoneSpeed);
-        Preferences.getInstance().putDouble("rotateInertiaBias", RobotConstants.rotateInertiaBias);
-        Preferences.getInstance().putDouble("gyroPIDErrorTolerance", RobotConstants.gyroPIDErrorTolerance);
-
+        Preferences.getInstance().putInt("Autonomous Start Position ",  RobotConstants.startPositionChooser);
+        Preferences.getInstance().putInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
     }
 
     /**
@@ -124,6 +100,10 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
+        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
+        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
+        SmartDashboard.putNumber("Boiler position set" , RobotConstants.startPositionChooser);
     	// schedule the autonomous command 
     	autonomousCommand = (Command) autoChooser.getSelected();
 		if (autonomousCommand != null) {
@@ -179,23 +159,12 @@ public class Robot extends IterativeRobot {
         /// The Robot Preference function allows for temporary adjustment of variables
         //  When teleop is started the temp variables from the roborio memory are used instead of the had code values
 
-        RobotConstants.shootertargetspeed = Preferences.getInstance().getDouble("shooter ticks target", RobotConstants.shootertargetspeed);
-        RobotConstants.shooterTolerance = Preferences.getInstance().getDouble("shooter Tolerance", RobotConstants.shooterTolerance);
-        RobotConstants.shooterPIDKp = Preferences.getInstance().getDouble("shooter kp", RobotConstants.shooterPIDKp);
-        RobotConstants.shooterPIDKi = Preferences.getInstance().getDouble("shooter ki", RobotConstants.shooterPIDKi);
-        RobotConstants.shooterPIDKd = Preferences.getInstance().getDouble("shooter kd", RobotConstants.shooterPIDKd);
-        RobotConstants.shooterPIDKf = Preferences.getInstance().getDouble("shooter kf", RobotConstants.shooterPIDKf);
-        RobotConstants.shooterPIDRampRate = Preferences.getInstance().getDouble("shooter PID Ramprate", RobotConstants.shooterPIDRampRate);
-        RobotConstants.ballintakespeed = Preferences.getInstance().getDouble("ball intake spd", RobotConstants.ballintakespeed);
-        RobotConstants.processSpeed = Preferences.getInstance().getDouble("processSpeed", RobotConstants.processSpeed);
-        RobotConstants.enablePID = Preferences.getInstance().getBoolean("enable drive PID", RobotConstants.enablePID);
-        RobotConstants.Kp = Preferences.getInstance().getDouble("Drive Kp", RobotConstants.Kp);
-        RobotConstants.Ki = Preferences.getInstance().getDouble("Drive Ki", RobotConstants.Ki);
-        RobotConstants.Kd = Preferences.getInstance().getDouble("Drive Kd", RobotConstants.Kd);
-        RobotConstants.iZone = Preferences.getInstance().getDouble("iZone", RobotConstants.iZone);
-        RobotConstants.maximumIZoneSpeed = Preferences.getInstance().getDouble("maximumIZoneSpeed", RobotConstants.maximumIZoneSpeed);
-        RobotConstants.rotateInertiaBias = Preferences.getInstance().getDouble("rotateInertiaBias", RobotConstants.rotateInertiaBias);
-        RobotConstants.gyroPIDErrorTolerance = Preferences.getInstance().getDouble("gyroPIDErrorTolerance", RobotConstants.gyroPIDErrorTolerance);
+		RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
+        RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
+        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
+        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
+        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
+        SmartDashboard.putNumber("Boiler position set" , RobotConstants.boilPositionChooser);
     }
 
 

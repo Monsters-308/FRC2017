@@ -10,29 +10,28 @@ public class AutonomousDeliverGearShootBall extends CommandGroup{
 	   addSequential(new AutonomousCommandClaw(true)); // close claw
 	   addSequential(new AutonomousCommandExtendClaw(false)); // Extend  claw
 	   addSequential(new AutonomousCommandClawDoor(true)); // Open door 
-	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0, 86.87, -59.8, -72, true));
-//	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
-//	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][0], // left
- //      RobotConstants.autostartposition[RobotConstants.startPositionChooser][1], // center
-//	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][2], // right
-  //     true));                   
- //    addSequential(new AutonomousWait(2)); // wait
-//	   addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
- //      RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][0],
- //      RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][1],
- //      RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][2],
- //      true)); 
- //
-     	addSequential(new AutonomousCommandClaw(false)); // open claw door
-     	 addSequential(new AutonomousWait(2)); // wait 
-//	    addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 45, 0, 0, false));
-//	    addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 1, 5, 0, true));
-     	addSequential(new AutonomousCommandLights(true)); // turn on vision lights
-    	addSequential(new AutonomousWait(2)); // wait 
-  //   	addSequential(new AutonomousRotateToTarget ()); // Need to finish
-  //  	addSequential(new VisionDriveStraightToGoal (.2)); // Need to finish
-  //  	addSequential(new AutonomousRotateToTarget ()); // Need to finish
-  	addSequential(new AutonomousCommandLights(false)); // turn on vision lights
+	   /// Drive to Gear
+      addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
+	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][0], // left
+       RobotConstants.autostartposition[RobotConstants.startPositionChooser][1], // center
+	   RobotConstants.autostartposition[RobotConstants.startPositionChooser][2], // right
+       true));  
+  	   addSequential(new AutonomousCommandLights(true)); // turn on vision lights
+       addSequential(new AutonomousWait(.5)); // wait
+  	   addSequential(new AutonomousCommandClaw(false)); // open claw door
+  	  	addSequential(new AutonomousCommandLights(false)); // turn off vision lights
+	   addSequential(new AutonomousWait(1.0)); // wait 
+	   // Back up
+       addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 24, 0, 0, false));
+       addSequential(new AutonomousWait(2)); // wait
+       // Drive to Boiler
+       addSequential(new AutonomousTrajectoryFollowerTwoPoint(0,0,0,
+       RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][0],
+       RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][1],
+       RobotConstants.autoairshipposition[RobotConstants.boilPositionChooser][RobotConstants.startPositionChooser][2],
+       true)); 
+       	addSequential(new AutonomousWait(2)); // wait 
+  	addSequential(new AutonomousCommandLights(false)); // turn off vision lights
  	addSequential(new AutonomousCommandClaw(false)); // open claw
    	addSequential(new AutonomousWait(1)); // wait 
  	//    addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, 1,20,90, true)); 

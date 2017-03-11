@@ -35,12 +35,12 @@ public class RobotConstants {
 	// Autonomous Drive profiles
 	// units in inch and degree with scaling to meter and radians in command
 	
-	public static int startPositionChooser;
-	public static int boilPositionChooser;
+	public static int startPositionChooser = 1;;
+	public static int boilPositionChooser = 1;
 	
 	public static double [][] autostartposition = {
-            {76.87, -59.8, -72.07}, // Left 
-            {76.87, -59.8, -72.07}, // Center
+            {76.87, 59.8, 72.07}, // Left 
+            {76.87, 0, 0}, // Center
             {76.87, -59.8, -72.07}  // Right
             };
     public static double [][][] autoairshipposition = {
