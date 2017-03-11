@@ -14,6 +14,7 @@ public class AutonomousVisionControlledDriving extends CommandGroup {
 
 	
 	public double calc(){
+		if(NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]).length > 0){
 		double angle = RobotConstants.cameraFieldOfView / 2;
 		double[] array = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("width", new double[0]);
 		int index = MathUtils.getLargestIndex(array);
@@ -28,5 +29,9 @@ public class AutonomousVisionControlledDriving extends CommandGroup {
 		double result = (distance / pxToInch) - 10.5; //10.5 is the diffrence between the sticker and the stick
 		
 		return result;
+		}
+		else{
+			return 0;
+		}
 	}
 }
