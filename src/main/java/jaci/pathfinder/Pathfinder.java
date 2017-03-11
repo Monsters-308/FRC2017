@@ -1,4 +1,4 @@
-package main.java.jaci.pathfinder;
+package jaci.pathfinder;
 
 import java.io.File;
 

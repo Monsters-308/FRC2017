@@ -1,4 +1,4 @@
-package main.java.jaci.pathfinder;
+package jaci.pathfinder;
 
 /**
  * A single waypoint used for Trajectory Generation.

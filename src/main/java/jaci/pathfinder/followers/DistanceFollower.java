@@ -1,4 +1,4 @@
-package main.java.jaci.pathfinder.followers;
+package jaci.pathfinder.followers;
 
 import jaci.pathfinder.Trajectory;
 

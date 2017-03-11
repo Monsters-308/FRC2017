@@ -1,4 +1,4 @@
-package  main.java.jaci.pathfinder.followers;
+package jaci.pathfinder.followers;
 
 import org.usfirst.frc308.FRC2017.RobotConstants;
 
