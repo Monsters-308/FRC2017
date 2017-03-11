@@ -56,12 +56,14 @@ public class AutonomousRotateToCenter extends Command{
 					//Turn
 					//It's negative
 					turn =  -0.25;
+					System.out.println(turn);
 					return false;
 				}
 				else {
 					//It's positive
 					//Turn into other direction
 					turn = 0.25;
+					System.out.println(turn);
 					return false;
 				}
 				
