@@ -12,6 +12,7 @@ public class AutonomousRotateToCenter extends Command{
 	
 	private double timeout;
 	private Timer timer;
+	private double turn = 0.0;
 	
 	public AutonomousRotateToCenter(double timeout){
 		this.timeout = timeout;
@@ -28,6 +29,7 @@ public class AutonomousRotateToCenter extends Command{
 	@Override
 	protected void execute() {
 		super.execute();
+		Robot.chassis.arcade(0, turn);
 	}
 
 	@Override
@@ -53,13 +55,13 @@ public class AutonomousRotateToCenter extends Command{
 				if(diffrence < 0){
 					//Turn
 					//It's negative
-					Robot.chassis.arcade(0, -0.25);
+					turn =  -0.25;
 					return false;
 				}
 				else {
 					//It's positive
 					//Turn into other direction
-					Robot.chassis.arcade(0, -.25);
+					turn = 0.25;
 					return false;
 				}
 				
