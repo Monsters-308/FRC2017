@@ -39,9 +39,9 @@ public class RobotConstants {
 	public static int boilPositionChooser = 1;
 	
 	public static double [][] autostartposition = {
-            {76.87, 59.8, 72.07}, // Left 
+            {80.87, -61.8, 72.07}, // Left 
             {65, 0, 0}, // Center
-            {76.87, -59.8, -72.07}  // Right
+            {80.87, 62.8, 72.07}  // Right
             };
     public static double [][][] autoairshipposition = {
     		{

@@ -45,7 +45,7 @@ public class AutonomousRotateToCenter extends Command{
 				double[] array = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]);
 				int index = MathUtils.getLargestIndex(array);
 				double centerX = RobotConstants.x / 2;
-				double diffrence = array[index] - centerX;
+				double diffrence = array[index] - centerX - 25;
 				
 				if(Math.abs(diffrence) < 2.5){
 					//I'm really close to the target

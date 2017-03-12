@@ -149,12 +149,12 @@ public class Robot extends IterativeRobot {
 		RobotConstants.clawOpenState = true;
 		RobotConstants.clawLightState = true;
 //
-		Robot.gearDelivery.extendClaw();
+		Robot.gearDelivery.retractClaw();
 		RobotConstants.clawExtendState = false;
 		RobotConstants.extendLightState = false;
 //		
-		Robot.gearDelivery.openClawDoor();
-		RobotConstants.batDoorState = true;
+		Robot.gearDelivery.closeClawDoor();
+		RobotConstants.batDoorState = false;
 		
 		
         /// The Robot Preference function allows for temporary adjustment of variables
