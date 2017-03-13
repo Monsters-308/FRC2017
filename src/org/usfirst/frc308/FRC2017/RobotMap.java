@@ -44,4 +44,6 @@ public class RobotMap {
 	public static DigitalOutput gearClawLights = new DigitalOutput(1);
 	public static DigitalOutput intakeLights = new DigitalOutput(2);
 	public static DigitalOutput camLights = new DigitalOutput(3);
+	public static DigitalOutput inboardswitch = new DigitalOutput(8);
+	public static DigitalOutput outboardswitch = new DigitalOutput(9);
 }

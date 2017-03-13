@@ -117,7 +117,6 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                  
               
                    t = new Timer();
-                   gyrowait = 0; 
                    Robot.chassis.brakemode(true);
                    t.schedule(new TimerTask() {
                  // Sample setup  	
@@ -137,30 +136,52 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                        double l = 0;
                        double r = 0;
                        public void run() {
-                    	   lasttime = edu.wpi.first.wpilibj.Timer.getFPGATimestamp();
-                    	   timelapse = edu.wpi.first.wpilibj.Timer.getFPGATimestamp() - lasttime;
-                    	   double l = left.calculate(Robot.chassis.getLeftEncoderPosition()) ;
-                           double r = right.calculate(Robot.chassis.getRightEncoderPosition()) ;
-                           double gyro_heading = Robot.chassis.getGyroAngle();   // Assuming the gyro is giving a value in degrees
-                           double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
-                     	   double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-                           double turn = 0.8 * (-1.0/80.0) * angleDifference;
+                   	   lasttime = edu.wpi.first.wpilibj.Timer.getFPGATimestamp();
+                   	   timelapse = edu.wpi.first.wpilibj.Timer.getFPGATimestamp() - lasttime;
                            if  (!left.isFinished() || !right.isFinished()) {
-                              if (drivef)   // normal forward mode 
-                                 Robot.chassis.tankDrive(-(l + turn),-(r - turn)); 
-                              else 
-                                   // reverse mode only use for straight back
-                               Robot.chassis.tankDrive((l + turn),(r - turn)); 
+                               if (drivef) {  // normal forward mode                   	   
+                    	          double l = left.calculate(Robot.chassis.getLeftEncoderPosition()) ;
+                                  double r = right.calculate(Robot.chassis.getRightEncoderPosition()) ;
+                                  double gyro_heading = Robot.chassis.getGyroAngle();   // Assuming the gyro is giving a value in degrees
+                                  double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+                     	          double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+                                  double turn = 0.8 * (-1.0/80.0) * angleDifference;
+                                  Robot.chassis.tankDrive(-(l + turn),-(r - turn));
+                                  SmartDashboard.putNumber("tra head", desired_heading);
+                                  SmartDashboard.putNumber("tra angle Difference", angleDifference);
+                                  SmartDashboard.putNumber("tra gyro 2", Robot.chassis.getGyroAngle());
+                                  SmartDashboard.putDouble("tra right", -(r - turn));
+                                  SmartDashboard.putDouble("tra left", -(l + turn));  
+                                  SmartDashboard.putNumber("tra encoder right", Robot.chassis.getRightEncoderPosition());
+                                  SmartDashboard.putNumber("tra encodeer left", Robot.chassis.getLeftEncoderPosition()); 
+                                  
+                               } else {  // reverse mode only use for backwards
+                                   double l = left.calculate(-Robot.chassis.getLeftEncoderPosition()) ;
+                                   double r = right.calculate(-Robot.chassis.getRightEncoderPosition()) ;
+                                   double gyro_heading = -Robot.chassis.getGyroAngle();   // Assuming the gyro is giving a value in degrees
+                                   double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+                      	           double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
+                                   double turn = 0.8 * (-1.0/80.0) * angleDifference;
+                                   Robot.chassis.tankDrive((l + turn),(r - turn)); 
+                                   SmartDashboard.putNumber("tra head", desired_heading);
+                                   SmartDashboard.putNumber("tra angle Difference", angleDifference);
+                                   SmartDashboard.putNumber("tra gyro 2", -Robot.chassis.getGyroAngle());
+                                   SmartDashboard.putDouble("tra right", (r - turn));
+                                   SmartDashboard.putDouble("tra left", (l + turn));  
+                                   SmartDashboard.putNumber("tra encoder right", -Robot.chassis.getRightEncoderPosition());
+                                   SmartDashboard.putNumber("tra encodeer left", -Robot.chassis.getLeftEncoderPosition()); 
+                                     }
                             } else {
-                        	   Robot.chassis.tankDrive(0,0); 
+                        	   Robot.chassis.tankDrive(0,0);
+                               left.reset();
+                               right.reset();
                             }
-                           SmartDashboard.putDouble("tra gyro 2", Robot.chassis.getGyroAngle());
-                           SmartDashboard.putDouble("tra head", desired_heading);
-                           SmartDashboard.putDouble("tra right", r);
-                           SmartDashboard.putDouble("tra left", l);  
-                           SmartDashboard.putDouble("tra encoder right", Robot.chassis.getRightEncoderPosition());
-                           SmartDashboard.putDouble("tra encodeer left", Robot.chassis.getLeftEncoderPosition());  
-                           SmartDashboard.putDouble("time lapse", timelapse);  
+                           SmartDashboard.putNumber("tra gyro 2", Robot.chassis.getGyroAngle());
+                           System.out.println("r "+ r);
+                           System.out.println("l "+ l);
+                           SmartDashboard.putNumber("tra encoder right", Robot.chassis.getRightEncoderPosition());
+                           SmartDashboard.putNumber("tra encodeer left", Robot.chassis.getLeftEncoderPosition());  
+                           SmartDashboard.putNumber("time lapse", timelapse);  
                            System.out.println(" Run specific task at given time." + System.currentTimeMillis());
                            System.out.println(" Total time." + RobotConstants.TrajectorySegments*.05);
                     	   }
@@ -178,7 +199,7 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
 
         @Override
         protected boolean isFinished() {
-        	 if (left.isFinished() || right.isFinished() || timeout.get() > RobotConstants.TrajectorySegments*.05) {
+        	 if (left.isFinished() || right.isFinished() || timeout.get() > 13) {
         	  return true;
             }
             return false;

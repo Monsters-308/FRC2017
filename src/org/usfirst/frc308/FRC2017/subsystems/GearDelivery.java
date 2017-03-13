@@ -2,6 +2,8 @@ package org.usfirst.frc308.FRC2017.subsystems;
 
 import org.usfirst.frc308.FRC2017.RobotMap;
 import org.usfirst.frc308.FRC2017.commands.*;
+
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,6 +20,8 @@ public class GearDelivery extends Subsystem {
     private final Solenoid extendClaw = RobotMap.gearDeliverySolenoid_1;
     private final Solenoid closeClaw = RobotMap.gearDeliverySolenoid_2;
     private final Solenoid clawDoor = RobotMap.gearDeliverySolenoid_3;
+    DigitalOutput inboardswitch = RobotMap.inboardswitch;
+    DigitalOutput outboardswitch = RobotMap.outboardswitch;
 
 
     // here. Call these from Commands.
@@ -66,5 +70,19 @@ public class GearDelivery extends Subsystem {
         Robot.gearDelivery.clawDoor.set(false);
     }
 
+    public boolean readinboardswitch() {
+        //
+        // gets value of inboard switch
+    	return inboardswitch.get();
+    }
+
+    public  boolean readoutboardswitch() {
+        //
+        // gets value of outboard switch
+    	return outboardswitch.get();
+    }  
+    
+    
+    
 }
 

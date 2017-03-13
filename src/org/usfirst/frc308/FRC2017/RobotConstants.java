@@ -39,7 +39,7 @@ public class RobotConstants {
 	public static int boilPositionChooser = 1;
 	
 	public static double [][] autostartposition = {
-            {80.87, -61.8, 72.07}, // Left 
+            {80.87, -61.8, 108.07}, // Left 
             {65, 0, 0}, // Center
             {80.87, 62.8, 72.07}  // Right
             };
@@ -125,6 +125,7 @@ public class RobotConstants {
 	public static double extendTimer_timer = .7;
 	public static double doorTimer_timer = .7;
 	public static double closeTimer_timer = .7;
+	public static double autogearTimer_timer = .5;
 
 	// Process-Hopper constants
 	public static double feedBalltimer_time = .7;

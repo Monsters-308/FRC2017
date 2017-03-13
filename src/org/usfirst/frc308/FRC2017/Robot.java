@@ -97,14 +97,12 @@ public class Robot extends IterativeRobot {
     }
 
     public void disabledPeriodic() {
-        Scheduler.getInstance().run();
+    	// Tocuh Talon to insure they are re- registered. See Talon software manual for more information 
+        Robot.chassis.brakemode(false);
+    	Scheduler.getInstance().run();
     }
 
     public void autonomousInit() {
-        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
-        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
-        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
-        SmartDashboard.putNumber("Boiler position set" , RobotConstants.startPositionChooser);
     	// schedule the autonomous command 
     	autonomousCommand = (Command) autoChooser.getSelected();
 		if (autonomousCommand != null) {
@@ -117,6 +115,12 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+		RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
+        RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
+        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
+        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
+        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
+        SmartDashboard.putNumber("Boiler position set" , RobotConstants.boilPositionChooser);
     	Scheduler.getInstance().run();
     }
 

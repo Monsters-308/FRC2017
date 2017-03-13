@@ -14,6 +14,7 @@ public class TeleopGear extends Command {
 	private Timer extendTimer = new Timer();
 	private Timer closeTimer = new Timer();
 	private Timer doorTimer = new Timer();
+	private Timer autogearTimer = new Timer();
 	private static boolean buttonExtendState = false;
 
 	public TeleopGear() {
@@ -98,6 +99,42 @@ public class TeleopGear extends Command {
 		SmartDashboard.putBoolean("claw end", RobotConstants.clawOpenState);
 		SmartDashboard.putBoolean("extend end", RobotConstants.clawExtendState);
 		SmartDashboard.putBoolean("Geardoor end", RobotConstants.batDoorState);
+		
+	double gearauto = Robot.chassis.deadZone(Robot.oi.joystick1.getZ());
+	boolean inboardstate = Robot.gearDelivery.readinboardswitch();
+	boolean outboardstate = Robot.gearDelivery.readoutboardswitch();
+	if  (gearauto <= 0)  { // auto pickup from back 
+		Robot.gearDelivery.openClaw();
+		RobotConstants.clawOpenState = true;
+		Robot.gearDelivery.extendClaw();
+		RobotConstants.clawExtendState = true;
+		if (outboardstate = false) {  // normally closed
+			Robot.gearDelivery.closeClaw();
+			RobotConstants.clawOpenState = false;
+			autogearTimer.start();
+		}
+	} // end gear auto from back	
+	if  (gearauto > 0)  { // auto pickup from front
+		Robot.gearDelivery.openClaw();
+		RobotConstants.clawOpenState = true;
+		Robot.gearDelivery.extendClaw();
+		RobotConstants.clawExtendState = true;
+		if (inboardstate = false) {  // normally closed
+			Robot.gearDelivery.closeClaw();
+			RobotConstants.clawOpenState = false;
+			autogearTimer.start();	
+		   }		
+    } // end gear auto from front	
+
+	// retract arm a timed valued after claw closes
+	if (autogearTimer.get() >= RobotConstants.autogearTimer_timer) {
+		Robot.gearDelivery.retractClaw();
+		RobotConstants.clawExtendState = false;
+		autogearTimer.stop();
+		autogearTimer.reset();
+	} // end timer loop
+	
+		
 	} // end exectute
 
 	// Make this return true when this Command no longer needs to run execute()

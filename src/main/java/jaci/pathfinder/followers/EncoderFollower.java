@@ -90,7 +90,6 @@ public class EncoderFollower {
                 * wheel_circumference;
 		 System.out.println("encoder_tick " + encoder_tick);
 		 System.out.println("encoder_offset " + encoder_offset); 
-		 System.out.println("encoder_tick_count " + encoder_tick_count); 
 		 System.out.println("trajectory.length " + trajectory.length()); 
         if (segment < trajectory.length()) {
             Trajectory.Segment seg = trajectory.get(segment);
@@ -107,6 +106,7 @@ public class EncoderFollower {
             last_error = error;
             heading = seg.heading;
             segment++;
+            System.out.println("Heading " + heading); 
             System.out.println("calculated_value " + calculated_value); 
             return calculated_value;
         } else return 0;

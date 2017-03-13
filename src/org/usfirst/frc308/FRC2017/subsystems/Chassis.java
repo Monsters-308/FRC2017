@@ -59,7 +59,7 @@ public class Chassis extends PIDSubsystem {
 	double lastError = 0.0;
 	double error = 0;
 	Timer settledTimer = new Timer();
-	public double encodetemp = 1;
+	public int encodetemp = 1;
 	public int rencodetemp = 1;
 	public int  lencodetemp = 1;
 
@@ -232,30 +232,30 @@ public class Chassis extends PIDSubsystem {
     }
 
     public int getEncoderPosition() {
-      int intValue = (int) left2.getPosition();
-      return -intValue; 
-  //  	encodetemp = encodetemp +100; 
- //  	return encodetemp;
+ //     int intValue = (int) left2.getPosition();
+ //     return -intValue; 
+   	encodetemp = encodetemp +3; 
+  	return encodetemp;
     }
 
     public int getLeftEncoderPosition() {
-    	 int intValue = (int) left2.getPosition();
-    	   SmartDashboard.putNumber("sim left encoed",left2.getPosition());
-    return -intValue;
+  //  	 int intValue = (int) left2.getPosition();
+  //  	   SmartDashboard.putNumber("sim left encoed",left2.getPosition());
+ //    return -intValue;
   //  Used for simulation testing  MG
   //  
-   // 	lencodetemp = lencodetemp +100; 
-  //	return lencodetemp;
+   	lencodetemp = lencodetemp +3; 
+  	return lencodetemp;
     }
 
     public int getRightEncoderPosition() {
-    	SmartDashboard.putNumber("sim right encoed", right2.getPosition());
-    	 int intValue = (int) right2.getPosition();
-    return -intValue; 
+ //   	SmartDashboard.putNumber("sim right encoed", right2.getPosition());
+ //   	 int intValue = (int) right2.getPosition();
+ //   return -intValue; 
   //      Used for simulation testing  MG   
    //    
-   // 	rencodetemp = rencodetemp +100; 
-   // 	return rencodetemp;
+    	rencodetemp = rencodetemp + 3; 
+    	return rencodetemp;
     }
 
     public double getGyroAngle() {
