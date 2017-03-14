@@ -14,8 +14,10 @@ public class TeleopGear extends Command {
 	private Timer extendTimer = new Timer();
 	private Timer closeTimer = new Timer();
 	private Timer doorTimer = new Timer();
+	private Timer gearTimer = new Timer();
 	private Timer autogearTimer = new Timer();
-	private static boolean buttonExtendState = false;
+	boolean inboardlatch = false;
+
 
 	public TeleopGear() {
 
@@ -28,12 +30,16 @@ public class TeleopGear extends Command {
 		RobotConstants.clawExtendState = false;
 		RobotConstants.clawOpenState = false;
 		RobotConstants.batDoorState = false;
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-	// if button to open/close passive assist doors is pressed
-
+		
+		
+		
+	    // ****************************** door *******************************************		
+	   // if button to open/close passive assist doors is pressed
 		if (Robot.oi.joystick1.getRawButton(RobotConstants.clawDoorButton)) {
 			if (doorTimer.get() == 0) {
 				
@@ -53,30 +59,33 @@ public class TeleopGear extends Command {
 			doorTimer.stop();
 			doorTimer.reset();
 		}
-
+        // ****************************** arm *******************************************
 		// if button to extend/retract claw is pressed
-		if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
-			if (extendTimer.get() == 0) {
-				if (RobotConstants.clawExtendState == false) {
-					RobotConstants.clawExtendState = true;
-					Robot.gearDelivery.extendClaw();
+		if (RobotConstants.batDoorState) { // do not extend or retract id bat door is clsoed
+		  if (Robot.oi.joystick1.getRawButton(RobotConstants.extendClawButton)) {
+			  if (extendTimer.get() == 0) {
+				  if (RobotConstants.clawExtendState == false) {
+					  RobotConstants.clawExtendState = true;
+					  Robot.gearDelivery.extendClaw();
 
-				} else { // If the shooter mode was on then toggle off
-					Robot.gearDelivery.retractClaw();
-					RobotConstants.clawExtendState = false;
-				} // state check
-			} // end timer check
+			  	  } else { // If the shooter mode was on then toggle off
+				  	  Robot.gearDelivery.retractClaw();
+					  RobotConstants.clawExtendState = false;
+				  } // state check
+			  } // end timer check
 
-			// Start Timer to make sure the toggle happens only once
-			extendTimer.start();
-		} // end joystick check
+			  // Start Timer to make sure the toggle happens only once
+			  extendTimer.start();
+		  } // end joystick check
 
-		if (extendTimer.get() >= RobotConstants.extendTimer_timer) {
-			extendTimer.stop();
-			extendTimer.reset();
-		} // end timer loop
-
+		  if (extendTimer.get() >= RobotConstants.extendTimer_timer) {
+			  extendTimer.stop();
+			  extendTimer.reset();
+		  } // end timer loop
+		} // end bat door check 
 		// if button to open/close claw is pressed
+		
+	    // ****************************** claw *******************************************
 		if (Robot.oi.joystick1.getRawButton(RobotConstants.closeClawButton)) {
 			if (closeTimer.get() == 0) {
 				if (RobotConstants.clawOpenState == false) {
@@ -96,47 +105,65 @@ public class TeleopGear extends Command {
 			closeTimer.stop();
 			closeTimer.reset();
 		}
-		SmartDashboard.putBoolean("claw end", RobotConstants.clawOpenState);
-		SmartDashboard.putBoolean("extend end", RobotConstants.clawExtendState);
-		SmartDashboard.putBoolean("Geardoor end", RobotConstants.batDoorState);
-		
-	double gearauto = Robot.chassis.deadZone(Robot.oi.joystick1.getZ());
-	boolean inboardstate = Robot.gearDelivery.readinboardswitch();
-	boolean outboardstate = Robot.gearDelivery.readoutboardswitch();
-	if  (gearauto <= 0)  { // auto pickup from back 
-		Robot.gearDelivery.openClaw();
-		RobotConstants.clawOpenState = true;
-		Robot.gearDelivery.extendClaw();
-		RobotConstants.clawExtendState = true;
-		if (outboardstate = false) {  // normally closed
-			Robot.gearDelivery.closeClaw();
-			RobotConstants.clawOpenState = false;
-			autogearTimer.start();
-		}
-	} // end gear auto from back	
-	if  (gearauto > 0)  { // auto pickup from front
-		Robot.gearDelivery.openClaw();
-		RobotConstants.clawOpenState = true;
-		Robot.gearDelivery.extendClaw();
-		RobotConstants.clawExtendState = true;
-		if (inboardstate = false) {  // normally closed
-			Robot.gearDelivery.closeClaw();
-			RobotConstants.clawOpenState = false;
-			autogearTimer.start();	
-		   }		
-    } // end gear auto from front	
 
-	// retract arm a timed valued after claw closes
-	if (autogearTimer.get() >= RobotConstants.autogearTimer_timer) {
-		Robot.gearDelivery.retractClaw();
-		RobotConstants.clawExtendState = false;
-		autogearTimer.stop();
-		autogearTimer.reset();
-	} // end timer loop
-	
+	 // ****************************** auto gear *******************************************
+	if (RobotConstants.autogear)	{
+	  double gearauto = Robot.chassis.deadZone(Robot.oi.joystick1.getRawAxis(4));
+	  boolean inboardstate = Robot.gearDelivery.readinboardswitch();
+	  System.out.println("inboardstate " + inboardstate);
+	  if  (gearauto < 0 && gearTimer.get() == 0)  { // auto pickup from back 		 
+		  Robot.gearDelivery.openClaw();
+		  RobotConstants.clawOpenState = true;
+		  Robot.gearDelivery.extendClaw(); //  arm down 
+		  RobotConstants.clawExtendState = true;
+		   System.out.println("gearauto back " + gearauto);
+		  if (inboardstate == true) {  // normally closed - gear detected 
+			  inboardlatch = true;  // wait for gear pass
+	  	  } else if ( inboardlatch == true) { // found back of gear
+					  Robot.gearDelivery.closeClaw();
+		              RobotConstants.clawOpenState = false;
+			          autogearTimer.start();
+			          gearTimer.start();
+			          inboardlatch = false;
+			 } // end latch/back of gear check 
+		 
+	  } // end gear auto from back	
+	  else if  (gearauto > 0 && gearTimer.get() == 0)  { // auto pickup from front
+		  System.out.println("gearauto front " + gearauto);  
+		  Robot.gearDelivery.openClaw();
+		  RobotConstants.clawOpenState = true;
+		  Robot.gearDelivery.extendClaw(); // down 
+		  RobotConstants.clawExtendState = true;
+		  if (inboardstate == true) {  // normally closed
+			  Robot.gearDelivery.closeClaw();
+			  gearTimer.start();
+			  RobotConstants.clawOpenState = false;
+			  autogearTimer.start();	
+		     }		
+      } // end gear auto from front	
+   	  // retract arm a timed valued after claw closes
+	  
+	  if (autogearTimer.get() >= RobotConstants.autogearTimer_timer) {
+		  Robot.gearDelivery.retractClaw();
+		  RobotConstants.clawExtendState = false;
+		  autogearTimer.reset();
+		  autogearTimer.stop();
+	  } // end timer loop
+	  
+	  if (gearTimer.get() >= RobotConstants.gearTimer_timer) {
+		  gearTimer.stop();
+		  gearTimer.reset();
+	  } // end timer loop
+	 }  // end auto gear
 		
+	
+	SmartDashboard.putBoolean("claw end", RobotConstants.clawOpenState);
+	SmartDashboard.putBoolean("extend end", RobotConstants.clawExtendState);
+	SmartDashboard.putBoolean("Geardoor end", RobotConstants.batDoorState);
+	
 	} // end exectute
 
+	
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return false;

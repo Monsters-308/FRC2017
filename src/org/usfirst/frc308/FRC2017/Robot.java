@@ -84,8 +84,8 @@ public class Robot extends IterativeRobot {
         //  The code below loads reset the temp smartdash board variables with the values hard coded
         //  THis code is run only when the Robrio is restarted enabling will not reset the values
 
-        Preferences.getInstance().putInt("Autonomous Start Position ",  RobotConstants.startPositionChooser);
-        Preferences.getInstance().putInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
+       Preferences.getInstance().putInt("Autonomous Start Position ",  RobotConstants.startPositionChooser);
+       Preferences.getInstance().putInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
     }
 
     /**
@@ -115,8 +115,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-		RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
-        RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
+	//	RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
+    //    RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
         SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
         SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
         SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");

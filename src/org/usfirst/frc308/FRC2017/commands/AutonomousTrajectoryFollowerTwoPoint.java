@@ -75,8 +75,8 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                    // Max Velocity:        15 m/s
                    // Max Acceleration:    10 m/s/s
                    // Max Jerk:            60 m/s/s/s
-                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .35, .3, .4);
-               
+   //                  Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .35, .3, .4);
+                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .60, .3, .4);             
                    //Next Line causes crash if the Waypoints are not set correctly!!!!
                    Trajectory trajectory = Pathfinder.generate(points, config);
                   File myFile = new File("/home/lvuser/mytrafile.csv");
@@ -158,8 +158,8 @@ public class AutonomousTrajectoryFollowerTwoPoint extends Command {
                                } else {  // reverse mode only use for backwards
                                    double l = left.calculate(-Robot.chassis.getLeftEncoderPosition()) ;
                                    double r = right.calculate(-Robot.chassis.getRightEncoderPosition()) ;
-                                   double gyro_heading = -Robot.chassis.getGyroAngle();   // Assuming the gyro is giving a value in degrees
-                                   double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+                                   double gyro_heading = Robot.chassis.getGyroAngle();   // Assuming the gyro is giving a value in degrees
+                                   double desired_heading = -Pathfinder.r2d(left.getHeading());  // Should also be in degrees
                       	           double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
                                    double turn = 0.8 * (-1.0/80.0) * angleDifference;
                                    Robot.chassis.tankDrive((l + turn),(r - turn)); 

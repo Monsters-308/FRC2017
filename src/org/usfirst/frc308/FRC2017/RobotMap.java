@@ -3,6 +3,7 @@ package org.usfirst.frc308.FRC2017;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import de.codeteddy.robotics.first.AdvancedRobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -44,6 +45,5 @@ public class RobotMap {
 	public static DigitalOutput gearClawLights = new DigitalOutput(1);
 	public static DigitalOutput intakeLights = new DigitalOutput(2);
 	public static DigitalOutput camLights = new DigitalOutput(3);
-	public static DigitalOutput inboardswitch = new DigitalOutput(8);
-	public static DigitalOutput outboardswitch = new DigitalOutput(9);
+	public static DigitalInput inboardswitch = new DigitalInput(9);
 }

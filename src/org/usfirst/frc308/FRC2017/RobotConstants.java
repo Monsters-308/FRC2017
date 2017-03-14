@@ -39,9 +39,10 @@ public class RobotConstants {
 	public static int boilPositionChooser = 1;
 	
 	public static double [][] autostartposition = {
-            {80.87, -61.8, 108.07}, // Left 
+  //          {80.87, -61.8, 108.07}, // Left 
+			{80, -55, 108.07},
             {65, 0, 0}, // Center
-            {80.87, 62.8, 72.07}  // Right
+            {80, 55, 72.07}  // Right
             };
     public static double [][][] autoairshipposition = {
     		{
@@ -62,11 +63,17 @@ public class RobotConstants {
 	
 	
 	//Vision --> Axis-Camera //TODO Needs to be changed when switching cameras
+    public static boolean isAiming = true;
 	public static int visionTolerance = 5; //Count in pixels
 	public static int x = 320; //Count in pixels
 	public static int y = 240; //Count in pixels
-	public static double cameraFieldOfView = 67.0; // in degrees
-
+	public static double cameraFieldOfView = 49.0; // in degrees mg changed from 67
+	// Notice that the datasheets give approximate view angle information. 
+	// When testing, it was found that the calculated distance to the target tended to be a bit short.
+	// Using a tape measure to measure the distance and treating the angle as the unknown it was found
+	// that view angles of 41.7 for the 206, 37.4 for the M1011, and 49 for the M1013 gave better result
+	
+	
 	// Driving
 	public static boolean safetyEnabled = false;
 	public static double arcadeMaxOutput = 1.0;
@@ -125,7 +132,9 @@ public class RobotConstants {
 	public static double extendTimer_timer = .7;
 	public static double doorTimer_timer = .7;
 	public static double closeTimer_timer = .7;
-	public static double autogearTimer_timer = .5;
+	public static double autogearTimer_timer = .25;
+	public static double gearTimer_timer = 4.0;
+	public static boolean autogear = true;
 
 	// Process-Hopper constants
 	public static double feedBalltimer_time = .7;

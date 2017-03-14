@@ -45,7 +45,7 @@ public class AutonomousRotateToTarget extends Command {
 	@Override
 	protected boolean isFinished() {
 		
-		if (NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]).length > 0) {
+	if (NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]).length > 0) {
 			//Check more
 			int indexBiggest = MathUtils.getLargestIndex(NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]));
 			double[] array = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]);
@@ -70,5 +70,5 @@ public class AutonomousRotateToTarget extends Command {
 			return true;
 		}
 		
-	}
+	} 
 }
