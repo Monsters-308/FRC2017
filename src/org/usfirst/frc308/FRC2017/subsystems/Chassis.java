@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
-import de.codeteddy.robotics.first.*;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -202,24 +201,24 @@ public class Chassis extends PIDSubsystem {
   
 
     public void setDrive(double left, double right) {
-  //     if (Math.abs(left) > 1.0) {
+  //    if (Math.abs(left) > 1.0) {
    //         left /= Math.abs(left);
   //     }
   //      if (Math.abs(right) > 1.0) {
  //          right /= Math.abs(right);
  //      }
-        IAccumulator = 0; // reset accumulator
-    	 SmartDashboard.putNumber("tra setpoint", getSetpoint());
-    	 SmartDashboard.putNumber("tra gyro", gyro.getAngle());
-         SmartDashboard.putNumber("tra  gyro error", getPIDController().getError());
-        SmartDashboard.putNumber("tra left",left);
-        SmartDashboard.putNumber("tra right",right);
-        SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
-        tankDrive(-(left ),
-             (-(right )));     
+  //      IAccumulator = 0; // reset accumulator
+  //  	 SmartDashboard.putNumber("tra setpoint", getSetpoint());
+ //   	 SmartDashboard.putNumber("tra gyro", gyro.getAngle());
+  //       SmartDashboard.putNumber("tra  gyro error", getPIDController().getError());
+   //     SmartDashboard.putNumber("tra left",left);
+   //     SmartDashboard.putNumber("tra right",right);
+  //      SmartDashboard.putNumber("tra robot pid",RobotConstants.gyroPIDOutput);
+  //      tankDrive(-(left ),
+  //           (-(right )));     
         
  //    tankDrive(-(left + RobotConstants.gyroPIDOutput),
- //             (-(right - RobotConstants.gyroPIDOutput)));
+//            (-(right - RobotConstants.gyroPIDOutput)));
     }
 
     public void resetEncoders() {
@@ -243,7 +242,6 @@ public class Chassis extends PIDSubsystem {
     SmartDashboard.putNumber("sim left encoed",left2.getPosition());
      return -intValue;
   //  Used for simulation testing  MG
-  //  
  //  	lencodetemp = lencodetemp +3; 
  // 	return lencodetemp;
     }
@@ -253,7 +251,6 @@ public class Chassis extends PIDSubsystem {
   	 int intValue = (int) right2.getPosition();
    return -intValue; 
   //      Used for simulation testing  MG   
-   //    
     //	rencodetemp = rencodetemp + 3; 
     //	return rencodetemp;
     }
@@ -275,46 +272,25 @@ public class Chassis extends PIDSubsystem {
         }
         return input;
     }
-/** Not used
-	public void setRotatePIDstart(double angleSetPoint) {
-		enablePID();
-		double out;
-	    getPIDController().setSetpoint(angleSetPoint);
-	    System.out.println("PID Turn ");
-	    System.out.println(angleSetPoint);
-	    SmartDashboard.putNumber("turn out", RobotConstants.gyroPIDOutput);
-	    robotDrive6.arcadeDrive(0, RobotConstants.gyroPIDOutput);
-    }
-		
-	public void setRotatePIDstop() {
-		disablePID(); 
- 	    gyro.reset();
-		getPIDController().setSetpoint(0);
-	    robotDrive6.arcadeDrive(0, 0);
-	}
-*/
-	  /**
-     * resets PID for to zero
-     */
+
     
     
   public void setRotatePIDZero() {
       gyro.reset(); // reset gyro so our angle is 0
       getPIDController().setSetpoint(0);
-      IAccumulator = 0; // reset accumulator
+     IAccumulator = 0; // reset accumulator
      }
   
   /**
    * sets up the PID for rotate command
    */
   public void setRotatePID(double setpointAngle) {
-      gyro.reset(); // reset gyro so our angle is 0
       getPIDController().setSetpoint(setpointAngle);
       if (setpointAngle >= 0) {
-		setIAccumulator((0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+	setIAccumulator((10.0 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
 	  } else if (setpointAngle < 0) {
-		setIAccumulator((-0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
-	  }
+	setIAccumulator((-10.0 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+      }
      }
   
   
@@ -338,8 +314,8 @@ public class Chassis extends PIDSubsystem {
     public void setLeftRightMotorOutputs(double leftOutput, double rightOutput) {
       left2.set(limit(leftOutput) * this.m_maxOutput);
       right2.set(-limit(rightOutput) * this.m_maxOutput);
-  	SmartDashboard.putNumber("right output ",rightOutput );
-  	SmartDashboard.putNumber("left output ",leftOutput );
+//  	SmartDashboard.putNumber("right output ",rightOutput );
+//  	SmartDashboard.putNumber("left output ",leftOutput );
       }
        
     
@@ -399,11 +375,12 @@ public class Chassis extends PIDSubsystem {
      */
     
     public void arcade(double moveValue, double rotateValue) {
-                
+               
     	boolean squaredInputs = false;
         moveValue = limit(moveValue);
         rotateValue = limit(rotateValue);
-        
+    	SmartDashboard.putNumber("moveVal", moveValue);
+    	SmartDashboard.putNumber("rotateValue", rotateValue);	
         if (squaredInputs) {
             if (moveValue >= 0.0D) {	
                 moveValue *= moveValue;

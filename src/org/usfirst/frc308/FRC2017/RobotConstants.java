@@ -1,6 +1,5 @@
 package org.usfirst.frc308.FRC2017;
 
-import jaci.pathfinder.Waypoint;
 
 /**
  * This class contains all the variables set by the developers for the robot.
@@ -41,7 +40,7 @@ public class RobotConstants {
 	public static double [][] autostartposition = {
   //          {80.87, -61.8, 108.07}, // Left 
 			{80, -55, 108.07},
-            {65, 0, 0}, // Center
+            {45, 0, 0}, // Center
             {80, 55, 72.07}  // Right
             };
     public static double [][][] autoairshipposition = {
@@ -132,7 +131,7 @@ public class RobotConstants {
 	public static double extendTimer_timer = .7;
 	public static double doorTimer_timer = .7;
 	public static double closeTimer_timer = .7;
-	public static double autogearTimer_timer = .25;
+	public static double autogearTimer_timer = .5;
 	public static double gearTimer_timer = 4.0;
 	public static boolean autogear = true;
 

@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
-import de.codeteddy.robotics.first.AdvancedRobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;

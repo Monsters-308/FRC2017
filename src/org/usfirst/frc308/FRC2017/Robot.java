@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.usfirst.frc308.FRC2017.commands.*;
@@ -60,15 +61,9 @@ public class Robot extends IterativeRobot {
         autoChooser = new SendableChooser();
 		autoChooser.addObject("Do Nothing", new AutonomousDoNothing());
 		autoChooser.addObject("Drive Forward", new AutonomousDriveForward());
-		autoChooser.addObject("Deliver Gear Only", new AutonomousDeliverGearOnly());
-		autoChooser.addDefault("Deliver Gear and shoot balls", new AutonomousDeliverGearShootBall());
+		autoChooser.addDefault("Deliver Gear Only", new AutonomousDeliverGearOnly());
+		autoChooser.addObject("Deliver Gear and shoot balls", new AutonomousDeliverGearShootBall());
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
-     
-        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
-        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
-        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
-        SmartDashboard.putNumber("Boiler position set" , RobotConstants.boilPositionChooser);
-		
                 
         // instantiate the command used for the autonomous period
 		server = CameraServer.getInstance();
@@ -84,8 +79,8 @@ public class Robot extends IterativeRobot {
         //  The code below loads reset the temp smartdash board variables with the values hard coded
         //  THis code is run only when the Robrio is restarted enabling will not reset the values
 
-       Preferences.getInstance().putInt("Autonomous Start Position ",  RobotConstants.startPositionChooser);
-       Preferences.getInstance().putInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
+       //  Preferences.getInstance().putInt("Autonomous Start Position ",  RobotConstants.startPositionChooser);
+       //  Preferences.getInstance().putInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
     }
 
     /**
@@ -103,11 +98,13 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-    	// schedule the autonomous command 
+       	SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
+    	RobotConstants.startPositionChooser = NetworkTable.getTable("SmartDashboard").getInt("Start position set");
+	  	// schedule the autonomous command 
     	autonomousCommand = (Command) autoChooser.getSelected();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
-			 System.out.println("robot initialize");
+//			 System.out.println("robot initialize");
 		}
     }
 
@@ -115,12 +112,15 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+ 
+    	RobotConstants.startPositionChooser = NetworkTable.getTable("SmartDashboard").getInt("Start position set");
+	//	RobotConstants.boilPositionChooser  = NetworkTable.getTable("SmartDashboard").getInt("Boiler position set");
 	//	RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
-    //    RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
-        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
-        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
-        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
-        SmartDashboard.putNumber("Boiler position set" , RobotConstants.boilPositionChooser);
+    //   RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
+	    //    SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
+//			SmartDashboard.putNumber("Boiler position final " , RobotConstants.boilPositionChooser);
+		SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
+		SmartDashboard.putNumber("** Start position final  ** Do not edit " , RobotConstants.startPositionChooser);
     	Scheduler.getInstance().run();
     }
 
@@ -157,19 +157,23 @@ public class Robot extends IterativeRobot {
 		RobotConstants.clawExtendState = false;
 		RobotConstants.extendLightState = false;
 //		
-		Robot.gearDelivery.closeClawDoor();
-		RobotConstants.batDoorState = false;
+		Robot.gearDelivery.openClawDoor();
+		RobotConstants.batDoorState = true;
 		
 		
         /// The Robot Preference function allows for temporary adjustment of variables
         //  When teleop is started the temp variables from the roborio memory are used instead of the had code values
 
-		RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
-        RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
-        SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
-        SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
-        SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
-        SmartDashboard.putNumber("Boiler position set" , RobotConstants.boilPositionChooser);
+//		RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
+//        RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
+	   	SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
+		RobotConstants.startPositionChooser = NetworkTable.getTable("SmartDashboard").getInt("Start position set");
+//		RobotConstants.boilPositionChooser  = NetworkTable.getTable("SmartDashboard").getInt("Boiler position set");
+		SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");
+		SmartDashboard.putNumber("** Start position final  ** Do not edit " , RobotConstants.startPositionChooser);
+//      SmartDashboard.putString("Boiler Position","Boiler Position 0 = left, 1 = Right) ");
+        
+
     }
 
 

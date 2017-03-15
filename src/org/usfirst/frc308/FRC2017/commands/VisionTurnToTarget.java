@@ -37,20 +37,24 @@ public class VisionTurnToTarget extends Command {
 		double[] targets2 = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerY", defaultValue2);
 		double[] targets3 = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("area", defaultValue3);
 		int biggestTarget = Robot.vision.getLargestIndex(targets3);
+		Robot.chassis.setupDrive();
 		timer = new Timer();
 		if (targets.length > 0) {
+			SmartDashboard.putNumber("target l",targets.length );
 			SmartDashboard.putNumber("centerX", targets[biggestTarget]);
 			SmartDashboard.putNumber("centerY", targets2[biggestTarget]);
 			setpointAngle = (targets[biggestTarget] - 150.0) / 120.0 * (0.5 * RobotConstants.cameraFieldOfView);
 			t = 3;
 			timer.start();
-			Robot.chassis.setupDrive();
 			Robot.chassis.setRotatePID(setpointAngle);
-			if (setpointAngle > 0) {
-				Robot.chassis.setIAccumulator((0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
-			} else if (setpointAngle < 0) {
-				Robot.chassis.setIAccumulator((-0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
-			}
+			Robot.chassis.arcade(0, RobotConstants.gyroPIDOutput);
+			SmartDashboard.putNumber("setpointAngle", setpointAngle);
+			SmartDashboard.putNumber("vision pid", RobotConstants.gyroPIDOutput);
+	//	if (setpointAngle > 0) {
+	//		Robot.chassis.setIAccumulator((0.08 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+	//	} else if (setpointAngle < 0) {
+	//		Robot.chassis.setIAccumulator((-0.08 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+	//	}
 		} else {
 			pass = false;
 			SmartDashboard.putNumber("centerX", -1);
@@ -67,23 +71,28 @@ public class VisionTurnToTarget extends Command {
 		double[] targets2 = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerY", defaultValue2);
 		double[] targets3 = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("area", defaultValue3);
 		int biggestTarget = Robot.vision.getLargestIndex(targets3);
+		Robot.chassis.setupDrive();
 		timer = new Timer();
 		if (targets.length > 0) {
 			SmartDashboard.putNumber("centerX", targets[biggestTarget]);
 			SmartDashboard.putNumber("centerY", targets2[biggestTarget]);
-			setpointAngle = (targets[biggestTarget] - 150.0) / 120.0 * (0.5 * RobotConstants.cameraFieldOfView);
+			setpointAngle = (targets[biggestTarget] - 200.0) / 120.0 * (0.5 * RobotConstants.cameraFieldOfView);
 			t = 3;
 			timer.start();
 			Robot.chassis.setRotatePID(setpointAngle);
-			if (setpointAngle > 0) {
-				Robot.chassis.setIAccumulator((0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
-			} else if (setpointAngle < 0) {
-				Robot.chassis.setIAccumulator((-0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
-			}
+			Robot.chassis.arcade(.0, RobotConstants.gyroPIDOutput);
+			SmartDashboard.putNumber("setpointAngle", setpointAngle);
+			System.out.println("setpointAngle "  + setpointAngle);
+		//	if (setpointAngle > 0) {
+		//		Robot.chassis.setIAccumulator((0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+		//	} else if (setpointAngle < 0) {
+		//		Robot.chassis.setIAccumulator((-0.05 - RobotConstants.Kp * setpointAngle) / RobotConstants.Ki);
+		//	}
 		} else {
 			pass = false;
 			SmartDashboard.putNumber("centerX", -1);
 			SmartDashboard.putNumber("centerY", -1);
+			Robot.chassis.arcade(0, RobotConstants.gyroPIDOutput);
 		}
 	}
 

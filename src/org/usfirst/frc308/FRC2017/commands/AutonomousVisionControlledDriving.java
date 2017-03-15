@@ -11,10 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutonomousVisionControlledDriving extends CommandGroup {
 	
 	public AutonomousVisionControlledDriving(){
-		SmartDashboard.putDouble("results2",calc());
-		addSequential(new AutonomousTrajectoryFollowerTwoPoint(0, 0, 0, calc(), 0, 0, true));
+	//	SmartDashboard.putDouble("results2",calc());
+	//	addSequential(new AutonomousTrajectoryFollowerTwoPointGear(0, 0, 0, calc(), 0, 0, true));
 	}
-
 	
 	public double calc(){
 		if(NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]).length > 0){

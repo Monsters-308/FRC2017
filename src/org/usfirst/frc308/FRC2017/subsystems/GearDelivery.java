@@ -62,13 +62,13 @@ public class GearDelivery extends Subsystem {
     public void openClawDoor() {
         //
         // opens passive assist doors
-        Robot.gearDelivery.clawDoor.set(true);
+        Robot.gearDelivery.clawDoor.set(false);
     }
 
     public void closeClawDoor() {
         //
         // closes passive assist doors
-        Robot.gearDelivery.clawDoor.set(false);
+        Robot.gearDelivery.clawDoor.set(true);
     }
 
     public boolean readinboardswitch() {
