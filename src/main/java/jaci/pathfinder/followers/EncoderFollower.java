@@ -22,7 +22,8 @@ public class EncoderFollower {
     double distance_covered;
     double encoder_tick;
     //
-    double last_error, heading;
+    double last_error = 0; 
+    double heading = 0;
 
     int segment;
     Trajectory trajectory;
@@ -74,6 +75,8 @@ public class EncoderFollower {
      */
     public void reset() {
         last_error = 0; segment = 0;
+        SmartDashboard.putDouble("tra encode error", error);
+        
     }
 
     /**
@@ -109,7 +112,10 @@ public class EncoderFollower {
       //      System.out.println("Heading " + heading); 
       //      System.out.println("calculated_value " + calculated_value); 
             return calculated_value;
-        } else return 0;
+        } else{
+        	last_error = 0; 
+        	return 0;
+             }
     }
   
     

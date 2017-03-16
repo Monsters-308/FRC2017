@@ -16,6 +16,7 @@ public class TeleopGear extends Command {
 	private Timer doorTimer = new Timer();
 	private Timer gearTimer = new Timer();
 	private Timer autogearTimer = new Timer();
+	private Timer latchgearTimer = new Timer();
 	boolean inboardlatch = false;
 
 
@@ -117,13 +118,14 @@ public class TeleopGear extends Command {
 		  RobotConstants.clawExtendState = true;
 		  if (inboardstate == true) {  // normally closed - gear detected 
 			  inboardlatch = true;  // wait for gear pass
+			  latchgearTimer.start();
 	  	  } else if ( inboardlatch == true) { // found back of gear 
 	  		          Robot.chassis.arcade(0, 0);
 			          Robot.chassis.brakemode(true);
 					  Robot.gearDelivery.closeClaw();
 		              RobotConstants.clawOpenState = false;
 			          autogearTimer.start();
-			          gearTimer.start();
+			          gearTimer.start();				          
 			          inboardlatch = false;
 			 } // end latch/back of gear check 
 		 
@@ -157,6 +159,14 @@ public class TeleopGear extends Command {
 		  gearTimer.stop();
 		  gearTimer.reset();
 	  } // end timer loop
+	  
+	  if (latchgearTimer.get() >= RobotConstants.gearTimer_timer) {
+		  inboardlatch = false;
+		  latchgearTimer.stop();
+		  latchgearTimer.reset();
+	  } // end timer loop
+	  
+	  
 	 }  // end auto gear
 		
 	

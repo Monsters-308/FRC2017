@@ -3,10 +3,10 @@ package org.usfirst.frc308.FRC2017.commands;
 import org.usfirst.frc308.FRC2017.Robot;
 import org.usfirst.frc308.FRC2017.RobotConstants;
 import org.usfirst.frc308.FRC2017.utils.MathUtils;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonomousRotateToCenter extends Command{
 	
@@ -36,6 +36,10 @@ public class AutonomousRotateToCenter extends Command{
 	protected boolean isFinished() {
 		if(timer.get() > timeout){
 			//Done
+			Robot.chassis.resetGyro();
+			Robot.chassis.setRotatePIDZero();
+			Robot.chassis.brakemode(true);
+		    Robot.chassis.arcade(0,0);
 			return true;
 		}
 		else{
@@ -44,10 +48,11 @@ public class AutonomousRotateToCenter extends Command{
 				
 				double[] array = NetworkTable.getTable("GRIP/myContoursReport").getNumberArray("centerX", new double[0]);
 				int index = MathUtils.getLargestIndex(array);
-				double centerX = RobotConstants.x / 2;
-				double diffrence = array[index] - centerX - 25;
-				
-				if(Math.abs(diffrence) < 2.5){
+				double centerX = (RobotConstants.x / 2) - RobotConstants.visionoffsetcal;
+				double diffrence = array[index] - (centerX );  
+				SmartDashboard.putNumber(" Vision diffrence",diffrence);
+				SmartDashboard.putNumber(" Vision centerX",centerX); 
+				if(Math.abs(diffrence) < (2.5)){
 					//I'm really close to the target
 					return true;
 				}
@@ -55,26 +60,28 @@ public class AutonomousRotateToCenter extends Command{
 				if(diffrence < 0){
 					//Turn
 					//It's negative
-					turn =  -0.30;
-		//			System.out.println(turn);
+					turn =  -0.22;
 					return false;
 				}
 				else {
 					//It's positive
 					//Turn into other direction
-					turn = 0.30;
-		//			System.out.println(turn);
+					turn = 0.22;
 					return false;
-				}
+				}  //  diff loop
 				
 			}else{
 				//I'm not able to see a goal
+				SmartDashboard.putNumber("centerX", -1);
+				Robot.chassis.setRotatePIDZero();
+				Robot.chassis.resetGyro();
+				Robot.chassis.brakemode(true);
+				Robot.chassis.arcade(0,0);
 				timer.stop();
 				return true;
-			}
-		
-		}
-	}
+			} // end length
+		}  // end timer
+	} // is finish 
 	
 	@Override
 	protected void end() {

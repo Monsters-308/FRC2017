@@ -39,9 +39,9 @@ public class RobotConstants {
 	
 	public static double [][] autostartposition = {
   //          {80.87, -61.8, 108.07}, // Left 
-			{80, -55, 108.07},
-            {45, 0, 0}, // Center
-            {80, 55, 72.07}  // Right
+			{87, -56, 108.07},
+            {53, 0, 0}, // Center
+            {86, 54, 72.07}  // Right
             };
     public static double [][][] autoairshipposition = {
     		{
@@ -66,6 +66,7 @@ public class RobotConstants {
 	public static int visionTolerance = 5; //Count in pixels
 	public static int x = 320; //Count in pixels
 	public static int y = 240; //Count in pixels
+	public static int visionoffsetcal = -20;
 	public static double cameraFieldOfView = 49.0; // in degrees mg changed from 67
 	// Notice that the datasheets give approximate view angle information. 
 	// When testing, it was found that the calculated distance to the target tended to be a bit short.
@@ -133,6 +134,7 @@ public class RobotConstants {
 	public static double closeTimer_timer = .7;
 	public static double autogearTimer_timer = .5;
 	public static double gearTimer_timer = 4.0;
+	public static double latchgearTimer_timer = 2.0;
 	public static boolean autogear = true;
 
 	// Process-Hopper constants

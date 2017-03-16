@@ -203,7 +203,7 @@ public class AutonomousTrajectoryFollowerTwoPointGear extends Command {
 
         @Override
         protected boolean isFinished() {
-        	 if (left.isFinished() || right.isFinished() || timeout.get() > 13) {
+        	 if (left.isFinished() || right.isFinished() || timeout.get() > 8) {
         	  return true;
             }
             return false;

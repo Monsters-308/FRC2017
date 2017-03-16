@@ -166,7 +166,7 @@ public class Robot extends IterativeRobot {
 
 //		RobotConstants.startPositionChooser = Preferences.getInstance().getInt("Autonomous Start Position ", RobotConstants.startPositionChooser);
 //        RobotConstants.boilPositionChooser = Preferences.getInstance().getInt("Autonomous Boiler Position ", RobotConstants.boilPositionChooser);
-	   	SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
+	//   	SmartDashboard.putNumber("Start position set" , RobotConstants.startPositionChooser);
 		RobotConstants.startPositionChooser = NetworkTable.getTable("SmartDashboard").getInt("Start position set");
 //		RobotConstants.boilPositionChooser  = NetworkTable.getTable("SmartDashboard").getInt("Boiler position set");
 		SmartDashboard.putString("Start Position","Start Position 0 = left, 1 = Center, 2 = right) ");

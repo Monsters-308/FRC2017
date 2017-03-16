@@ -75,11 +75,19 @@ public class AutonomousTrajectoryFollowerTwoPointFixMove extends Command {
                    // Max Acceleration:    10 m/s/s
                    // Max Jerk:            60 m/s/s/s
    //                  Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .35, .3, .4);
-                     Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .60, .3, .4);             
+                    Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .60, .3, .4);             
                    //Next Line causes crash if the Waypoints are not set correctly!!!!
-                   Trajectory trajectory = Pathfinder.generate(points, config);
-                  File myFile = new File("/home/lvuser/mytrafile.csv");
-                 Pathfinder.writeToCSV(myFile, trajectory);
+                  Trajectory trajectory = Pathfinder.generate(points, config);
+        //          File myFile = new File("/home/lvuser/fix18inch.csv");
+        //          Pathfinder.writeToCSV(myFile, trajectory);
+                     File myFile = new File("/home/lvuser/fix18inch.traj");
+                     Pathfinder.writeToFile(myFile, trajectory);
+                     
+                  
+        //         File myFile = new File("fix18inch.csv");
+        //         Trajectory trajectory = Pathfinder.readFromCSV(myFile);
+         //       File myFile = new File("/home/lvuser/fix18inch.traj");
+          //      Trajectory trajectory = Pathfinder.readFromFile(myFile);
 
                  double wheelbase_width =  .82; // MG updated
 
@@ -198,7 +206,7 @@ public class AutonomousTrajectoryFollowerTwoPointFixMove extends Command {
 
         @Override
         protected boolean isFinished() {
-        	 if (left.isFinished() || right.isFinished() || timeout.get() > 13) {
+        	 if (left.isFinished() || right.isFinished() || timeout.get() > 4) {
         	  return true;
             }
             return false;

@@ -46,8 +46,8 @@ public class VisionTurnToTarget extends Command {
 			setpointAngle = (targets[biggestTarget] - 150.0) / 120.0 * (0.5 * RobotConstants.cameraFieldOfView);
 			t = 3;
 			timer.start();
-			Robot.chassis.setRotatePID(setpointAngle);
-			Robot.chassis.arcade(0, RobotConstants.gyroPIDOutput);
+	//		Robot.chassis.setRotatePID(setpointAngle);
+	//		Robot.chassis.arcade(0, RobotConstants.gyroPIDOutput);
 			SmartDashboard.putNumber("setpointAngle", setpointAngle);
 			SmartDashboard.putNumber("vision pid", RobotConstants.gyroPIDOutput);
 	//	if (setpointAngle > 0) {
@@ -79,8 +79,8 @@ public class VisionTurnToTarget extends Command {
 			setpointAngle = (targets[biggestTarget] - 200.0) / 120.0 * (0.5 * RobotConstants.cameraFieldOfView);
 			t = 3;
 			timer.start();
-			Robot.chassis.setRotatePID(setpointAngle);
-			Robot.chassis.arcade(.0, RobotConstants.gyroPIDOutput);
+	//		Robot.chassis.setRotatePID(setpointAngle);
+	//		Robot.chassis.arcade(.0, RobotConstants.gyroPIDOutput);
 			SmartDashboard.putNumber("setpointAngle", setpointAngle);
 			System.out.println("setpointAngle "  + setpointAngle);
 		//	if (setpointAngle > 0) {
