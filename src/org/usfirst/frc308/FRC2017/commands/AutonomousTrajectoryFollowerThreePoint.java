@@ -16,7 +16,7 @@
         import jaci.pathfinder.modifiers.TankModifier;
 
 
- public class AutonomousTrajectoryFollowerThreepoint extends Command {
+ public class AutonomousTrajectoryFollowerThreePoint extends Command {
         	 
                 edu.wpi.first.wpilibj.Timer timeout;
                 Timer t;
@@ -30,7 +30,7 @@
                 //This has a max size of three
                 Waypoint[] waypoints = new Waypoint[3];
                 
-                public AutonomousTrajectoryFollowerThreepoint(double x0, double y0, double d0, double x1, double y1, double d1,double x2, double y2, double d2, boolean driveforward) {
+                public AutonomousTrajectoryFollowerThreePoint(double x0, double y0, double d0, double x1, double y1, double d1,double x2, double y2, double d2, boolean driveforward) {
                     requires(Robot.chassis);
                     waypoints[0] = new Waypoint(x0 * inchesToMeter, y0 * inchesToMeter, Math.toRadians(d0)); 
                     waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
