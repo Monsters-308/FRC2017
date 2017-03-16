@@ -134,7 +134,7 @@ public class RobotConstants {
 	public static double closeTimer_timer = .7;
 	public static double autogearTimer_timer = .5;
 	public static double gearTimer_timer = 4.0;
-	public static double latchgearTimer_timer = 2.0;
+	public static double latchgearTimer_timer = 3.0;
 	public static boolean autogear = true;
 
 	// Process-Hopper constants

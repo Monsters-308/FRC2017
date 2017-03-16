@@ -111,6 +111,9 @@ public class TeleopGear extends Command {
 	if (RobotConstants.autogear)	{
 	  double gearauto = Robot.chassis.deadZone(Robot.oi.joystick1.getRawAxis(4));
 	  boolean inboardstate = Robot.gearDelivery.readinboardswitch();
+	//	 System.out.println("inboardstate                 " + inboardstate);
+	//	 System.out.println("*****inboardlatch " + inboardlatch);
+	//	 System.out.println("gearauto " + gearauto);
 	  if  (gearauto < 0 && gearTimer.get() == 0)  { // auto pickup from back 		 
 		  Robot.gearDelivery.openClaw();
 		  RobotConstants.clawOpenState = true;
@@ -156,12 +159,14 @@ public class TeleopGear extends Command {
 	  } // end timer loop
 	  
 	  if (gearTimer.get() >= RobotConstants.gearTimer_timer) {
+			 System.out.println("*****gear timer set ******* " + inboardlatch);
 		  gearTimer.stop();
 		  gearTimer.reset();
 	  } // end timer loop
 	  
-	  if (latchgearTimer.get() >= RobotConstants.gearTimer_timer) {
+	  if (latchgearTimer.get() >= RobotConstants.latchgearTimer_timer) {
 		  inboardlatch = false;
+		  System.out.println("*************in latchgearTimer ******* " + inboardlatch);
 		  latchgearTimer.stop();
 		  latchgearTimer.reset();
 	  } // end timer loop
