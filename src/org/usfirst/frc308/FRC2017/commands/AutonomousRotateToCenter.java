@@ -60,13 +60,13 @@ public class AutonomousRotateToCenter extends Command{
 				if(diffrence < 0){
 					//Turn
 					//It's negative
-					turn =  -0.22;
+					turn =  -0.27;
 					return false;
 				}
 				else {
 					//It's positive
 					//Turn into other direction
-					turn = 0.22;
+					turn = 0.27;
 					return false;
 				}  //  diff loop
 				
