@@ -379,8 +379,6 @@ public class Chassis extends PIDSubsystem {
     	boolean squaredInputs = false;
         moveValue = limit(moveValue);
         rotateValue = limit(rotateValue);
-    	SmartDashboard.putNumber("moveVal", moveValue);
-    	SmartDashboard.putNumber("rotateValue", rotateValue);	
         if (squaredInputs) {
             if (moveValue >= 0.0D) {	
                 moveValue *= moveValue;

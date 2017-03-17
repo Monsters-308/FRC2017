@@ -97,11 +97,11 @@ public class EncoderFollower {
         if (segment < trajectory.length()) {
             Trajectory.Segment seg = trajectory.get(segment);
     //       System.out.println("seg " + seg.position);
-   //        System.out.println("segment " + segment);
+    //      System.out.println("segment " + segment);
    //        System.out.println("distance_covered " + distance_covered );
             error = seg.position - distance_covered;
-            SmartDashboard.putDouble("tra encode error", error);
-            System.out.println("error " + error);
+    //        SmartDashboard.putDouble("tra encode error", error);
+    //        System.out.println("error " + error);
             double calculated_value =
                     kp * error +                                    // Proportional
                     kd * ((error - last_error) / seg.dt) +          // Derivative

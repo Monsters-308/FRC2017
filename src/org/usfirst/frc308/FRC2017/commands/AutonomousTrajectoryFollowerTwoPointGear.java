@@ -30,20 +30,19 @@ public class AutonomousTrajectoryFollowerTwoPointGear extends Command {
         //This has a max size of three
         Waypoint[] waypoints = new Waypoint[2];
         
-        public AutonomousTrajectoryFollowerTwoPointGear( boolean driveforward) {
+        public AutonomousTrajectoryFollowerTwoPointGear(double x0, double y0, double d0, double x1, double y1, double d1, boolean driveforward) {
             requires(Robot.chassis);
-  	   //      waypoints[0] = new Waypoint(x0 * inchesToMeter, y0 * inchesToMeter, Math.toRadians(d0)); 
-      //      waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
+  	        waypoints[0] = new Waypoint(x0 * inchesToMeter, y0 * inchesToMeter, Math.toRadians(d0)); 
+            waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
             drivef = driveforward;
             }  
   
 
         @Override
         protected void initialize() {
-    	      int startindex = RobotConstants.startPositionChooser;
-     //    	  SmartDashboard.putNumber("Start position final " , startindex);
-         	 waypoints[0] = new Waypoint (0,0,0);  
-         	 waypoints[1] = new Waypoint(RobotConstants.autostartposition[startindex][0]* inchesToMeter, RobotConstants.autostartposition[startindex][1]* inchesToMeter, Math.toRadians(RobotConstants.autostartposition[startindex][2]));
+  //  	      int startindex = RobotConstants.startPositionChooser;
+  //       	 waypoints[0] = new Waypoint (0,0,0);  
+ //        	 waypoints[1] = new Waypoint(RobotConstants.autostartposition[startindex][0]* inchesToMeter, RobotConstants.autostartposition[startindex][1]* inchesToMeter, Math.toRadians(RobotConstants.autostartposition[startindex][2]));
          	  
         	  timeout = new edu.wpi.first.wpilibj.Timer();
               timeout.start();
@@ -81,10 +80,10 @@ public class AutonomousTrajectoryFollowerTwoPointGear extends Command {
                    // Max Jerk:            60 m/s/s/s
    //                  Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .35, .3, .4);
                      Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,0.05, .60, .3, .4);             
-                   //Next Line causes crash if the Waypoints are not set correctly!!!!
+
                    Trajectory trajectory = Pathfinder.generate(points, config);
-                  File myFile = new File("/home/lvuser/mytrafile.csv");
-                 Pathfinder.writeToCSV(myFile, trajectory);
+ //                 File myFile = new File("/home/lvuser/mytrafile.csv");
+ //                Pathfinder.writeToCSV(myFile, trajectory);
 
                  double wheelbase_width =  .82; // MG updated
 

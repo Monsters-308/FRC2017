@@ -55,9 +55,9 @@ public class Lights extends Subsystem {
     public void setcameraLights(){
     	camLights.set(true);
     }
-    
+    // need to change - force on for waterford
     public void disablecameraLights(){
-    	camLights.set(false);
+    	camLights.set(true);
     }
 
 }
