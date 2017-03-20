@@ -60,13 +60,13 @@ public class AutonomousRotateToCenter extends Command{
 				if(diffrence < 0){
 					//Turn
 					//It's negative
-					turn =  -0.27;
+					turn =  RobotConstants.Vision_neg_rotate;
 					return false;
 				}
 				else {
 					//It's positive
 					//Turn into other direction
-					turn = 0.27;
+					turn = RobotConstants.Vision_pos_rotate;
 					return false;
 				}  //  diff loop
 				
