@@ -20,7 +20,8 @@ public class AutonomousRotateToCenter extends Command{
 	
 	@Override
 	protected void initialize() {
-		super.initialize();
+	     turn = 0.0;
+//		super.initialize();
 		timer = new Timer();
 		timer.start();
 		Robot.chassis.setupDrive();
@@ -28,14 +29,15 @@ public class AutonomousRotateToCenter extends Command{
 	
 	@Override
 	protected void execute() {
-		super.execute();
-		Robot.chassis.arcade(0, turn);
+//		super.execute();
+//		Robot.chassis.arcade(0, turn);
 	}
 
 	@Override
 	protected boolean isFinished() {
 		if(timer.get() > timeout){
 			//Done
+			turn = 0.0;
 			Robot.chassis.resetGyro();
 			Robot.chassis.setRotatePIDZero();
 			Robot.chassis.brakemode(true);
@@ -52,6 +54,7 @@ public class AutonomousRotateToCenter extends Command{
 				double diffrence = array[index] - (centerX );  
 				SmartDashboard.putNumber(" Vision diffrence",diffrence);
 				SmartDashboard.putNumber(" Vision centerX",centerX); 
+				turn = 0.0;
 				if(Math.abs(diffrence) < (2.5)){
 					//I'm really close to the target
 					return true;
@@ -60,21 +63,23 @@ public class AutonomousRotateToCenter extends Command{
 				if(diffrence < 0){
 					//Turn
 					//It's negative
+					System.out.println("+++++++++++++++++++++ diffrence " + diffrence);
 					turn =  RobotConstants.Vision_neg_rotate;
+					System.out.println("+++++++++++++++++++++ turn " + turn);
+					Robot.chassis.arcade(0, turn);
 					return false;
 				}
 				else {
 					//It's positive
 					//Turn into other direction
 					turn = RobotConstants.Vision_pos_rotate;
+					Robot.chassis.arcade(0, turn);
 					return false;
 				}  //  diff loop
 				
 			}else{
 				//I'm not able to see a goal
 				SmartDashboard.putNumber("centerX", -1);
-				Robot.chassis.setRotatePIDZero();
-				Robot.chassis.resetGyro();
 				Robot.chassis.brakemode(true);
 				Robot.chassis.arcade(0,0);
 				timer.stop();
@@ -85,8 +90,8 @@ public class AutonomousRotateToCenter extends Command{
 	
 	@Override
 	protected void end() {
-		super.end();
-		Robot.chassis.setRotatePIDZero();
+	//	super.end();
+	//	Robot.chassis.setRotatePIDZero();
 	}
 	
 	@Override

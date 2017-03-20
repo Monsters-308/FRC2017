@@ -92,7 +92,7 @@ public class VisionTurnToTarget extends Command {
 			pass = false;
 			SmartDashboard.putNumber("centerX", -1);
 			SmartDashboard.putNumber("centerY", -1);
-			Robot.chassis.arcade(0, RobotConstants.gyroPIDOutput);
+//			Robot.chassis.arcade(0, RobotConstants.gyroPIDOutput);
 		}
 	}
 

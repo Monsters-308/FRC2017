@@ -84,6 +84,8 @@ public class AutonomousTrajectoryFollowerTwoPointGear extends Command {
                    Trajectory trajectory = Pathfinder.generate(points, config);
  //                 File myFile = new File("/home/lvuser/mytrafile.csv");
  //                Pathfinder.writeToCSV(myFile, trajectory);
+    //                          File myFile = new File("/home/lvuser/autoleft.traj");
+   //                           Pathfinder.writeToFile(myFile, trajectory);
 
                  double wheelbase_width =  .82; // MG updated
 

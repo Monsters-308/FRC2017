@@ -312,15 +312,13 @@ public class Chassis extends PIDSubsystem {
     // ***********************************************************************************************
     
     public void setLeftRightMotorOutputs(double leftOutput, double rightOutput) {
-      left2.set(limit(leftOutput) * this.m_maxOutput);
-      right2.set(-limit(rightOutput) * this.m_maxOutput);
-//  	SmartDashboard.putNumber("right output ",rightOutput );
-//  	SmartDashboard.putNumber("left output ",leftOutput );
+      left2.set(limit(leftOutput));
+      right2.set(limit(-rightOutput));
+  	SmartDashboard.putNumber("right output ",limit(-rightOutput) );
+  	SmartDashboard.putNumber("left output ",limit(leftOutput) );
+    System.out.println("******************************* left **** " + limit(leftOutput));
       }
-       
-    
-    
-    
+     
     
     /**
      * Method to check if input is in range
@@ -329,11 +327,11 @@ public class Chassis extends PIDSubsystem {
      * @author Alexander Kaschta
      */
     protected static double limit(double number) {
-        if (number > 1.0D) {
-            return 1.0D;
+        if (number >= 1.0) {
+            return 1.0;
         }
-        if (number < -1.0D) {
-            return -1.0D;
+        else if (number <= -1.0) {
+            return -1.0;
         }
         return number;
     }
@@ -345,9 +343,9 @@ public class Chassis extends PIDSubsystem {
      * @param rightValue value for the right motors
      * @param squaredInputs are the input values already squared?
      */
-    public void tankDrive(double leftValue, double rightValue) {
+       public void tankDrive(double leftValue, double rightValue) {
        
-    	boolean squaredInputs = false;
+    	   /**  	boolean squaredInputs = false;
         leftValue = limit(leftValue);
         rightValue = limit(rightValue);
       if (squaredInputs) {
@@ -360,7 +358,7 @@ public class Chassis extends PIDSubsystem {
             } else {
                 rightValue = -(rightValue * rightValue);
             }
-       
+    */  
         setLeftRightMotorOutputs( leftValue, rightValue);
     }
     
@@ -414,10 +412,9 @@ public class Chassis extends PIDSubsystem {
                 leftMotorSpeed = moveValue - rotateValue;
                 rightMotorSpeed = -Math.max(-moveValue, -rotateValue);
             }
-        }
-        
+        }       
 
-        setLeftRightMotorOutputs(leftMotorSpeed, rightMotorSpeed);
+       setLeftRightMotorOutputs(leftMotorSpeed, rightMotorSpeed);
     }
     
    
