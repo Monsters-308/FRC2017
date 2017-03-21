@@ -57,6 +57,7 @@ public class AutonomousRotateToCenter extends Command{
 				turn = 0.0;
 				if(Math.abs(diffrence) < (2.5)){
 					//I'm really close to the target
+					 Robot.chassis.resetEncoders();
 					return true;
 				}
 				
@@ -67,6 +68,7 @@ public class AutonomousRotateToCenter extends Command{
 					turn =  RobotConstants.Vision_neg_rotate;
 					System.out.println("+++++++++++++++++++++ turn " + turn);
 					Robot.chassis.arcade(0, turn);
+					Robot.chassis.resetEncoders();
 					return false;
 				}
 				else {
@@ -74,6 +76,7 @@ public class AutonomousRotateToCenter extends Command{
 					//Turn into other direction
 					turn = RobotConstants.Vision_pos_rotate;
 					Robot.chassis.arcade(0, turn);
+					Robot.chassis.resetEncoders();
 					return false;
 				}  //  diff loop
 				
@@ -82,6 +85,7 @@ public class AutonomousRotateToCenter extends Command{
 				SmartDashboard.putNumber("centerX", -1);
 				Robot.chassis.brakemode(true);
 				Robot.chassis.arcade(0,0);
+				Robot.chassis.resetEncoders();
 				timer.stop();
 				return true;
 			} // end length

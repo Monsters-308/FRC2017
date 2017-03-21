@@ -11,9 +11,9 @@ public class AutonomousDeliverGearOnlyCenter extends CommandGroup{
 		addSequential(new AutonomousCommandLights(true)); // turn on vision lights
 //   	addSequential(new AutonomousTrajectoryFollowerTwoPointGear(0, 0, 0, 53, 0, 0, true));  
 		addSequential(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(1, true));
-        addSequential(new AutonomousRotateToCenter(1)); // Vision 
-//      addSequential(new AutonomousTrajectoryFollowerTwoPointFixMove(0, 0, 0, 17, 0, 0, true));
-		addSequential(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(4, true));
+       addSequential(new AutonomousRotateToCenter(1)); // Vision 
+      addSequential(new AutonomousTrajectoryFollowerTwoPointFixMove(0, 0, 0, 17, 0, 0, true));
+//		addSequential(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(4, true));
 //	    addSequential(new AutonomousCommandClawDoor(true)); // close door 
 	    addSequential(new AutonomousCommandClaw(true)); // open claw door
 //	    addSequential(new AutonomousCommandLights(false)); // turn off vision lights

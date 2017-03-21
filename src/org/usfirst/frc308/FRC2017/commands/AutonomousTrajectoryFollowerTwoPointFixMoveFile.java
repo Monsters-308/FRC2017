@@ -135,12 +135,13 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                 // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
                 // trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
                 // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-                   left.configurePIDVA(0.7, 0.0, 0.00, 1.2, 0);
-                   right.configurePIDVA(0.7, 0.0, 0.00, 1.2, 0);
+                   left.configurePIDVA(0.7, 0.0, 0.00, 0.5, 0);
+                   right.configurePIDVA(0.7, 0.0, 0.00, 0.5, 0);
 
                  
               
                    t = new Timer();
+                   Robot.chassis.resetEncoders();
                    Robot.chassis.brakemode(true);
                    t.schedule(new TimerTask() {
                  // Sample setup  	

@@ -103,6 +103,7 @@ public class Robot extends IterativeRobot {
 //		
 		Robot.lights.setcameraLights();
 		RobotConstants.cameralightState = true;
+		Robot.chassis.resetEncoders();
 //		
 	  	// schedule the autonomous command 
     	autonomousCommand = (Command) autoChooser.getSelected();
