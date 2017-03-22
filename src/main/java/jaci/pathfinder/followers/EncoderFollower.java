@@ -91,17 +91,18 @@ public class EncoderFollower {
         // Number of Revolutions * Wheel Circumference
         double distance_covered = ((double)(encoder_tick - encoder_offset) / encoder_tick_count)
                 * wheel_circumference;
-		 System.out.println("encoder_tick " + encoder_tick);
-	    System.out.println("encoder_offset " + encoder_offset); 
-		 System.out.println("trajectory.length " + trajectory.length()); 
+	//	 System.out.println("encoder_tick " + encoder_tick);
+	//    System.out.println("encoder_offset " + encoder_offset); 
+	//	 System.out.println("trajectory.length " + trajectory.length()); 
         if (segment < trajectory.length()) {
             Trajectory.Segment seg = trajectory.get(segment);
-           System.out.println("seg " + seg.position);
-          System.out.println("segment " + segment);
-          System.out.println("distance_covered " + distance_covered );
+    //       System.out.println("seg " + seg.position);
+    //      System.out.println("segment " + segment);
+    //      System.out.println("distance_covered " + distance_covered );
             error = seg.position - distance_covered;
-       //    SmartDashboard.putDouble("tra encode error", error);
-          System.out.println("error " + error);
+    //      SmartDashboard.putDouble("segment ", segment);
+    //      SmartDashboard.putDouble("length ", trajectory.length());
+   //      System.out.println("error " + error);
             double calculated_value =
                     kp * error +                                    // Proportional
                     kd * ((error - last_error) / seg.dt) +          // Derivative
@@ -109,8 +110,8 @@ public class EncoderFollower {
             last_error = error;
             heading = seg.heading;
             segment++;
-           System.out.println("Heading " + heading); 
-            System.out.println("calculated_value " + calculated_value); 
+     //      System.out.println("Heading " + heading); 
+     //       System.out.println("calculated_value " + calculated_value); 
             return calculated_value;
         } else{
         	last_error = 0; 

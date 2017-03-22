@@ -314,10 +314,10 @@ public class Chassis extends PIDSubsystem {
     public void setLeftRightMotorOutputs(double leftOutput, double rightOutput) {
       left2.set(limit(leftOutput));
       right2.set(limit(-rightOutput));
-  	SmartDashboard.putNumber("right output ",limit(-rightOutput) );
-  	SmartDashboard.putNumber("left output ",limit(leftOutput) );
-   System.out.println("******************************* left **** " + limit(leftOutput));
-   System.out.println("******************************* right **** " + limit(-rightOutput));
+//  	SmartDashboard.putNumber("right output ",limit(-rightOutput) );
+//  	SmartDashboard.putNumber("left output ",limit(leftOutput) );
+//   System.out.println("******************************* left **** " + limit(leftOutput));
+//   System.out.println("******************************* right **** " + limit(-rightOutput));
       }
      
     

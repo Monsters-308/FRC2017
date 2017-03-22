@@ -68,6 +68,7 @@ public class RobotConstants {
 	public static int visionoffsetcal = -20;
 	public static double Vision_neg_rotate= -.25;
 	public static double Vision_pos_rotate= .25;
+	public static double Vision_setpointAngle= 0;
 	public static double cameraFieldOfView = 49.0; // in degrees mg changed from 67
 	// Notice that the datasheets give approximate view angle information. 
 	// When testing, it was found that the calculated distance to the target tended to be a bit short.

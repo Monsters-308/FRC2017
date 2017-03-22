@@ -8,6 +8,7 @@ public class AutonomousDeliverGearOnlyVision extends CommandGroup{
 	public AutonomousDeliverGearOnlyVision(){
 		   /// Drive to Gear
 	     addSequential(new AutonomousRotateToCenter(1)); // Vision 
+	//   addParallel(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(4, true));
       	}
 
 }

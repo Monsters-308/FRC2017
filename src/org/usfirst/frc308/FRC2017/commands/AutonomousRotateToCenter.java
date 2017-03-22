@@ -38,6 +38,7 @@ public class AutonomousRotateToCenter extends Command{
 		if(timer.get() > timeout){
 			//Done
 			turn = 0.0;
+			Robot.chassis.resetEncoders();
 			Robot.chassis.resetGyro();
 			Robot.chassis.setRotatePIDZero();
 			Robot.chassis.brakemode(true);
@@ -57,7 +58,8 @@ public class AutonomousRotateToCenter extends Command{
 				turn = 0.0;
 				if(Math.abs(diffrence) < (2.5)){
 					//I'm really close to the target
-					 Robot.chassis.resetEncoders();
+					Robot.chassis.arcade(0,0);
+					Robot.chassis.resetEncoders();
 					return true;
 				}
 				
@@ -86,6 +88,7 @@ public class AutonomousRotateToCenter extends Command{
 				Robot.chassis.brakemode(true);
 				Robot.chassis.arcade(0,0);
 				Robot.chassis.resetEncoders();
+				Robot.chassis.arcade(0,0);
 				timer.stop();
 				return true;
 			} // end length
@@ -94,13 +97,17 @@ public class AutonomousRotateToCenter extends Command{
 	
 	@Override
 	protected void end() {
+		Robot.chassis.arcade(0,0);
+		Robot.chassis.resetEncoders();
 	//	super.end();
 	//	Robot.chassis.setRotatePIDZero();
 	}
 	
 	@Override
 	protected void interrupted() {
-		super.interrupted();
+	//	super.interrupted();
+		Robot.chassis.arcade(0,0);
+		Robot.chassis.resetEncoders();
 		end();
 	}
 	

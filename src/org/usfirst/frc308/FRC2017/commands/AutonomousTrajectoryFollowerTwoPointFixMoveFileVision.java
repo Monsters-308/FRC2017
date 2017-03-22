@@ -17,14 +17,14 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 
-public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
+public class AutonomousTrajectoryFollowerTwoPointFixMoveFileVision extends Command {
 	 
         edu.wpi.first.wpilibj.Timer timeout;
         Timer t;
         int gyrowait; 
+        public double turn= 0;
         double lasttime;
         double timelapse;
-        public double maxtimeout = 8;
         EncoderFollower left;
         EncoderFollower right;
         private static double inchesToMeter = 0.0254 ;
@@ -33,13 +33,12 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
         //This has a max size of three
         Waypoint[] waypoints = new Waypoint[2];
         
-        public AutonomousTrajectoryFollowerTwoPointFixMoveFile(int autofilenum, boolean driveforward, double maxtime) {
+        public AutonomousTrajectoryFollowerTwoPointFixMoveFileVision(int autofilenum, boolean driveforward) {
             requires(Robot.chassis);
 //  	        waypoints[0] = new Waypoint(x0 * inchesToMeter, y0 * inchesToMeter, Math.toRadians(d0)); 
 //            waypoints[1] = new Waypoint(x1 * inchesToMeter, y1 * inchesToMeter, Math.toRadians(d1));
             drivef = driveforward;
             autofile = autofilenum;
-            maxtimeout = maxtime;
             }  
   
 
@@ -96,10 +95,10 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                            break;
                   case 2:  fileString = "/home/lvuser/autoright.traj";  
                            break;
-                  case 4:  fileString = "/home/lvuser/fix18inch.traj";  
-                           break;         
-                  default: fileString = "/home/lvuser/fix18inch.traj"; 
-                           break;
+                  case 4:  fileString = "/home/lvuser/fix17inch.traj";  
+                            break;
+                  default: fileString = "/home/lvuser/fix17inch.traj"; 
+                  break;
                   }
                   
                   File myFile = new File (fileString);
@@ -139,9 +138,9 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                 // The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
                 // trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
                 // The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-                   left.configurePIDVA(0.7, 0.0, 0.00, 0.6, 0);
-                   right.configurePIDVA(0.7, 0.0, 0.00, 0.6, 0);
-               //    right.configurePIDVA(0.7, 0.0, 0.00, 0.5, 0);
+                   left.configurePIDVA(0.7, 0.0, 0.00, 0.5, 0);
+                   right.configurePIDVA(0.7, 0.0, 0.00, 0.5, 0);
+
                  
               
                    t = new Timer();
@@ -184,8 +183,14 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                 //                  SmartDashboard.putNumber("tra head", desired_heading);
                 //                 SmartDashboard.putNumber("tra angle Difference", angleDifference);
                 //                  SmartDashboard.putNumber("tra gyro 2", Robot.chassis.getGyroAngle());
-                //                  SmartDashboard.putDouble("tra right", -(r - turn));
-                //                  SmartDashboard.putDouble("tra left", -(l + turn));  
+                         	         SmartDashboard.putNumber("RobotConstants.Vision_setpointAngle", RobotConstants.Vision_setpointAngle); 
+                        	           if (autofile == 4){
+                                           turn = (0.8 * (-1.0/80.0) * angleDifference) - (RobotConstants.Vision_setpointAngle *2) ;
+                        	           }else {
+                        	        	     turn = (0.8 * (-1.0/80.0) * angleDifference);
+                          	           }   
+                                  SmartDashboard.putDouble("tra right", -(r - turn));
+                                  SmartDashboard.putDouble("tra left", -(l + turn));  
                 //                  SmartDashboard.putNumber("tra encoder right", Robot.chassis.getRightEncoderPosition());
                 //                  SmartDashboard.putNumber("tra encodeer left", Robot.chassis.getLeftEncoderPosition()); 
                                   
@@ -195,7 +200,7 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                                    double gyro_heading = Robot.chassis.getGyroAngle();   // Assuming the gyro is giving a value in degrees
                                    double desired_heading = -Pathfinder.r2d(left.getHeading());  // Should also be in degrees
                       	           double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-                                   double turn = 0.8 * (-1.0/80.0) * angleDifference;
+
                                    Robot.chassis.tankDrive((l + turn),(r - turn)); 
                   //                  SmartDashboard.putNumber("tra head", desired_heading);
                  //                 SmartDashboard.putNumber("tra angle Difference", angleDifference);
@@ -207,8 +212,8 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                                      }
                             } else {
                         	   Robot.chassis.tankDrive(0,0);
-                       //        left.reset();
-                       //        right.reset();
+                               left.reset();
+                               right.reset();
                             }
                      //      SmartDashboard.putNumber("tra gyro 2", Robot.chassis.getGyroAngle());
                      //      System.out.println("r "+ r);
@@ -223,7 +228,6 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                    }, 0, 50); // end timed task  0 delay, execute every 50 mSec
                   left.reset();
                   right.reset();
-                  Robot.chassis.resetEncoders();
                   Robot.chassis.displayChasisData();
               
         }
@@ -234,8 +238,7 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
 
         @Override
         protected boolean isFinished() {
-        	 if (left.isFinished() || right.isFinished() || timeout.get() > maxtimeout) {
-        		Robot.chassis.resetEncoders();	 
+        	 if (left.isFinished() || right.isFinished() || timeout.get() > 8) {
         	  return true;
             }
             return false;
@@ -247,7 +250,6 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
             timeout.reset();
             t.cancel();
             RobotConstants.isTrajectory = false;
-            Robot.chassis.resetEncoders();
             Robot.chassis.brakemode(false);
         }
 

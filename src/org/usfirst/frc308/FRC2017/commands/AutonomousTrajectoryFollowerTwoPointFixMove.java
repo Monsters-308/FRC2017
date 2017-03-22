@@ -87,7 +87,7 @@ public class AutonomousTrajectoryFollowerTwoPointFixMove extends Command {
                   
         //          File myFile = new File("/home/lvuser/fix18inch.csv");
         //          Pathfinder.writeToCSV(myFile, trajectory);
-                     File myFile = new File("/home/lvuser/fix17inch.traj");
+                     File myFile = new File("/home/lvuser/fix15inch.traj");
                      Pathfinder.writeToFile(myFile, trajectory);
                      
                   
