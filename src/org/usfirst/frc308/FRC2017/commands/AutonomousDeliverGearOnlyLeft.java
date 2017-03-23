@@ -13,7 +13,7 @@ public class AutonomousDeliverGearOnlyLeft extends CommandGroup{
 		addSequential(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(0, true, 8));  
         addSequential(new AutonomousRotateToCenter(1)); // Vision 
 //       addSequential(new AutonomousTrajectoryFollowerTwoPointFixMove(0, 0, 0, 17, 0, 0, true));
-		addSequential(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(4, true, 3.5));
+		addSequential(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(5, true, 4.0));
 //	    addSequential(new AutonomousCommandClawDoor(true)); // close door 
 	    addSequential(new AutonomousCommandClaw(true)); // open claw door
 //	    addSequential(new AutonomousCommandLights(false)); // turn off vision lights

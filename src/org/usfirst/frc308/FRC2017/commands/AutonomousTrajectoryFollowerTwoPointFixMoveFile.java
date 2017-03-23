@@ -97,7 +97,9 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                   case 2:  fileString = "/home/lvuser/autoright.traj";  
                            break;
                   case 4:  fileString = "/home/lvuser/fix18inch.traj";  
-                           break;         
+                           break;        
+                  case 5:  fileString = "/home/lvuser/fix19inch.traj";  
+                           break; 
                   default: fileString = "/home/lvuser/fix18inch.traj"; 
                            break;
                   }
