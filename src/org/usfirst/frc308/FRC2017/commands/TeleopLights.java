@@ -41,21 +41,21 @@ private double lightcycle;
      }	
 
 // Light processing for shooter and intake
-    if (RobotConstants.shooterMode == true || RobotConstants.intakeMode == true) {
-    	if (RobotConstants.shooterMode == true) {
-    		// Flash lights for shoot motor
-    		if (lightTimer.get() >= (lightcycle/2)) 
-    		    Robot.lights.setIntakeLights();
-    	    else 
-    	    	Robot.lights.disableIntakeLights();
-        }else  //Must be intake mode light solid
-    		Robot.lights.setIntakeLights(); 
-        }
+//    if (RobotConstants.shooterMode == true || RobotConstants.intakeMode == true) {
+//    	if (RobotConstants.shooterMode == true) {
+//    		// Flash lights for shoot motor
+ //   		if (lightTimer.get() >= (lightcycle/2)) 
+//    		    Robot.lights.setIntakeLights();
+ //   	    else 
+ //   	    	Robot.lights.disableIntakeLights();
+ //       }else  //Must be intake mode light solid
+ //   		Robot.lights.setIntakeLights(); 
+ //       }
          // end shoot mode
-    	else { // No lights on
- 		Robot.lights.disableIntakeLights();
+ //   	else { // No lights on
+ //		Robot.lights.disableIntakeLights();
         // end of all intake/shoot/process
-         }
+ //        }
 
 // Light processing for claw Lights       
     if (RobotConstants.clawOpenState == true ) {

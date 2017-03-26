@@ -133,7 +133,7 @@ public class RobotConstants {
 	public static boolean batDoorState = false;
 	public static double extendTimer_timer = .7;
 	public static double doorTimer_timer = .7;
-	public static double closeTimer_timer = .7;
+	public static double closeTimer_timer = .3;
 	public static double autogearTimer_timer = .5;
 	public static double gearTimer_timer = 4.0;
 	public static double latchgearTimer_timer = 3.0;

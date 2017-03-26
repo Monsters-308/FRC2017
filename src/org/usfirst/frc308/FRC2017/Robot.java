@@ -70,7 +70,8 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
 		server = CameraServer.getInstance();
 		server.addAxisCamera("Rear", "10.3.8.3");
-		server.startAutomaticCapture();
+		server.startAutomaticCapture(0);
+		server.startAutomaticCapture(1);
 		
 		//autonomousCommand = new AutonomousCommand(); MG remove after autoChooser works
 
@@ -96,6 +97,7 @@ public class Robot extends IterativeRobot {
     public void disabledPeriodic() {
     	// Tocuh Talon to insure they are re- registered. See Talon software manual for more information 
         Robot.chassis.brakemode(false);
+        Robot.lights.disableIntakeLights();
     	Scheduler.getInstance().run();
     }
 
@@ -156,6 +158,9 @@ public class Robot extends IterativeRobot {
 //		
 		Robot.gearDelivery.openClawDoor();
 		RobotConstants.batDoorState = true;
+//		
+    	Robot.climb.climbActuatorclose();
+    	Robot.lights.setIntakeLights();
 		
 		
         /// The Robot Preference function allows for temporary adjustment of variables

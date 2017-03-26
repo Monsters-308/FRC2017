@@ -44,10 +44,13 @@ public class TeleopClimb extends Command {
 	
 	       if (Robot.oi.joystick1.getRawButton(RobotConstants.climbActuator) || RobotConstants.processState) {
 	         	// Flash lights for door closed
-	       		if (shakeTimer.get() >= (RobotConstants.shakecycle/2))  
+	       		if (shakeTimer.get() >= (RobotConstants.shakecycle/2))  {
 	       			Robot.climb.climbActuatorclose();
-	       		else 
+	       		    Robot.lights.setIntakeLights();
+	       		}else {
 	       			Robot.climb.climbActuatoropen();
+	       			Robot.lights.disableIntakeLights();
+	       		}
 	      }   		
 		
 	}
