@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -27,7 +28,10 @@ public class RobotMap {
 	public static CANTalon chassisCANTalon_4 = new CANTalon(4);
 	public static CANTalon chassisCANTalon_5 = new CANTalon(5);
 	public static CANTalon chassisCANTalon_6 = new CANTalon(6);
-//	public static AdvancedRobotDrive chassisRobotDrive6 = new AdvancedRobotDrive(chassisCANTalon_1, chassisCANTalon_2, chassisCANTalon_3, chassisCANTalon_4, chassisCANTalon_5, chassisCANTalon_6);
+	// public static AdvancedRobotDrive chassisRobotDrive6 = new
+	// AdvancedRobotDrive(chassisCANTalon_1, chassisCANTalon_2,
+	// chassisCANTalon_3, chassisCANTalon_4, chassisCANTalon_5,
+	// chassisCANTalon_6);
 	public static AnalogGyro chassisAnalogGyro1;
 	public static CANTalon intakeCANTalon_Ball_1 = new CANTalon(15);
 	public static CANTalon intakeCANTalon_GearIntake = new CANTalon(16);
@@ -45,4 +49,7 @@ public class RobotMap {
 	public static DigitalOutput intakeLights = new DigitalOutput(2);
 	public static DigitalOutput camLights = new DigitalOutput(3);
 	public static DigitalInput inboardswitch = new DigitalInput(9);
+	public static Encoder leftEncoder = new Encoder(new DigitalInput(4), new DigitalInput(5), false, Encoder.EncodingType.k4X);
+	public static Encoder rigthEncoder = new Encoder(new DigitalInput(6), new DigitalInput(7), true, Encoder.EncodingType.k4X);
+
 }
