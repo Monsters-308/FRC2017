@@ -49,7 +49,8 @@ public class RobotMap {
 	public static DigitalOutput intakeLights = new DigitalOutput(2);
 	public static DigitalOutput camLights = new DigitalOutput(3);
 	public static DigitalInput inboardswitch = new DigitalInput(9);
-	public static Encoder leftEncoder = new Encoder(new DigitalInput(4), new DigitalInput(5), false, Encoder.EncodingType.k4X);
-	public static Encoder rigthEncoder = new Encoder(new DigitalInput(6), new DigitalInput(7), true, Encoder.EncodingType.k4X);
+	public static Encoder rigthEncoder = new Encoder(new DigitalInput(4), new DigitalInput(5), false, Encoder.EncodingType.k4X);
+	public static Encoder leftEncoder = new Encoder(new DigitalInput(6), new DigitalInput(7), true, Encoder.EncodingType.k4X);
 
+	
 }

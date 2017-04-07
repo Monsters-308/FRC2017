@@ -191,8 +191,8 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFileVision extends Comma
                           	           }   
                                   SmartDashboard.putDouble("tra right", -(r - turn));
                                   SmartDashboard.putDouble("tra left", -(l + turn));  
-                //                  SmartDashboard.putNumber("tra encoder right", Robot.chassis.getRightEncoderPosition());
-                //                  SmartDashboard.putNumber("tra encodeer left", Robot.chassis.getLeftEncoderPosition()); 
+                                  SmartDashboard.putNumber("tra encoder right", Robot.chassis.getRightEncoderPosition());
+                                  SmartDashboard.putNumber("tra encodeer left", Robot.chassis.getLeftEncoderPosition()); 
                                   
                                } else {  // reverse mode only use for backwards
                                    double l = left.calculate(-Robot.chassis.getLeftEncoderPosition()) ;

@@ -17,6 +17,7 @@ public class RobotConstants {
 
 	public static boolean last = true;
 	public static boolean isAutonomousAiming = false;
+	public static int encodermode = 0;
 
 	// Joystick 1 constants
 	public static boolean singleJoystick = true;

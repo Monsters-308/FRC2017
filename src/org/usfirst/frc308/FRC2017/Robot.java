@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 	  autoChooser.addObject("A Deliver Gear - Left ", new AutonomousDeliverGearOnlyLeft());
 	  autoChooser.addDefault("B Deliver Gear - Center ", new AutonomousDeliverGearOnlyCenter());
 	  autoChooser.addObject("C Deliver Gear - Right ", new AutonomousDeliverGearOnlyRight());
-	  autoChooser.addObject("C Deliver Gear - Vision ", new AutonomousDeliverGearOnlyVision());
+	  autoChooser.addObject("D Deliver Gear - Vision ", new AutonomousDeliverGearOnlyVision());
 	 SmartDashboard.putData("Autonomous mode chooser", autoChooser);
                 
         // instantiate the command used for the autonomous period

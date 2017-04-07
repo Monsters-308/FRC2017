@@ -96,7 +96,7 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                            break;
                   case 2:  fileString = "/home/lvuser/autoright.traj";  
                            break;
-                  case 4:  fileString = "/home/lvuser/fix18inch.traj";  
+                  case 4:  fileString = "/home/lvuser/fix17inch.traj";  
                            break;        
                   case 5:  fileString = "/home/lvuser/fix19inch.traj";  
                            break; 
@@ -188,8 +188,8 @@ public class AutonomousTrajectoryFollowerTwoPointFixMoveFile extends Command {
                 //                  SmartDashboard.putNumber("tra gyro 2", Robot.chassis.getGyroAngle());
                 //                  SmartDashboard.putDouble("tra right", -(r - turn));
                 //                  SmartDashboard.putDouble("tra left", -(l + turn));  
-                //                  SmartDashboard.putNumber("tra encoder right", Robot.chassis.getRightEncoderPosition());
-                //                  SmartDashboard.putNumber("tra encodeer left", Robot.chassis.getLeftEncoderPosition()); 
+                                SmartDashboard.putNumber("tra encoder right", Robot.chassis.getRightEncoderPosition());
+                                  SmartDashboard.putNumber("tra encodeer left", Robot.chassis.getLeftEncoderPosition()); 
                                   
                                } else {  // reverse mode only use for backwards
                                    double l = left.calculate(-Robot.chassis.getLeftEncoderPosition()) ;

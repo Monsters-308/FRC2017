@@ -220,11 +220,11 @@ public class Chassis extends PIDSubsystem {
 	}
 
 	public void resetEncoders() {
-		// left2.setEncPosition(0);
-		// right2.setEncPosition(0);
+		 left2.setEncPosition(0);
+		 right2.setEncPosition(0);
 		// encodetemp = 0;
-		// lencodetemp = 0;
-		// rencodetemp = 0;
+		lencodetemp = 0;
+		rencodetemp = 0;
 		leftEncoder.reset();
 		rigthEncoder.reset();
 	}
@@ -236,10 +236,21 @@ public class Chassis extends PIDSubsystem {
 	 **/
 
 	public int getLeftEncoderPosition() {
+		int intValue;
+		switch (RobotConstants.encodermode) {
+        case 0:  intValue = -(int) leftEncoder.get() *4;
+                 return -intValue;
+        case 1:  intValue = (int) left2.getPosition();  
+                 return -intValue;
+        case 2:  lencodetemp = lencodetemp +3;  
+                 return lencodetemp;
+        default: intValue = -(int) leftEncoder.get() *4;
+                 return -intValue;
+        }
 		// int intValue = (int) left2.getPosition();
-		int intValue = (int) leftEncoder.get();
+        //	int intValue = -(int) leftEncoder.get() *4;
 		// SmartDashboard.putNumber("sim left encoed", left2.getPosition());
-		return -intValue;
+		
 		// Used for simulation testing MG
 		// lencodetemp = lencodetemp +3;
 		// return lencodetemp;
@@ -247,10 +258,21 @@ public class Chassis extends PIDSubsystem {
 	}
 
 	public int getRightEncoderPosition() {
+		int intValue;
+		switch (RobotConstants.encodermode) {
+        case 0:  intValue = -(int) rigthEncoder.get() *4;
+                 return -intValue;
+        case 1:  intValue = (int) right2.getPosition();  
+                 return -intValue;
+        case 2:  lencodetemp = lencodetemp +3;  
+                 return lencodetemp;
+        default: intValue = -(int) rigthEncoder.get() *4;
+                 return -intValue;
+        }
 		// SmartDashboard.putNumber("sim right encoed", right2.getPosition());
 		// int intValue = (int) right2.getPosition();
-		int intValue = (int) rigthEncoder.get();
-		return -intValue;
+	   //	int intValue = -(int) rigthEncoder.get() *4;
+		//return -intValue;
 		// Used for simulation testing MG
 		// rencodetemp = rencodetemp + 3;
 		// return rencodetemp;

@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class AutonomousDriveForward extends CommandGroup {
 
     public AutonomousDriveForward() {
- 	   addSequential(new AutonomousTrajectoryFollowerTwoPointGear(0,0,0, 100, 0, 0, true));
+ 	//   addSequential(new AutonomousTrajectoryFollowerTwoPointGear(0,0,0, 100, 0, 0, true));
+ 		addSequential(new AutonomousTrajectoryFollowerTwoPointFixMoveFile(4, true, 3.5));
  	  }
 
 }
