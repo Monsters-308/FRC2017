@@ -38,7 +38,7 @@ public class TeleopClimb extends Command {
 		
 		
 		/// use throttle control
-		Robot.climb.climbRope(Math.abs(Robot.oi.joystick1.getZ()));
+		Robot.climb.climbRope(-Math.abs(Robot.oi.joystick1.getZ()));
 		
 		// Shake the root
 	
